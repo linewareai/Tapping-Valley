@@ -52,7 +52,7 @@ namespace ValleyTapping.Quests
                 return false;
             }
             save.coins += definition.RewardCoins;
-            save.lifetimeCoinsEarned = Math.Min(long.MaxValue, save.lifetimeCoinsEarned + definition.RewardCoins);
+            save.lifetimeCoinsEarned = save.lifetimeCoinsEarned > long.MaxValue - definition.RewardCoins ? long.MaxValue : save.lifetimeCoinsEarned + definition.RewardCoins;
             progress.claimed = true;
             message = "Recompensa recibida: " + definition.RewardCoins + " monedas.";
             return true;
