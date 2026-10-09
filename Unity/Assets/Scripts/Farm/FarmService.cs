@@ -23,7 +23,7 @@ namespace ValleyTapping.Farm
                 crops[definition.CropId] = definition;
             }
 
-            if (save.farmPlots == null) save.farmPlots = new FarmPlotData[6];
+            if (save.farmPlots == null) save.farmPlots = new FarmPlotData[8];
             for (int i = 0; i < save.farmPlots.Length; i++)
             {
                 if (save.farmPlots[i] == null)
