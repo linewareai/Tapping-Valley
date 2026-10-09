@@ -1,0 +1,9 @@
+{
+  "version": "c87414aa9c65",
+  "date": "9 de octubre de 2026",
+  "notes": [
+    "Se añadió un aviso de notas de versión que aparece cuando hay una versión nueva.",
+    "El aviso recuerda la última versión que viste y no repite la misma después de cerrarla.",
+    "Las notas se generan automáticamente a partir del mensaje del commit publicado."
+  ]
+}
