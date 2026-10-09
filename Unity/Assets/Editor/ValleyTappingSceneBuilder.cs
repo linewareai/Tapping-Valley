@@ -73,7 +73,8 @@ namespace ValleyTapping.EditorTools
             layout.childControlWidth = true; layout.childControlHeight = false;
             layout.childForceExpandWidth = true; layout.childForceExpandHeight = false;
 
-            Text coins = Label(panel.transform, "VALLEY TAPPING", 42, 90);
+            Label(panel.transform, "VALLEY TAPPING", 42, 70);
+            Text coins = Label(panel.transform, "Monedas: 0", 28, 52);
             Text gems = Label(panel.transform, "Gemas: 0", 24, 48);
             Text power = Label(panel.transform, "Por toque: 1", 24, 48);
             Text level = Label(panel.transform, "Nivel: 1", 24, 48);
