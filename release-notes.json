@@ -1,7 +1,7 @@
 {
-  "version": "1e3bc6743650",
+  "version": "5a4265e1f6e8",
   "date": "9 de octubre de 2026",
   "notes": [
-    "Invalidate stale app cache for release notes"
+    "Update README.md"
   ]
 }
