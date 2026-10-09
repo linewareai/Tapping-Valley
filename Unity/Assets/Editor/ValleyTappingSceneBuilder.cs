@@ -129,6 +129,13 @@ namespace ValleyTapping.EditorTools
                     () => controller.BuyUpgrade(upgradeId), 56);
             }
             Label(content.transform, "GRANJA", 28, 48);
+            Label(content.transform, "ELIGE QUÉ PLANTAR", 22, 44);
+            foreach (CropDefinition cropOption in new CropDefinition[] { crop, wheat, berry, potato, tomato, blueberry })
+            {
+                string cropId = cropOption.CropId;
+                Button(content.transform, "Seleccionar " + cropOption.DisplayName + " · " + cropOption.SeedCost + " monedas",
+                    () => controller.SelectCrop(cropId), 50);
+            }
             for (int i = 0; i < 8; i++) {
                 int index = i;
                 plots[i] = Label(content.transform, "Parcela " + (i+1) + ": libre", 20, 42);
