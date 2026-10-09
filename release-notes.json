@@ -1,7 +1,7 @@
 {
-  "version": "1590ba423f83",
+  "version": "3db5128e3282",
   "date": "9 de octubre de 2026",
   "notes": [
-    "Make title menu actions resilient on mobile"
+    "Bump service worker script version"
   ]
 }
