@@ -718,38 +718,31 @@ offlineProgress();render();save(false);
 setInterval(()=>{if(s.auto>0)earn(s.auto*(1+bonus()/100));s.pet.hunger=clamp(s.pet.hunger-.012);s.pet.happy=clamp(s.pet.happy-(s.pet.hunger<20?.025:.008));s.pet.energy=clamp(s.pet.energy+.012);s.day+=.000011574;render()},1000);
 setInterval(()=>save(false),12000);window.addEventListener('beforeunload',()=>save(false));
 
-// La versión se calcula a partir de la publicación del HTML. Al cambiar la versión,
- // el aviso vuelve a aparecer automáticamente, aunque el jugador ya lo haya cerrado antes.
-const RELEASE_FALLBACK={
- version:'2026.10.09-1',
- date:'9 de octubre de 2026',
- notes:[
-  'Sistema de notas de versión conectado al aviso de actualización.',
-  'El aviso recuerda qué versión vio cada jugador y vuelve a mostrarse cuando cambia.',
-  'Se mejora la comprobación de actualizaciones para evitar mostrar notas antiguas desde caché.'
- ]
-};
-function getReleaseVersion(){
- const stamp=Date.parse(document.lastModified);
- return Number.isFinite(stamp)&&stamp>0?'web-'+stamp:RELEASE_FALLBACK.version;
-}
-function showReleaseNotice(){
+// El manifiesto se actualiza automáticamente desde GitHub Actions en cada push a main.
+const RELEASE_FALLBACK={version:'initial',date:'Versión inicial',notes:['Se activaron las notas automáticas de versión.']};
+async function showReleaseNotice(){
  const backdrop=$('releaseBackdrop');
  if(!backdrop)return;
- let release={...RELEASE_FALLBACK,version:getReleaseVersion()};
+ let release={...RELEASE_FALLBACK};
  try{
-  const previous=localStorage.getItem('valleytapping-last-seen-release');
-  if(previous===release.version)return;
+  const response=await fetch('./release-notes.json?fresh='+Date.now(),{cache:'no-store'});
+  if(response.ok){
+   const data=await response.json();
+   if(data&&data.version&&Array.isArray(data.notes))release={...RELEASE_FALLBACK,...data};
+  }
+ }catch(e){}
+ try{
+  if(localStorage.getItem('valleytapping-last-seen-release')===release.version)return;
  }catch(e){}
  $('releaseVersion').textContent='VERSIÓN '+release.version;
  $('releaseList').textContent='';
- release.notes.forEach(note=>{
+ (release.notes.length?release.notes:RELEASE_FALLBACK.notes).forEach(note=>{
   const item=document.createElement('div');
   item.className='release-item';
-  item.textContent='• '+note;
+  item.textContent='• '+String(note);
   $('releaseList').appendChild(item);
  });
- $('releaseDate').textContent='Publicación detectada: '+(document.lastModified||release.date);
+ $('releaseDate').textContent='Publicado: '+(release.date||'Última actualización');
  backdrop.classList.remove('hidden');
  let closed=false;
  const close=()=>{
