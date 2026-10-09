@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "instructions": "Añade cada cultivo con id único, spriteFolder, nombre, icono, rendimiento y stages. Mantén id de inventario estable.",
+  "crops": [
+    {
+      "id": "carrot",
+      "name": "Zanahoria",
+      "inventoryId": "carrot",
+      "icon": "🥕",
+      "yield": 1,
+      "spriteFolder": "carrot",
+      "stages": [
+        "01-seed",
+        "02-sprout",
+        "03-young",
+        "04-growing",
+        "05-flowering",
+        "06-fruiting",
+        "07-ripe_1",
+        "08-ripe_2",
+        "09-ripe_3"
+      ]
+    },
+    {
+      "id": "wheat",
+      "name": "Trigo",
+      "inventoryId": "wheat",
+      "icon": "🌾",
+      "yield": 2,
+      "spriteFolder": "wheat",
+      "stages": [
+        "01-seed",
+        "02-sprout",
+        "03-young",
+        "04-growing",
+        "05-flowering",
+        "06-fruiting",
+        "07-ripe_1",
+        "08-ripe_2",
+        "09-ripe_3"
+      ]
+    },
+    {
+      "id": "berry",
+      "name": "Fresa",
+      "inventoryId": "berry",
+      "icon": "🍓",
+      "yield": 4,
+      "spriteFolder": "strawberry",
+      "stages": [
+        "01-seed",
+        "02-sprout",
+        "03-young",
+        "04-growing",
+        "05-flowering",
+        "06-fruiting",
+        "07-ripe_1",
+        "08-ripe_2",
+        "09-ripe_3"
+      ]
+    },
+    {
+      "id": "potato",
+      "name": "Papa",
+      "inventoryId": "potato",
+      "icon": "🥔",
+      "yield": 3,
+      "spriteFolder": "potato",
+      "stages": [
+        "01-seed",
+        "02-sprout",
+        "03-young",
+        "04-growing",
+        "05-flowering",
+        "06-fruiting",
+        "07-ripe_1",
+        "08-ripe_2",
+        "09-ripe_3"
+      ]
+    },
+    {
+      "id": "tomato",
+      "name": "Tomate",
+      "inventoryId": "tomato",
+      "icon": "🍅",
+      "yield": 4,
+      "spriteFolder": "tomato",
+      "stages": [
+        "01-seed",
+        "02-sprout",
+        "03-young",
+        "04-growing",
+        "05-flowering",
+        "06-fruiting",
+        "07-ripe_1",
+        "08-ripe_2",
+        "09-ripe_3"
+      ]
+    },
+    {
+      "id": "blueberry",
+      "name": "Arándano",
+      "inventoryId": "blueberry",
+      "icon": "🫐",
+      "yield": 5,
+      "spriteFolder": "blueberry",
+      "stages": [
+        "01-seed",
+        "02-sprout",
+        "03-young",
+        "04-growing",
+        "05-flowering",
+        "06-fruiting",
+        "07-ripe_1",
+        "08-ripe_2",
+        "09-ripe_3"
+      ]
+    }
+  ],
+  "assetPattern": "assets/sprites/crops/final/{spriteFolder}/{stage}.png"
+}
