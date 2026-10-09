@@ -75,3 +75,14 @@ Se añadieron módulos de integración de escena:
 - `Core/SettingsData.cs`: modelo de preferencias locales.
 
 Importante: estos scripts aún requieren una escena configurada en Unity, definiciones ScriptableObject y pruebas en el Editor. No se ha ejecutado compilador Unity en este entorno. El proyecto no debe considerarse compilado o listo para instalar hasta validar todas las referencias, el flujo de guardado y los botones en Unity.
+
+
+## Avance adicional: integración y control de calidad
+- Se añadió `Core/GameWorldController.cs` para conectar la lógica a referencias de UI de Unity.
+- Se añadió `Core/InventoryService.cs` para añadir, consultar y retirar objetos del inventario.
+- Se añadió `Core/SceneNavigator.cs` para páginas y modales.
+- Se añadió `Core/SettingsService.cs` para persistir y aplicar preferencias.
+- Se añadieron correcciones para evitar desbordamiento de ganancias acumuladas en cosechas y recompensas de misión.
+- Se creó `docs/UNITY_MANUAL_QA.md` con pruebas explícitas de guardado, economía, granja, mascotas, misiones, logros y dispositivos.
+
+El código sigue siendo una base en desarrollo. La lista de QA aún no está ejecutada y no hay confirmación de compilación Unity.
