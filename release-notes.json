@@ -1,7 +1,7 @@
 {
-  "version": "02e89a786eee",
+  "version": "1590ba423f83",
   "date": "9 de octubre de 2026",
   "notes": [
-    "Give animal lineup more room in title menu"
+    "Make title menu actions resilient on mobile"
   ]
 }
