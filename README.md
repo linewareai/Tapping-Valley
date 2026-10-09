@@ -1,4 +1,4 @@
-# ValleyTapping - Clicker 🌱🐈
+# Tapping Valley 🌱🐈
 
 Primera versión jugable de un clicker de granja para Android, hecha con HTML, CSS y JavaScript, sin frameworks ni Lovable.
 
