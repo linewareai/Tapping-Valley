@@ -24,5 +24,6 @@ After copying `Unity/Assets` into a Unity project:
 3. The tool creates sample crop, pet, upgrade, quest, and achievement assets plus a starter UI scene under `Assets/ValleyTappingGenerated/`.
 4. Open `ValleyTappingGenerated/Scenes/ValleyTappingPrototype.unity` and press Play.
 5. Test all actions and save/load before attempting a device build.
+6. The generated sample includes feeding/resting controls; needs decay according to elapsed offline time.
 
 The generator is an Editor tool and must live under `Assets/Editor`. The generated scene is a functional systems prototype using placeholder Unity UI, not a visual recreation of the original HTML game. It still needs Editor compilation and manual QA; mobile builds are not verified.
