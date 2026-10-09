@@ -48,7 +48,7 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 .frame{background:var(--paper);border:4px solid var(--ink);border-radius:14px;overflow:hidden;box-shadow:5px 6px 0 #8aa16c,inset 0 0 0 2px #fff4d0;min-width:0}
 .frame-title{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;background:linear-gradient(#b77848,#955832);color:#fff0c8;border-bottom:4px solid var(--ink);font-weight:900;text-shadow:1px 2px #603a27;letter-spacing:.3px;font-size:13px}
 .frame-title small{font-size:10px;color:#ffe4a9;letter-spacing:0;font-weight:600}
-.scene{position:relative;isolation:isolate;height:clamp(345px,43vw,515px);overflow:hidden;background:#78c7e9 url("./farm-scene.svg?v=2") center/cover no-repeat}
+.scene{position:relative;isolation:isolate;height:clamp(390px,47vw,560px);overflow:hidden;background:#78c7e9 url("./farm-scene.svg?v=4") center/cover no-repeat}
 .scene:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,#5eb7ef05 0%,transparent 38%,#35281918 100%);box-shadow:inset 0 0 0 3px #fff3,inset 0 -18px 28px #5b3a241c}.scene:before{content:"";position:absolute;z-index:1;left:0;right:0;bottom:0;height:23%;background:repeating-linear-gradient(90deg,#d7b078 0 3px,transparent 3px 18%),linear-gradient(#8f5b36 0 3px,#b77c48 3px 100%);border-top:4px solid #70472d;box-shadow:0 -3px #e6c487;opacity:.72;pointer-events:none}
 .scene-chip{position:absolute;z-index:4;top:12px;left:12px;display:flex;gap:6px;align-items:center;padding:8px 10px;border:2px solid #6b492e;border-radius:7px;background:#fff1d9ed;box-shadow:2px 3px #64472d;font-size:11px;font-weight:900}
 .weather-chip{position:absolute;z-index:4;right:12px;top:12px;padding:7px 9px;border:2px solid #6b492e;border-radius:7px;background:#fff1d9ed;font-size:11px;box-shadow:2px 3px #64472d}
@@ -158,11 +158,11 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
  .page-heading{align-items:center;margin:8px 2px 11px}.eyebrow{font-size:9px}h1{font-size:21px}.page-heading p{font-size:10px}.heading-actions{gap:5px}.mini-btn{font-size:10px;padding:7px}
  .game-layout{grid-template-columns:minmax(0,1fr);gap:10px}.stack{gap:10px}.frame{border-width:3px;border-radius:12px;box-shadow:3px 4px 0 #8aa16c,inset 0 0 0 2px #fff4d0}
  .frame-title{padding:10px 11px;font-size:12px;border-bottom-width:3px}
- .scene{height:440px;background-size:cover;background-position:center 55%}
+ .scene{height:470px;background-size:cover;background-position:center 53%}
  .scene-chip{top:9px;left:9px;padding:6px 7px;font-size:10px}.weather-chip{top:9px;right:9px;padding:6px 7px;font-size:10px}.farm-level{top:47px;left:9px;font-size:9px}
  .mishi-world{left:24%;bottom:8%;width:clamp(74px,19vw,112px)}.farmer{left:42%;bottom:8%;font-size:clamp(31px,8vw,45px)}
- .plot-grid{right:2%;bottom:4%;width:48%;height:35%;gap:3px}
- .plot{border-width:2px;padding:2px 0}.crop-sprite{font-size:clamp(17px,5vw,24px)}.plot-name{font-size:7px}
+ .plot-grid{right:2%;bottom:4%;width:52%;height:39%;gap:4px}
+ .plot{border-width:2px;padding:2px 0}.crop-sprite{font-size:clamp(20px,5.4vw,28px)}.plot-name{font-size:7px}
  .world-footer{padding:9px;gap:6px}.world-tip{font-size:9px}.pill{font-size:9px;padding:5px 6px}
  .panel-body{padding:10px}.primary-btn{font-size:15px;padding:12px}.stats-strip{gap:6px}.stat-card{padding:8px 3px;border-width:2px}.stat-number{font-size:15px}.stat-label{font-size:8px}.stat-icon{font-size:15px}
  .quest{grid-template-columns:31px minmax(0,1fr) auto;gap:7px;padding:8px}.quest-icon{width:31px;height:31px;font-size:17px}.quest-name{font-size:10px}.quest-sub{font-size:8px}.quest-reward{font-size:9px}
@@ -178,6 +178,27 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 }
 @media(min-width:761px) and (max-width:980px){.game-layout{grid-template-columns:minmax(0,1.35fr) minmax(250px,.8fr)}.scene{height:390px}.plot-grid{width:48%}.upgrade-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* Valley art pass 6: chunky pixel edges, richer panels, animated crops */
+.scene{background-image:linear-gradient(180deg,#b7edff08,#263e1d22),url("./farm-scene.svg?v=4");background-position:center 54%;background-size:cover;box-shadow:inset 0 0 0 3px #fff4,inset 0 -20px 30px #3e57271f}
+.scene:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,#fff3 0,transparent 18%,transparent 76%,#52371b24 100%)}
+.plot-grid{z-index:6;filter:drop-shadow(2px 3px 0 #49302155)}
+.plot{border-radius:3px;background:linear-gradient(145deg,#c99258 0%,#b77b47 48%,#9e653b 100%);box-shadow:inset 0 0 0 2px #dfad70,0 3px #69432b;transition:transform .13s,filter .13s}
+.plot:nth-child(3n+2){background:linear-gradient(145deg,#d3a064,#ad7140)}
+.plot:active{transform:translateY(2px) scale(.97);filter:brightness(1.15)}
+.plot .crop-sprite{filter:drop-shadow(2px 2px 0 #57391e70);text-shadow:1px 2px #52331e55}
+.plot-name{font-weight:900;text-shadow:1px 1px #69452e;color:#fff1c9}
+.plot-coin{font-weight:900}
+.frame,.page-panel{box-shadow:5px 6px 0 #8aa16c,inset 0 0 0 2px #fff4d0}
+.frame-title{background:linear-gradient(180deg,#b87949,#965a34 90%);letter-spacing:.5px}
+.primary-btn{background:linear-gradient(180deg,#a6d76a,#78b34c);box-shadow:0 5px #3e5a2d,inset 0 0 0 2px #d7efaa;border:3px solid #3d3022}
+.primary-btn:active{transform:translateY(3px);box-shadow:0 2px #3e5a2d,inset 0 0 0 2px #d7efaa}
+.stat-card,.feature-card,.inventory-item,.upgrade-card,.quest{transition:transform .12s,box-shadow .12s}
+.feature-card{background:linear-gradient(180deg,#fff4d5,#f0dba7);border:2px solid #d3b477;box-shadow:0 3px #d1b176}
+.feature-card:active,.inventory-item:active{transform:translateY(2px)}
+.bottom-nav{backdrop-filter:saturate(1.1)}
+@media(max-width:760px){.scene{height:470px;background-position:center 53%}.plot-grid{right:2%;bottom:4%;width:52%;height:39%;gap:3px}.plot{min-height:0}.crop-sprite{font-size:clamp(20px,5.4vw,28px)}.plot-name{font-size:8px}.mishi-world{left:19%;bottom:8%;width:clamp(78px,21vw,118px)}.farmer{left:39%;bottom:8%;font-size:clamp(33px,8vw,47px)}}
+@media(min-width:761px){.scene{background-position:center 54%}.plot-grid{width:49%;height:40%}}
 </style>
 </head>
 <body>
@@ -506,7 +527,7 @@ function offlineProgress(){
  s.pet.hunger=clamp(s.pet.hunger-secs/3600*10);s.pet.happy=clamp(s.pet.happy-secs/3600*4);s.pet.energy=clamp(s.pet.energy+secs/3600*14);s.lastSeen=now;
 }
 offlineProgress();render();save(false);
-setInterval(()=>{if(s.auto>0)earn(s.auto*(1+bonus()/100));s.pet.hunger=clamp(s.pet.hunger-.012);s.pet.happy=clamp(s.pet.happy-(s.pet.hunger<20?.025:.008));s.pet.energy=clamp(s.pet.energy+.012);s.day+=.0002;render()},1000);
+setInterval(()=>{if(s.auto>0)earn(s.auto*(1+bonus()/100));s.pet.hunger=clamp(s.pet.hunger-.012);s.pet.happy=clamp(s.pet.happy-(s.pet.hunger<20?.025:.008));s.pet.energy=clamp(s.pet.energy+.012);s.day+=.000011574;render()},1000);
 setInterval(()=>save(false),12000);window.addEventListener('beforeunload',()=>save(false));
 if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js?v=5').catch(()=>{});
 </script>
