@@ -24,23 +24,35 @@ namespace ValleyTapping.EditorTools
             Folder(Root, "Data");
             Folder(Root, "Scenes");
 
-            var crop = Asset<CropDefinition>("Carrot.asset", a => {
-                Set(a, "cropId", "carrot"); Set(a, "displayName", "Zanahoria");
-                Set(a, "seedCost", 5); Set(a, "growSeconds", 30); Set(a, "harvestReward", 12);
-            });
+            var crop = MakeCrop("Carrot.asset", "carrot", "Zanahoria", 5, 30, 12);
+            var wheat = MakeCrop("Wheat.asset", "wheat", "Trigo", 7, 40, 16);
+            var berry = MakeCrop("Strawberry.asset", "berry", "Fresa", 12, 55, 24);
+            var potato = MakeCrop("Potato.asset", "potato", "Papa", 10, 48, 20);
+            var tomato = MakeCrop("Tomato.asset", "tomato", "Tomate", 15, 65, 28);
+            var blueberry = MakeCrop("Blueberry.asset", "blueberry", "Arándano", 20, 80, 35);
             var pet = Asset<PetDefinition>("Mishi.asset", a => {
                 Set(a, "petId", "mishi"); Set(a, "displayName", "Mishi"); Set(a, "adoptionCost", 25);
             });
-            var tap = Asset<UpgradeDefinition>("TapPower.asset", a => {
-                Set(a, "upgradeId", "tap-power"); Set(a, "displayName", "Dedos veloces");
-                Set(a, "baseCost", 25L); Set(a, "costMultiplier", 1.5f);
-                Set(a, "valuePerLevel", 1L); Set(a, "kind", (int)UpgradeKind.TapPower);
-            });
-            var passive = Asset<UpgradeDefinition>("PassiveIncome.asset", a => {
-                Set(a, "upgradeId", "passive-income"); Set(a, "displayName", "Ingreso pasivo");
-                Set(a, "baseCost", 50L); Set(a, "costMultiplier", 1.6f);
-                Set(a, "valuePerLevel", 1L); Set(a, "kind", (int)UpgradeKind.PassiveIncome);
-            });
+            // All 14 upgrade families from the HTML catalogue, mapped to the three
+            // reusable economy effects supported by the C# domain layer.
+            var upgradeAssets = new UpgradeDefinition[] {
+                MakeUpgrade("CarrotUpgrade.asset","carrot","Huerto de zanahorias",15,1,UpgradeKind.TapPower),
+                MakeUpgrade("SproutUpgrade.asset","sprout","Semillas cuidadas",35,1,UpgradeKind.PassiveIncome),
+                MakeUpgrade("WaterUpgrade.asset","water","Regadera mejorada",90,3,UpgradeKind.TapPower),
+                MakeUpgrade("ChickenUpgrade.asset","chicken","Gallinero de madera",180,4,UpgradeKind.PassiveIncome),
+                MakeUpgrade("BerryUpgrade.asset","berry","Parterre de fresas",420,8,UpgradeKind.TapPower),
+                MakeUpgrade("CowUpgrade.asset","cow","Establo lechero",850,12,UpgradeKind.PassiveIncome),
+                MakeUpgrade("AppleUpgrade.asset","apple","Manzanos del valle",2400,30,UpgradeKind.PassiveIncome),
+                MakeUpgrade("PotatoUpgrade.asset","potato","Surcos de papas",600,15,UpgradeKind.TapPower),
+                MakeUpgrade("TomatoUpgrade.asset","tomato","Invernadero pequeño",1400,25,UpgradeKind.TapPower),
+                MakeUpgrade("MillUpgrade.asset","mill","Molino de viento",3000,45,UpgradeKind.PassiveIncome),
+                MakeUpgrade("ShedUpgrade.asset","shed","Granero reforzado",6500,100,UpgradeKind.PassiveIncome),
+                MakeUpgrade("PondUpgrade.asset","pond","Estanque de Mishi",1600,12,UpgradeKind.PetBond),
+                MakeUpgrade("FlowersUpgrade.asset","flowers","Jardín de flores",950,7,UpgradeKind.PetBond),
+                MakeUpgrade("ScarecrowUpgrade.asset","scarecrow","Espantapájaros",2300,20,UpgradeKind.TapPower)
+            };
+            var tap = upgradeAssets[0];
+            var passive = upgradeAssets[1];
             var tapQuest = Asset<QuestDefinition>("FirstTap.asset", a => {
                 Set(a, "questId", "first-tap"); Set(a, "displayName", "Primer toque");
                 Set(a, "target", 1); Set(a, "rewardCoins", 10);
@@ -106,13 +118,13 @@ namespace ValleyTapping.EditorTools
             Ref(so, "coinsText", coins); Ref(so, "gemsText", gems);
             Ref(so, "tapPowerText", power); Ref(so, "playerLevelText", level);
             Ref(so, "statusText", status);
-            var plots = new Text[4];
+            var plots = new Text[8];
 
             Button(content.transform, "TOCAR · GANAR MONEDAS", () => controller.Tap(), 68);
             Button(content.transform, "Mejorar toque · 25 monedas", () => controller.BuyUpgrade("tap-power"), 60);
             Button(content.transform, "Comprar ingreso pasivo", () => controller.BuyUpgrade("passive-income"), 60);
             Label(content.transform, "GRANJA", 28, 48);
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 8; i++) {
                 int index = i;
                 plots[i] = Label(content.transform, "Parcela " + (i+1) + ": libre", 20, 42);
                 Button(content.transform, "Plantar zanahoria · " + (i+1), () => controller.PlantDefaultCrop(index), 52);
@@ -165,6 +177,24 @@ namespace ValleyTapping.EditorTools
             r.offsetMin = new Vector2(8,2); r.offsetMax = new Vector2(-8,-2);
             var button = go.GetComponent<Button>(); button.targetGraphic = go.GetComponent<Image>();
             button.onClick.AddListener(action); return button;
+        }
+
+        static CropDefinition MakeCrop(string file, string id, string label, int seedCost, int growSeconds, int reward)
+        {
+            return Asset<CropDefinition>(file, a => {
+                Set(a, "cropId", id); Set(a, "displayName", label);
+                Set(a, "seedCost", seedCost); Set(a, "growSeconds", growSeconds);
+                Set(a, "harvestReward", reward);
+            });
+        }
+
+        static UpgradeDefinition MakeUpgrade(string file, string id, string label, long baseCost, long value, UpgradeKind kind)
+        {
+            return Asset<UpgradeDefinition>(file, a => {
+                Set(a, "upgradeId", id); Set(a, "displayName", label);
+                Set(a, "baseCost", baseCost); Set(a, "costMultiplier", 1.62f);
+                Set(a, "valuePerLevel", value); Set(a, "kind", (int)kind);
+            });
         }
 
         static T Asset<T>(string name, System.Action<T> configure) where T : ScriptableObject
