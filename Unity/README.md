@@ -15,3 +15,14 @@ The script uses `UnityEngine.UI.Text` to avoid requiring TextMeshPro for the fir
 
 ## Current scope
 Tap for coins, buy a tap-power upgrade, and persist coins/upgrades in a versioned local save file. Art, pets, farm, audio, offline earnings, and online services are not implemented yet.
+
+
+## Generate a prototype scene automatically
+After copying `Unity/Assets` into a Unity project:
+1. Wait for scripts to compile.
+2. In the Unity menu, select **ValleyTapping > Create Prototype Scene**.
+3. The tool creates sample crop, pet, upgrade, quest, and achievement assets plus a starter UI scene under `Assets/ValleyTappingGenerated/`.
+4. Open `ValleyTappingGenerated/Scenes/ValleyTappingPrototype.unity` and press Play.
+5. Test all actions and save/load before attempting a device build.
+
+The generator is an Editor tool and must live under `Assets/Editor`. The generated scene is a functional systems prototype using placeholder Unity UI, not a visual recreation of the original HTML game. It still needs Editor compilation and manual QA; mobile builds are not verified.
