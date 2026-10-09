@@ -1,89 +1,514 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#4f783f"><meta name="application-name" content="Valley Tapping"><link rel="icon" type="image/png" href="./iconmimi.png?v=3"><link rel="apple-touch-icon" href="./iconmimi.png?v=3"><link rel="manifest" href="./manifest.webmanifest?v=3"><title>Valley Tapping</title>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#31552e">
+<meta name="application-name" content="Valley Tapping">
+<link rel="icon" type="image/png" href="./iconmimi.png?v=4">
+<link rel="apple-touch-icon" href="./iconmimi.png?v=4">
+<link rel="manifest" href="./manifest.webmanifest?v=4">
+<title>Valley Tapping</title>
 <style>
-:root{--ink:#38271f;--ink2:#5b3b29;--cream:#fff1ce;--paper:#f7e5b8;--wood:#a96335;--wood2:#784628;--leaf:#7eae48;--leaf2:#4e7c38;--gold:#f5c64d;--sky:#79c8ed;--shadow:#2e241d}
-*{box-sizing:border-box}
-body{margin:0;background:#233a2b;color:var(--ink);font:14px ui-monospace,"Courier New",monospace;background-image:radial-gradient(#ffffff0b 1px,transparent 1px);background-size:5px 5px}
-button{font:inherit;color:inherit;border:3px solid var(--ink);border-radius:9px;background:var(--cream);padding:10px;box-shadow:0 4px 0 var(--ink2),inset 0 0 0 2px #fff9e6;cursor:pointer;transition:transform .08s,filter .15s}
-button:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink2)}
-button:disabled{opacity:.5;filter:grayscale(.4)}
-.top{position:sticky;top:0;z-index:10;background:linear-gradient(#426d37,#31552e);color:#fff2ca;padding:10px max(14px,calc((100vw - 1120px)/2));display:flex;justify-content:space-between;gap:8px;align-items:center;border-bottom:5px solid #253f28;box-shadow:0 4px 0 #172b20}
-.brand{font-weight:1000;font-size:20px;letter-spacing:1px;text-shadow:2px 2px #294324}
-.wallet{font-size:12px;display:flex;gap:6px;flex-wrap:wrap}.wallet span{border:2px solid #c4d88b;border-radius:8px;padding:7px 9px;background:#25462f;box-shadow:inset 0 0 0 1px #ffffff18}
-.app{max-width:1160px;margin:16px auto;padding:0 12px 88px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.8fr);gap:14px;align-items:start}
-.panel{background:var(--paper);border:5px solid var(--ink);border-radius:15px;overflow:hidden;box-shadow:5px 6px 0 #19291d, inset 0 0 0 2px #ffefc7}
-.heading{background:linear-gradient(#b77949,#995b35);color:#fff0c8;padding:13px 16px;font-weight:bold;font-size:16px;border-bottom:5px solid var(--ink);text-shadow:1px 2px #603a27;letter-spacing:.5px}
-.scene{height:450px;position:relative;overflow:hidden;background:linear-gradient(#75c8ec 0 45%,#94d7ef 45% 58%,#7eaf57 58% 73%,#ba824d 73% 100%);cursor:pointer;isolation:isolate}
-.scene:before{content:"";position:absolute;inset:0;opacity:.2;background-image:radial-gradient(#fff 1px,transparent 1.5px);background-size:7px 7px;z-index:0;pointer-events:none}
-.sun{position:absolute;right:14%;top:10%;width:64px;height:64px;background:#ffe98a;border:5px solid #f5d365;box-shadow:0 0 0 8px #ffe98a35,6px 6px #547d4a;image-rendering:pixelated}
-.hill{position:absolute;left:-15%;bottom:30%;width:130%;height:180px;background:#7ead58;border-top:7px solid #68994b;border-radius:50% 50% 0 0}
-.house{position:absolute;bottom:31%;left:50%;transform:translateX(-50%);width:190px;height:122px;background:#efbf75;border:7px solid #65402c;box-shadow:inset -13px 0 #dfaa63,8px 8px #5b5538;z-index:1}
-.roof{position:absolute;left:-24px;top:-64px;width:224px;height:70px;background:#b95843;clip-path:polygon(50% 0,100% 100%,0 100%);filter:drop-shadow(0 5px #75412d)}
-.door{position:absolute;bottom:0;left:76px;width:43px;height:57px;background:#805136;border:5px solid #533522;border-bottom:0}
-.window{position:absolute;top:25px;left:18px;width:34px;height:34px;background:#8fe0ee;border:6px solid #805136;box-shadow:80px 0 0 -1px #8fe0ee,80px 0 0 5px #805136}
-.fence{position:absolute;bottom:30%;left:0;right:0;height:28px;border-block:7px solid #e1b873;background:repeating-linear-gradient(90deg,transparent 0 43px,#c9965e 44px 53px,transparent 54px 78px);z-index:2;filter:drop-shadow(0 3px #815332)}
-.soil{position:absolute;bottom:0;left:0;right:0;height:40%;background-color:#b77c4a;background-image:linear-gradient(0deg,transparent 94%,#8f5e3b 95%),linear-gradient(90deg,transparent 94%,#8f5e3b 95%);background-size:25% 33.333%;border-top:8px solid #e1b873;box-shadow:inset 0 9px #98623e}
-.plots{position:absolute;bottom:7%;left:4%;right:4%;display:flex;justify-content:space-around;align-items:end;gap:5px;z-index:3}.crop{font-size:38px;animation:sway 2s ease-in-out infinite;filter:drop-shadow(2px 3px #62452e);cursor:pointer}
-@keyframes sway{50%{transform:rotate(5deg) translateY(-4px)}}
-.cat{position:absolute;bottom:7%;left:46%;font-size:66px;z-index:4;filter:drop-shadow(3px 4px #63432f);animation:bob 1.5s infinite;cursor:pointer}
-@keyframes bob{50%{transform:translateY(-6px)}}
-.hint{position:absolute;top:14px;left:14px;background:#fff2dceF;padding:10px 12px;border:3px solid var(--ink);font-size:12px;z-index:5;box-shadow:3px 3px #76513a}
-.inside{padding:14px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.stat{background:#fff4d7;border:3px solid #c4a16a;border-radius:10px;padding:12px 4px;text-align:center;box-shadow:inset 0 0 0 2px white}
-.stat b{display:block;font-size:20px;color:#3b3023}.stat small{font-size:11px;color:#80684c}
-.action{width:100%;margin-top:12px;background:linear-gradient(#96c95e,#75ad43);font-weight:bold;font-size:18px;padding:15px;text-shadow:0 1px #e3f5b8}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:10px;background:#e5cf98;border-top:3px solid #d4b778}
-.tab{font-size:12px;padding:11px 3px}.tab.active{background:#8fbd54}
-.hidden{display:none!important}.list{display:grid;gap:9px}
-.item{display:flex;gap:9px;align-items:center;background:#fff3d7;border:3px solid #c5a776;border-radius:10px;padding:10px;box-shadow:inset 0 0 0 2px #fffaf0}
-.ico{font-size:32px}.info{flex:1;font-size:12px;line-height:1.4}.info small{display:block;font-size:11px;line-height:1.5;color:#82694c;margin-top:3px}
-.buy{font-size:12px;background:#8fbd54;padding:9px;white-space:nowrap}
-.petface{text-align:center;background:linear-gradient(#d9eab8,#c7dfa0);border:4px solid #8aa76d;padding:15px;border-radius:10px;box-shadow:inset 0 0 0 2px #f4f8dc}
-.petemoji{font-size:82px;display:block;filter:drop-shadow(2px 3px #8a6c45)}
-.barrow{display:grid;grid-template-columns:78px 1fr 38px;gap:7px;align-items:center;font-size:11px;margin:12px 0}
-.bar{height:15px;background:#d1b98a;border:2px solid #75583d;border-radius:5px;overflow:hidden}.fill{height:100%;background:#76b957}.hunger{background:#e7ad4e}.energy{background:#6db7d3}.bond{background:#e78eaa}
-.petactions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.petactions button{font-size:12px;padding:12px 2px;background:#f2bd61}
-.note{font-size:12px;line-height:1.8;background:#f7e5b8;padding:12px;border:3px dashed #ba9460;margin-top:12px}
-.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);background:#403326;color:white;padding:12px;border:3px solid #f5c957;border-radius:9px;z-index:20;font-size:12px;text-align:center;max-width:90vw;box-shadow:0 4px #211b16}
-.float{position:fixed;pointer-events:none;color:#fff8b4;font-weight:bold;text-shadow:2px 2px #805438;animation:up .8s forwards;z-index:18}@keyframes up{to{transform:translateY(-45px);opacity:0}}
-.bottom{display:none}
-@media(max-width:700px){
- body{background:#dcebb9;background-image:none}
- .top{padding:9px 10px}.brand{font-size:15px;letter-spacing:0}.wallet{font-size:10px;gap:4px}.wallet span{padding:6px 5px}
- .app{display:block;padding:8px 8px 85px;margin:0;max-width:520px}.panel{margin-bottom:11px;border-width:4px;border-radius:13px;box-shadow:4px 5px 0 #8ca66b}
- .scene{height:390px}.sun{width:52px;height:52px}.house{width:160px;height:104px;bottom:32%}.roof{width:190px;height:58px;top:-54px;left:-22px}.door{left:63px;width:40px;height:48px}.window{top:20px;left:13px;width:30px;height:30px;box-shadow:67px 0 0 -1px #8fe0ee,67px 0 0 5px #805136}
- .hill{height:145px;bottom:31%}.fence{bottom:31%}.soil{height:39%}.plots{bottom:7%}.crop{font-size:31px}.cat{font-size:56px;left:46%;bottom:8%}.hint{font-size:10px;top:12px;left:12px;padding:8px}
- .heading{font-size:14px;padding:11px}.inside{padding:10px}.stats{gap:6px}.stat{padding:10px 2px;border-width:2px}.stat b{font-size:16px}.stat small{font-size:10px}.action{font-size:16px;padding:13px}
- .tabs{display:none}.item{padding:8px;gap:7px}.ico{font-size:27px}.info{font-size:11px}.info small{font-size:10px}.buy{font-size:10px;padding:8px}
- .bottom{display:grid;position:fixed;bottom:0;left:0;right:0;z-index:12;grid-template-columns:repeat(4,1fr);gap:5px;padding:7px;background:#426d37;border-top:4px solid #294a2d;box-shadow:0 -3px #203d29}
- .bottom button{font-size:10px;padding:9px 1px;border-width:2px;box-shadow:0 3px #38271f}
- .barrow{grid-template-columns:70px 1fr 34px}.toast{bottom:78px}
+:root{--ink:#3b2a20;--ink-soft:#6f4b32;--cream:#fff1cd;--paper:#f7e5b8;--paper2:#fff7df;--wood:#a96438;--wood-dark:#77462b;--leaf:#8cbc55;--leaf-dark:#436f35;--gold:#f5c84d;--sky:#79c8ed;--shadow:#273d27;--line:#d1b176;--muted:#866b4c;--pink:#e783a2}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#d7e7b5;scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:14px ui-monospace,"Courier New",monospace;background:linear-gradient(180deg,#dbe9b9,#c4dda0);min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid #5d99f0;outline-offset:2px}
+button:disabled{opacity:.48;filter:grayscale(.4);cursor:not-allowed}
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px max(14px,calc((100vw - 1240px)/2));background:linear-gradient(#47753a,#31552e);color:#fff3cc;border-bottom:5px solid #273f2a;box-shadow:0 4px 0 #6b9250}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand-icon{width:42px;height:42px;border:2px solid #e7c775;border-radius:9px;object-fit:cover;box-shadow:2px 3px #243d29}
+.brand-name{font-weight:1000;letter-spacing:1px;font-size:19px;text-shadow:2px 2px #244124;white-space:nowrap}
+.brand-sub{font-size:10px;color:#d5e6af;margin-top:3px;letter-spacing:.3px}
+.resourcebar{display:flex;align-items:center;gap:6px}
+.resource{display:flex;align-items:center;gap:7px;padding:7px 10px;background:#25442e;border:2px solid #c3d68c;border-radius:9px;box-shadow:inset 0 0 0 1px #fff2}
+.resource-icon{font-size:18px}
+.resource strong{font-size:14px;font-variant-numeric:tabular-nums}
+.resource small{font-size:9px;display:block;color:#d8e7b8;margin-top:2px}
+.resource.gem{cursor:pointer}
+.desktop-nav{max-width:1240px;margin:12px auto 0;padding:0 14px;display:flex;gap:8px}
+.nav-btn{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;padding:11px 14px;border:3px solid var(--ink);border-radius:10px;background:#f9e9bf;box-shadow:0 4px var(--ink-soft),inset 0 0 0 2px #fff9e6;font-weight:800;color:#65442b}
+.nav-btn .nav-icon{font-size:19px}
+.nav-btn.active{background:linear-gradient(#9bcf62,#7ead4a);color:#243b25;transform:translateY(2px);box-shadow:0 2px var(--ink-soft),inset 0 0 0 2px #dff0b8}
+.shell{max-width:1240px;margin:14px auto;padding:0 14px 40px}
+.view{display:none;animation:fade-in .18s ease-out}.view.active{display:block}
+@keyframes fade-in{from{opacity:.75;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+.page-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:8px 2px 14px}
+.eyebrow{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#547842;font-weight:900}
+h1,h2,h3,p{margin-top:0}
+h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
+.page-heading p{margin:0;color:#6d7450;font-size:12px;line-height:1.5}
+.heading-actions{display:flex;gap:7px;flex-wrap:wrap}
+.mini-btn{border:2px solid #765034;border-radius:8px;background:#fff1ce;padding:8px 10px;box-shadow:0 3px #593923;font-weight:800;font-size:11px}
+.mini-btn:active{transform:translateY(2px);box-shadow:0 1px #593923}
+.game-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,.8fr);gap:14px;align-items:start}
+.stack{display:grid;gap:13px;min-width:0}
+.frame{background:var(--paper);border:4px solid var(--ink);border-radius:14px;overflow:hidden;box-shadow:5px 6px 0 #8aa16c,inset 0 0 0 2px #fff4d0;min-width:0}
+.frame-title{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;background:linear-gradient(#b77848,#955832);color:#fff0c8;border-bottom:4px solid var(--ink);font-weight:900;text-shadow:1px 2px #603a27;letter-spacing:.3px;font-size:13px}
+.frame-title small{font-size:10px;color:#ffe4a9;letter-spacing:0;font-weight:600}
+.scene{position:relative;isolation:isolate;height:clamp(345px,43vw,515px);overflow:hidden;background:#78c7e9 url("./farm-scene.svg?v=2") center/100% 100% no-repeat}
+.scene:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,#5eb7ef12 0%,transparent 40%,#3528190b 100%)}
+.scene-chip{position:absolute;z-index:4;top:12px;left:12px;display:flex;gap:6px;align-items:center;padding:8px 10px;border:2px solid #6b492e;border-radius:7px;background:#fff1d9ed;box-shadow:2px 3px #64472d;font-size:11px;font-weight:900}
+.weather-chip{position:absolute;z-index:4;right:12px;top:12px;padding:7px 9px;border:2px solid #6b492e;border-radius:7px;background:#fff1d9ed;font-size:11px;box-shadow:2px 3px #64472d}
+.farm-level{position:absolute;top:55px;left:12px;z-index:3;color:#fff4c9;background:#31552ee8;border:2px solid #e6c877;border-radius:7px;padding:6px 8px;font-size:10px;font-weight:800}
+.mishi-world{position:absolute;z-index:3;left:29%;bottom:8%;width:clamp(62px,10vw,100px);filter:drop-shadow(3px 5px #533e2a45);animation:cat-bob 2s ease-in-out infinite;pointer-events:none}
+@keyframes cat-bob{50%{transform:translateY(-4px)}}
+.farmer{position:absolute;z-index:3;left:43%;bottom:7%;font-size:clamp(28px,5vw,43px);filter:drop-shadow(2px 3px #68472d);pointer-events:none}
+.plot-grid{position:absolute;z-index:5;right:2.8%;bottom:5%;width:43%;height:38%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:4px}
+.plot{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;min-width:0;min-height:0;padding:3px 1px 2px;border:2px solid #68452b;border-radius:4px;background:linear-gradient(135deg,#c38b51,#a56b3d);box-shadow:inset 0 0 0 2px #d8a56b,0 2px #5b3b27;overflow:hidden;transition:filter .1s,transform .1s}
+.plot:before{content:"";position:absolute;inset:4px;background:repeating-linear-gradient(0deg,transparent 0 6px,#87542f 7px 9px);opacity:.38;pointer-events:none}
+.plot:active{transform:translateY(2px);box-shadow:inset 0 0 0 2px #d8a56b}
+.crop-sprite{position:relative;z-index:1;font-size:clamp(18px,2.6vw,29px);line-height:1;filter:drop-shadow(1px 2px #51372170)}
+.plot-name{position:relative;z-index:1;font-size:8px;font-weight:900;color:#fff0be;text-shadow:1px 1px #57351f;letter-spacing:-.3px}
+.plot.harvested{background:linear-gradient(#c6a06a,#98774a);filter:saturate(.72)}
+.plot.harvested .crop-sprite{opacity:.75}
+.plot-coin{position:absolute;z-index:2;right:1px;top:0;font-size:8px;color:#ffeb82;text-shadow:1px 1px #57351f}
+.world-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 12px;background:#e7d09a;border-top:4px solid #c29a60}
+.world-tip{font-size:10px;line-height:1.5;color:#77593d}
+.world-tip b{color:#473223}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border:2px solid #b89a60;border-radius:999px;background:#fff3d3;font-size:10px;font-weight:900;white-space:nowrap}
+.primary-btn{display:flex;justify-content:center;align-items:center;gap:8px;width:100%;border:3px solid #38271e;border-radius:10px;background:linear-gradient(#a5d56a,#77ae43);box-shadow:0 5px #493322,inset 0 0 0 2px #e3f8b6;padding:14px 12px;font-size:17px;font-weight:1000;letter-spacing:.1px;color:#24361f;text-shadow:0 1px #e7f9c4}
+.primary-btn:active{transform:translateY(3px);box-shadow:0 2px #493322}
+.stats-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stat-card{padding:10px 6px;text-align:center;border:3px solid #c4a16b;border-radius:9px;background:#fff4d8;box-shadow:inset 0 0 0 2px #fffdf2;min-width:0}
+.stat-icon{font-size:17px}.stat-number{font-size:clamp(14px,2vw,20px);font-weight:1000;margin:3px 0;color:#423125;overflow:hidden;text-overflow:ellipsis}
+.stat-label{font-size:9px;color:#8a6c4d}
+.panel-body{padding:12px}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:1000;margin-bottom:10px}
+.section-title small{font-weight:600;font-size:10px;color:var(--muted)}
+.quest-list{display:grid;gap:8px}
+.quest{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:9px;align-items:center;padding:9px;background:#fff3d7;border:2px solid #c9ac78;border-radius:8px}
+.quest-icon{width:34px;height:34px;display:grid;place-items:center;background:#e8d4a1;border:2px solid #b38b54;border-radius:7px;font-size:18px}
+.quest-name{font-size:11px;font-weight:900}.quest-sub{font-size:9px;color:#886d4d;margin-top:3px}
+.quest-reward{font-size:10px;font-weight:900;color:#82531f;white-space:nowrap}
+.progress{height:7px;background:#dfcba0;border:1px solid #b8955b;border-radius:5px;overflow:hidden;margin-top:6px}
+.progress>span{display:block;height:100%;background:linear-gradient(90deg,#6dab4c,#badb62);width:0;transition:width .2s}
+.pet-mini{display:flex;align-items:center;gap:12px}
+.pet-mini img{width:76px;height:82px;object-fit:contain;image-rendering:pixelated}
+.pet-mini-info{flex:1;min-width:0}.pet-mini-info strong{font-size:14px}.pet-mini-info p{margin:4px 0 7px;font-size:10px;line-height:1.5;color:#806548}
+.mini-meter{display:grid;grid-template-columns:62px 1fr 28px;gap:6px;align-items:center;font-size:9px;margin:6px 0}
+.meter{height:9px;border:1px solid #78583b;background:#e2cca1;border-radius:4px;overflow:hidden}.meter span{display:block;height:100%;background:#78b752;width:50%}.meter.hunger span{background:#e8ae4d}.meter.energy span{background:#69bce1}.meter.bond span{background:#e682a4}
+.text-link{border:0;background:none;color:#4b7835;text-decoration:underline;text-underline-offset:2px;font-weight:900;font-size:10px;padding:4px}
+.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.feature-card{padding:10px 7px;text-align:center;background:#fff2d1;border:2px solid #c6a471;border-radius:9px;box-shadow:inset 0 0 0 2px #fffaf0}
+.feature-icon{font-size:27px}.feature-title{font-size:10px;font-weight:1000;margin-top:5px}.feature-desc{font-size:9px;color:#866b4c;margin-top:3px;line-height:1.4}
+.badge{display:inline-flex;align-items:center;gap:4px;border-radius:6px;padding:4px 6px;background:#e0e8be;color:#426e34;font-size:9px;font-weight:900}
+.page-panel{background:var(--paper);border:4px solid var(--ink);border-radius:14px;box-shadow:5px 6px 0 #8aa16c,inset 0 0 0 2px #fff4d0;overflow:hidden}
+.page-panel+.page-panel{margin-top:13px}
+.tabs-row{display:flex;gap:6px;flex-wrap:wrap}
+.pill-tab{padding:9px 12px;border:2px solid #8f6746;border-radius:7px;background:#f8e6b9;font-size:11px;font-weight:900}
+.pill-tab.active{background:#8fbd54;border-color:#415b2c}
+.upgrade-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.upgrade-card{position:relative;display:grid;grid-template-columns:54px minmax(0,1fr);gap:10px;padding:11px;background:#fff3d7;border:3px solid #c5a776;border-radius:10px;box-shadow:inset 0 0 0 2px #fffaf0;min-width:0}
+.upgrade-art{display:grid;place-items:center;align-self:start;height:54px;border:2px solid #c6aa73;border-radius:8px;background:linear-gradient(#ecddb2,#f8edc9);font-size:31px}
+.upgrade-name{font-size:12px;font-weight:1000;line-height:1.35}
+.upgrade-detail{font-size:10px;color:#83674a;line-height:1.5;margin:4px 0 8px}
+.upgrade-footer{display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
+.level-label{font-size:9px;color:#725334;font-weight:900}
+.buy-btn{border:2px solid #49652f;border-radius:6px;background:linear-gradient(#a9d76f,#82b84b);padding:7px 9px;font-size:10px;font-weight:1000;white-space:nowrap;box-shadow:0 2px #60472b}
+.buy-btn:active{transform:translateY(1px);box-shadow:0 1px #60472b}
+.pet-layout{display:grid;grid-template-columns:minmax(250px,.9fr) minmax(0,1.25fr);gap:14px;padding:14px}
+.pet-stage{position:relative;display:grid;place-items:center;min-height:300px;overflow:hidden;border:4px solid #5e783d;border-radius:11px;background:linear-gradient(#a1d5eb 0 39%,#87b95b 39% 100%);box-shadow:inset 0 0 0 3px #d3e9b0}
+.pet-stage:before{content:"";position:absolute;inset:auto 0 0;height:37%;background:repeating-linear-gradient(0deg,#b27c4b 0 21px,#855833 22px 26px),repeating-linear-gradient(90deg,transparent 0 42px,#845732 43px 47px);border-top:7px solid #e1b873}
+.pet-stage img{position:relative;z-index:2;width:min(78%,240px);max-height:265px;object-fit:contain;filter:drop-shadow(4px 6px #473b2745);animation:cat-bob 2s ease-in-out infinite}
+.heart-pop{position:absolute;top:20%;right:19%;z-index:3;font-size:25px;animation:heart-float 2s ease-in-out infinite}
+@keyframes heart-float{50%{transform:translateY(-8px)}}
+.pet-summary{padding:5px 0}.pet-name-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.pet-name{font-size:21px;font-weight:1000}.pet-level{font-size:10px;color:#856746;margin-top:3px}
+.big-meter{margin:13px 0}.big-meter-head{display:flex;justify-content:space-between;font-size:11px;font-weight:900;margin-bottom:5px}
+.big-meter .meter{height:15px;border-width:2px}
+.pet-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}
+.pet-action{padding:12px 4px;border:3px solid #68452b;border-radius:8px;background:linear-gradient(#f2c875,#dca54c);box-shadow:0 3px #68452b;text-align:center;font-weight:900;font-size:11px}
+.pet-action span{display:block;font-size:24px;margin-bottom:5px}
+.pet-action:active{transform:translateY(2px);box-shadow:0 1px #68452b}
+.inventory-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;padding:13px}
+.inventory-item{position:relative;padding:11px 6px;text-align:center;background:#fff3d7;border:3px solid #c6a776;border-radius:9px;box-shadow:inset 0 0 0 2px #fffaf0;min-width:0}
+.inventory-icon{height:48px;display:grid;place-items:center;font-size:31px;filter:drop-shadow(2px 3px #8b7047)}
+.inventory-count{position:absolute;right:5px;top:5px;padding:3px 5px;background:#573c2a;color:#fff3cf;border-radius:5px;font-size:9px;font-weight:1000}
+.inventory-name{font-size:10px;font-weight:900;margin-top:4px;overflow-wrap:anywhere}
+.inventory-kind{font-size:9px;color:#8c704f;margin-top:3px}
+.map-body{padding:14px}
+.map-art{position:relative;overflow:hidden;min-height:260px;border:4px solid #4e6b3b;border-radius:10px;background:linear-gradient(#77c8e9 0 36%,#9bcc71 36% 100%)}
+.map-mountain{position:absolute;inset:0;background:linear-gradient(135deg,transparent 0 13%,#86b9ae 13% 22%,transparent 22%),linear-gradient(45deg,transparent 0 19%,#659c89 19% 29%,transparent 29%);opacity:.8}
+.map-river{position:absolute;left:-4%;top:32%;width:110%;height:35px;background:#5fbde9;border-block:6px solid #3897c9;transform:rotate(-11deg)}
+.map-path{position:absolute;left:28%;top:0;width:19%;height:120%;background:#ebc77e;border-inline:5px solid #c69b59;transform:rotate(24deg);opacity:.95}
+.map-pin{position:absolute;z-index:2;display:grid;place-items:center;width:47px;height:47px;border:3px solid #4d3522;border-radius:8px;background:#fff1cf;box-shadow:0 4px #4d3522;font-size:24px}
+.map-pin:after{content:"";position:absolute;bottom:-9px;left:13px;width:14px;height:14px;background:inherit;border-right:3px solid #4d3522;border-bottom:3px solid #4d3522;transform:rotate(45deg);z-index:-1}
+.map-pin.locked{filter:grayscale(1);opacity:.65}
+.location-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}
+.location-card{padding:11px;background:#fff3d7;border:2px solid #c8aa77;border-radius:9px}
+.location-top{display:flex;align-items:center;gap:8px}.location-icon{font-size:26px}.location-name{font-size:11px;font-weight:1000}.location-sub{font-size:9px;color:#876b4b;margin-top:3px;line-height:1.5}
+.location-action{width:100%;margin-top:9px;padding:7px;border:2px solid #65462d;border-radius:6px;background:#93bd5d;font-size:10px;font-weight:900}
+.modal-backdrop{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:18px;background:#1b2d20ad}
+.modal{width:min(500px,100%);max-height:85dvh;overflow:auto;background:var(--paper);border:5px solid var(--ink);border-radius:14px;box-shadow:7px 8px #17261d}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px;background:linear-gradient(#b77848,#955832);color:#fff1cb;border-bottom:4px solid var(--ink);font-weight:1000}
+.modal-close{border:2px solid #573923;border-radius:6px;background:#fff0c9;padding:4px 9px;font-size:18px;font-weight:1000}
+.modal-content{padding:14px}.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.note{padding:10px;border:2px dashed #c1a06a;background:#f4e0ad;font-size:10px;line-height:1.7;color:#765a3e;border-radius:5px}
+.toast{position:fixed;z-index:80;bottom:calc(82px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);max-width:90vw;padding:12px 15px;border:3px solid #f6cb57;border-radius:9px;background:#392c21;color:#fff0c7;font-size:12px;font-weight:900;text-align:center;box-shadow:0 4px #211b16}
+.float{position:fixed;pointer-events:none;z-index:70;color:#fff49c;font-size:18px;font-weight:1000;text-shadow:2px 2px #503923;animation:float-up .9s forwards}@keyframes float-up{to{transform:translateY(-50px);opacity:0}}
+.bottom-nav{display:none}
+.hidden{display:none!important}
+@media(max-width:760px){
+ body{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
+ .topbar{padding:8px 10px;gap:7px}.brand{gap:7px}.brand-icon{width:36px;height:36px}.brand-name{font-size:15px;letter-spacing:.4px}.brand-sub{font-size:8px}
+ .resourcebar{gap:4px}.resource{padding:6px 6px;gap:4px;border-radius:7px}.resource-icon{font-size:15px}.resource strong{font-size:11px}.resource small{font-size:8px}
+ .desktop-nav{display:none}.shell{padding:0 8px 12px;margin:9px auto}
+ .page-heading{align-items:center;margin:8px 2px 11px}.eyebrow{font-size:9px}h1{font-size:21px}.page-heading p{font-size:10px}.heading-actions{gap:5px}.mini-btn{font-size:10px;padding:7px}
+ .game-layout{grid-template-columns:minmax(0,1fr);gap:10px}.stack{gap:10px}.frame{border-width:3px;border-radius:12px;box-shadow:3px 4px 0 #8aa16c,inset 0 0 0 2px #fff4d0}
+ .frame-title{padding:10px 11px;font-size:12px;border-bottom-width:3px}
+ .scene{height:410px;background-size:100% 100%;background-position:center}
+ .scene-chip{top:9px;left:9px;padding:6px 7px;font-size:10px}.weather-chip{top:9px;right:9px;padding:6px 7px;font-size:10px}.farm-level{top:47px;left:9px;font-size:9px}
+ .mishi-world{left:29%;bottom:7%;width:75px}.farmer{left:43%;bottom:7%;font-size:31px}
+ .plot-grid{right:2%;bottom:4%;width:48%;height:36%;gap:3px}
+ .plot{border-width:2px;padding:2px 0}.crop-sprite{font-size:clamp(17px,5vw,24px)}.plot-name{font-size:7px}
+ .world-footer{padding:9px;gap:6px}.world-tip{font-size:9px}.pill{font-size:9px;padding:5px 6px}
+ .panel-body{padding:10px}.primary-btn{font-size:15px;padding:12px}.stats-strip{gap:6px}.stat-card{padding:8px 3px;border-width:2px}.stat-number{font-size:15px}.stat-label{font-size:8px}.stat-icon{font-size:15px}
+ .quest{grid-template-columns:31px minmax(0,1fr) auto;gap:7px;padding:8px}.quest-icon{width:31px;height:31px;font-size:17px}.quest-name{font-size:10px}.quest-sub{font-size:8px}.quest-reward{font-size:9px}
+ .pet-mini img{width:63px;height:70px}.feature-grid{gap:6px}.feature-card{padding:9px 4px}.feature-icon{font-size:24px}.feature-title{font-size:9px}.feature-desc{font-size:8px}
+ .upgrade-grid{grid-template-columns:1fr;gap:8px}.upgrade-card{grid-template-columns:48px minmax(0,1fr);padding:8px;gap:9px}.upgrade-art{height:48px;font-size:27px}.upgrade-name{font-size:11px}.upgrade-detail{font-size:9px;margin:3px 0 6px}
+ .pet-layout{grid-template-columns:minmax(0,1fr);gap:11px;padding:10px}.pet-stage{min-height:230px}.pet-stage img{max-height:200px;width:60%}.pet-summary{padding:3px}.pet-name{font-size:19px}.pet-actions{margin-top:12px}.pet-action{font-size:10px;padding:10px 3px}.pet-action span{font-size:22px}
+ .inventory-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:9px}.inventory-item{padding:10px 4px;border-width:2px}.inventory-icon{height:42px;font-size:28px}.inventory-name{font-size:9px}
+ .map-body{padding:10px}.map-art{min-height:245px}.location-grid{grid-template-columns:1fr;gap:7px}.location-card{padding:9px}.location-top{gap:9px}.location-action{width:auto;min-width:90px;margin-top:7px}
+ .bottom-nav{display:grid;position:fixed;bottom:0;left:0;right:0;z-index:40;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:7px 5px calc(7px + env(safe-area-inset-bottom));background:#416d37;border-top:4px solid #263f2a;box-shadow:0 -4px #9fbc71}
+ .bottom-nav .nav-btn{display:flex;flex-direction:column;gap:3px;padding:5px 1px;border-width:2px;border-radius:7px;box-shadow:0 2px #493322;font-size:8px;line-height:1.2;min-width:0}
+ .bottom-nav .nav-icon{font-size:18px}.bottom-nav .nav-btn.active{transform:translateY(1px);box-shadow:0 1px #493322}
+ .toast{bottom:calc(78px + env(safe-area-inset-bottom));font-size:11px}
 }
-@media(min-width:701px){.bottom{display:none}}
-</style></head><body>
-<header class="top"><div class="brand">🌱 Valley Tapping</div><div class="wallet"><span>🪙 <b id="coins">0</b></span><span>🌾 <b id="harvest">0</b></span><span>⚡ <b id="cps">0</b>/s</span></div></header>
-<main class="app"><section class="panel"><div class="heading">🏡 Tu pequeña granja <span id="day">· Día 1 · Primavera</span></div><div class="scene" id="scene"><div class="sun"></div><div class="hill"></div><div class="house"><div class="roof"></div><div class="window"></div><div class="door"></div></div><div class="fence"></div><div class="soil"></div><div class="plots" id="plots"><span class="crop">🥕</span><span class="crop">🌱</span><span class="crop">🥕</span><span class="crop">🌿</span><span class="crop">🍓</span></div><div class="cat" id="cat">🐈</div><div class="scene-sparkle" aria-hidden="true"></div><div class="hint">👆 Toca la tierra para cosechar</div></div><div class="tabs"><button class="tab active" data-tab="farm">🏡 Granja</button><button class="tab" data-tab="upgrades">🛠️ Mejoras</button><button class="tab" data-tab="pet">🐈 Mascota</button><button class="tab" data-tab="diary">📖 Diario</button></div>
-<div class="inside" id="farm"><div class="stats"><div class="stat"><b id="perTap">+1</b><small>por toque</small></div><div class="stat"><b id="level">1</b><small>nivel granja</small></div><div class="stat"><b id="bonus">+0%</b><small>bonus mascota</small></div></div><button class="action" id="harvestBtn">🌾 ¡Cosechar! (+1)</button><div class="note">El valle empieza pequeño. Cada toque ayuda a que crezca. Compra mejoras para producir incluso cuando no estés.</div></div>
-<div class="inside hidden" id="upgrades"><div class="list" id="upgradeList"></div></div>
-<div class="inside hidden" id="pet"><div class="petface"><span class="petemoji" id="petEmoji">🐈</span><b>Mishi <span id="mood">😺</span></b><div><small id="petLevel">Nivel 1 · Vínculo 0</small></div></div><div class="barrow">🍗 Hambre<div class="bar"><div class="fill hunger" id="hungerBar"></div></div><span id="hungerVal">80%</span></div><div class="barrow">😊 Felicidad<div class="bar"><div class="fill" id="happyBar"></div></div><span id="happyVal">80%</span></div><div class="barrow">⚡ Energía<div class="bar"><div class="fill energy" id="energyBar"></div></div><span id="energyVal">90%</span></div><div class="barrow">💗 Vínculo<div class="bar"><div class="fill bond" id="bondBar"></div></div><span id="bondVal">0%</span></div><div class="petactions"><button id="feed">🐟 Comida<br>10 🪙</button><button id="play">🧶 Jugar</button><button id="pat">💗 Acariciar</button></div><div class="note" id="petMessage">Mishi está explorando la granja. ¡Dale cariño para desbloquear bonificaciones!</div></div>
-<div class="inside hidden" id="diary"><div class="stats"><div class="stat"><b id="taps">0</b><small>toques</small></div><div class="stat"><b id="earned">0</b><small>monedas ganadas</small></div><div class="stat"><b id="ach">0/4</b><small>logros</small></div></div><div class="note" id="journal"></div><button id="save" style="width:100%;margin-top:10px">💾 Guardar partida</button><button id="reset" style="width:100%;margin-top:10px;background:#f4c5a6">🗑️ Reiniciar partida</button></div></section>
-<aside class="panel"><div class="heading" id="sideTitle">🧺 Tiendita de la granja</div><div class="inside"><p style="font-size:12px;line-height:1.6">Invierte tus monedas en cultivos y herramientas. ¡La producción sigue mientras haces otras cosas!</p><div class="list" id="sideList"></div><div class="note">🌙 Al volver recibirás hasta <b>2 horas</b> de producción acumulada.</div></div></aside></main><nav class="bottom"><button data-tab="farm">🏡 Granja</button><button data-tab="upgrades">🛠️ Mejoras</button><button data-tab="pet">🐈 Mascota</button><button data-tab="diary">📖 Diario</button></nav>
+@media(min-width:761px) and (max-width:980px){.game-layout{grid-template-columns:minmax(0,1.35fr) minmax(250px,.8fr)}.scene{height:390px}.plot-grid{width:48%}.upgrade-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><img class="brand-icon" src="./iconmimi.png?v=4" alt=""><div><div class="brand-name">Valley Tapping</div><div class="brand-sub">TU VALLE, TU AVENTURA</div></div></div>
+  <div class="resourcebar">
+    <div class="resource"><span class="resource-icon">🪙</span><div><strong id="coins">0</strong><small>MONEDAS</small></div></div>
+    <button class="resource gem" id="gemsBtn" aria-label="Diamantes"><span class="resource-icon">💎</span><div><strong id="gems">25</strong><small>GEMAS</small></div></button>
+  </div>
+</header>
+<nav class="desktop-nav" aria-label="Navegación principal">
+  <button class="nav-btn active" data-page="farm"><span class="nav-icon">🏡</span> Granja</button>
+  <button class="nav-btn" data-page="upgrades"><span class="nav-icon">🛠️</span> Mejoras</button>
+  <button class="nav-btn" data-page="pet"><span class="nav-icon">🐈</span> Mascota</button>
+  <button class="nav-btn" data-page="inventory"><span class="nav-icon">🎒</span> Inventario</button>
+  <button class="nav-btn" data-page="map"><span class="nav-icon">🗺️</span> Mapa</button>
+</nav>
+<main class="shell">
+<section class="view active" id="view-farm" data-view="farm">
+  <div class="page-heading"><div><div class="eyebrow" id="seasonLabel">PRIMAVERA · DÍA 1</div><h1>Mi pequeña granja</h1><p>Un valle lleno de posibilidades. ¡Cada toque cuenta!</p></div><div class="heading-actions"><button class="mini-btn" id="diaryBtn">📜 Diario</button><button class="mini-btn" id="saveBtn">💾 Guardar</button></div></div>
+  <div class="game-layout">
+    <div class="stack">
+      <section class="frame">
+        <div class="frame-title"><span>🌻 La granja del valle</span><small id="farmLevelLabel">NIVEL 1</small></div>
+        <div class="scene" id="farmScene">
+          <div class="scene-chip"><span id="dayChip">☀️ Día 1</span><span>·</span><span id="seasonChip">Primavera</span></div>
+          <div class="weather-chip" id="weatherChip">🌤️ Soleado</div>
+          <div class="farm-level" id="farmBonusLabel">✨ Bienvenido/a, granjero/a</div>
+          <img class="mishi-world" src="./mishi.svg?v=2" alt="Mishi, tu mascota">
+          <div class="farmer" aria-hidden="true">👩🏻‍🌾</div>
+          <div class="plot-grid" id="plotGrid" aria-label="Parcelas para cosechar"></div>
+        </div>
+        <div class="world-footer"><div class="world-tip"><b>🌱 Consejo del valle</b><br><span id="tipText">Toca una parcela para recoger tu primera cosecha.</span></div><span class="pill" id="plotCount">🌿 8 parcelas</span></div>
+      </section>
+      <div class="stats-strip">
+        <div class="stat-card"><div class="stat-icon">🌾</div><div class="stat-number" id="totalHarvest">0</div><div class="stat-label">COSECHA TOTAL</div></div>
+        <div class="stat-card"><div class="stat-icon">👆</div><div class="stat-number" id="perTap">+1</div><div class="stat-label">POR TOQUE</div></div>
+        <div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-number" id="cps">0/s</div><div class="stat-label">PRODUCCIÓN</div></div>
+      </div>
+      <button class="primary-btn" id="harvestBtn">🌾 ¡Cosechar la parcela! <span id="harvestGain">(+1)</span></button>
+      <section class="page-panel">
+        <div class="frame-title"><span>🌱 Tu rincón de cultivo</span><button class="text-link" data-go="upgrades">Ver mejoras ↗</button></div>
+        <div class="panel-body"><div class="feature-grid">
+          <div class="feature-card"><div class="feature-icon">🥕</div><div class="feature-title">Zanahorias</div><div class="feature-desc">Crece con cada toque</div></div>
+          <div class="feature-card"><div class="feature-icon">🌾</div><div class="feature-title">Trigo</div><div class="feature-desc">Producción pasiva</div></div>
+          <div class="feature-card"><div class="feature-icon">🍓</div><div class="feature-title">Fresas</div><div class="feature-desc">Cosecha premium</div></div>
+        </div></div>
+      </section>
+    </div>
+    <aside class="stack">
+      <section class="page-panel"><div class="frame-title"><span>📋 Misiones del día</span><small>RECOMPENSAS</small></div><div class="panel-body"><div class="quest-list" id="questList"></div></div></section>
+      <section class="page-panel"><div class="frame-title"><span>🐾 Tu compañera</span><button class="text-link" data-go="pet">Visitar ↗</button></div><div class="panel-body">
+        <div class="pet-mini"><img src="./mishi.svg?v=2" alt=""><div class="pet-mini-info"><strong>Mishi <span id="moodMini">😺</span></strong><p id="petMiniText">Tu amistad también hace crecer la granja.</p><span class="badge" id="petMiniLevel">Nivel 1</span></div></div>
+        <div class="mini-meter"><span>🍗 Hambre</span><div class="meter hunger"><span id="miniHungerBar"></span></div><b id="miniHunger">82%</b></div>
+        <div class="mini-meter"><span>💗 Vínculo</span><div class="meter bond"><span id="miniBondBar"></span></div><b id="miniBond">0%</b></div>
+      </div></section>
+      <section class="page-panel"><div class="frame-title"><span>🏆 Tu progreso</span><button class="text-link" id="achievementsBtn">Ver logros ↗</button></div><div class="panel-body">
+        <div class="section-title"><span>Manos de granjero</span><small id="achievementProgress">0 / 4 logros</small></div><div class="progress"><span id="achievementBar"></span></div>
+        <div class="note" style="margin-top:12px">Guarda tu partida en este dispositivo. Tu granja también produce hasta 2 horas mientras estás fuera.</div>
+      </div></section>
+    </aside>
+  </div>
+</section>
+
+<section class="view" id="view-upgrades" data-view="upgrades">
+  <div class="page-heading"><div><div class="eyebrow">HAZ CRECER TU VALLE</div><h1>Mejoras y construcciones</h1><p>Invierte tus monedas y convierte el terreno en una granja próspera.</p></div><div class="pill">🪙 <span id="upgradeCoins">0</span></div></div>
+  <section class="page-panel"><div class="frame-title"><span>🛠️ Catálogo de mejoras</span><small id="upgradeCount">0 COMPRADAS</small></div><div class="panel-body"><div class="tabs-row" id="upgradeTabs">
+    <button class="pill-tab active" data-upgrade-tab="production">🌱 Producción</button>
+    <button class="pill-tab" data-upgrade-tab="buildings">🏡 Edificios</button>
+    <button class="pill-tab" data-upgrade-tab="decor">🌼 Decoración</button>
+  </div><div class="upgrade-grid" id="upgradeGrid" style="margin-top:12px"></div></div></section>
+  <div class="stats-strip" style="margin-top:13px">
+    <div class="stat-card"><div class="stat-icon">🪙</div><div class="stat-number" id="statCoins">0</div><div class="stat-label">MONEDAS ACTUALES</div></div>
+    <div class="stat-card"><div class="stat-icon">🏡</div><div class="stat-number" id="statLevel">1</div><div class="stat-label">NIVEL DE GRANJA</div></div>
+    <div class="stat-card"><div class="stat-icon">🧰</div><div class="stat-number" id="statUpgrades">0</div><div class="stat-label">MEJORAS COMPRADAS</div></div>
+  </div>
+</section>
+
+<section class="view" id="view-pet" data-view="pet">
+  <div class="page-heading"><div><div class="eyebrow">AMISTAD QUE FLORECE</div><h1>El rincón de Mishi</h1><p>Aliméntala, juega y fortalece vuestro vínculo para ganar bonificaciones.</p></div><span class="pill">💗 <span id="petBondChip">0</span> vínculo</span></div>
+  <section class="page-panel"><div class="frame-title"><span>🐈 Una amiga para toda la aventura</span><small id="petRank">AMIGA DEL VALLE</small></div>
+    <div class="pet-layout">
+      <div class="pet-stage"><span class="heart-pop" id="heartPop">💗</span><img src="./mishi.svg?v=2" alt="Mishi, la gata de la granja"></div>
+      <div class="pet-summary">
+        <div class="pet-name-row"><div><div class="pet-name">Mishi <span id="petMood">😻</span></div><div class="pet-level" id="petLevel">Nivel 1 · Vínculo 0</div></div><span class="badge" id="petBonus">+0% cosecha</span></div>
+        <div class="big-meter"><div class="big-meter-head"><span>🍗 Hambre</span><span id="hungerVal">82%</span></div><div class="meter hunger"><span id="hungerBar"></span></div></div>
+        <div class="big-meter"><div class="big-meter-head"><span>😊 Felicidad</span><span id="happyVal">78%</span></div><div class="meter"><span id="happyBar"></span></div></div>
+        <div class="big-meter"><div class="big-meter-head"><span>⚡ Energía</span><span id="energyVal">90%</span></div><div class="meter energy"><span id="energyBar"></span></div></div>
+        <div class="big-meter"><div class="big-meter-head"><span>💗 Vínculo</span><span id="bondVal">0%</span></div><div class="meter bond"><span id="bondBar"></span></div></div>
+        <div class="pet-actions">
+          <button class="pet-action" id="feedBtn"><span>🐟</span>Dar comida<br><small>10 🪙</small></button>
+          <button class="pet-action" id="playBtn"><span>🧶</span>Jugar<br><small>+vínculo</small></button>
+          <button class="pet-action" id="patBtn"><span>💗</span>Acariciar<br><small>+cariño</small></button>
+        </div>
+        <p class="note" id="petMessage" style="margin-top:14px">Mishi está contenta de explorar el valle contigo.</p>
+      </div>
+    </div>
+  </section>
+  <section class="page-panel"><div class="frame-title"><span>✨ Lo que desbloquea vuestro vínculo</span></div><div class="panel-body"><div class="feature-grid">
+    <div class="feature-card"><div class="feature-icon">💚</div><div class="feature-title">Vínculo 20</div><div class="feature-desc">+5% de monedas por toque</div></div>
+    <div class="feature-card"><div class="feature-icon">🌟</div><div class="feature-title">Vínculo 40</div><div class="feature-desc">+10% de cosecha total</div></div>
+    <div class="feature-card"><div class="feature-icon">🐾</div><div class="feature-title">Vínculo 60</div><div class="feature-desc">¡Mejores amigas!</div></div>
+  </div></div></section>
+</section>
+
+<section class="view" id="view-inventory" data-view="inventory">
+  <div class="page-heading"><div><div class="eyebrow">TODO LO QUE HAS RECOGIDO</div><h1>Inventario</h1><p>Cada toque suma recursos para alimentar y expandir la granja.</p></div><span class="pill">🎒 <span id="inventoryCount">0 objetos</span></span></div>
+  <section class="page-panel"><div class="frame-title"><span>🧺 Tu mochila</span><div class="tabs-row" id="inventoryTabs"><button class="pill-tab active" data-inventory-tab="all">Todo</button><button class="pill-tab" data-inventory-tab="crops">Cultivos</button><button class="pill-tab" data-inventory-tab="resources">Recursos</button></div></div><div class="inventory-grid" id="inventoryGrid"></div></section>
+  <section class="page-panel"><div class="frame-title"><span>💡 Consejos de inventario</span></div><div class="panel-body"><div class="note">Las cosechas de zanahoria, trigo y bayas se cuentan aquí. Las monedas se muestran arriba y las mejoras permanentes aparecen en el catálogo.</div></div></section>
+</section>
+
+<section class="view" id="view-map" data-view="map">
+  <div class="page-heading"><div><div class="eyebrow">MÁS ALLÁ DE TU TERRENO</div><h1>Mapa del valle</h1><p>Desbloquea lugares nuevos a medida que tu granja sube de nivel.</p></div><span class="pill">🗺️ <span id="mapUnlockCount">1/5 lugares</span></span></div>
+  <section class="page-panel"><div class="frame-title"><span>🌄 Explora tu mundo</span><small>MAPA LOCAL</small></div><div class="map-body">
+    <div class="map-art"><div class="map-mountain"></div><div class="map-river"></div><div class="map-path"></div>
+      <button class="map-pin" style="left:19%;top:49%" data-location="farm" aria-label="Tu granja">🏡</button>
+      <button class="map-pin locked" style="left:47%;top:17%" data-location="forest" aria-label="Bosque">🌲</button>
+      <button class="map-pin locked" style="left:68%;top:53%" data-location="lake" aria-label="Lago">🎣</button>
+      <button class="map-pin locked" style="left:37%;top:72%" data-location="market" aria-label="Mercado">🏪</button>
+      <button class="map-pin locked" style="left:81%;top:15%" data-location="mountain" aria-label="Montaña">⛰️</button>
+    </div><div class="location-grid" id="locationGrid"></div>
+  </div></section>
+</section>
+</main>
+
+<nav class="bottom-nav" aria-label="Navegación móvil">
+  <button class="nav-btn active" data-page="farm"><span class="nav-icon">🏡</span>Granja</button>
+  <button class="nav-btn" data-page="upgrades"><span class="nav-icon">🛠️</span>Mejoras</button>
+  <button class="nav-btn" data-page="pet"><span class="nav-icon">🐈</span>Mascota</button>
+  <button class="nav-btn" data-page="inventory"><span class="nav-icon">🎒</span>Bolsa</button>
+  <button class="nav-btn" data-page="map"><span class="nav-icon">🗺️</span>Mapa</button>
+</nav>
+
+<div class="modal-backdrop hidden" id="modalBackdrop">
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head"><span id="modalTitle">📜 Diario de la granja</span><button class="modal-close" id="modalClose" aria-label="Cerrar">×</button></div>
+    <div class="modal-content" id="modalContent"></div>
+  </section>
+</div>
+
 <script>
-const KEY='valleytapping-save-v2',defs=[{id:'carrot',name:'Huerto de zanahorias',icon:'🥕',desc:'+1 moneda por toque',base:15,type:'tap',value:1},{id:'sprout',name:'Semillas cuidadas',icon:'🌱',desc:'+1 moneda por segundo',base:35,type:'auto',value:1},{id:'water',name:'Regadera mejorada',icon:'🚿',desc:'+3 monedas por toque',base:90,type:'tap',value:3},{id:'chicken',name:'Gallinero',icon:'🐔',desc:'+4 monedas por segundo',base:180,type:'auto',value:4},{id:'berry',name:'Fresas dulces',icon:'🍓',desc:'+8 monedas por toque',base:420,type:'tap',value:8},{id:'cow',name:'Vaca lechera',icon:'🐄',desc:'+12 monedas por segundo',base:850,type:'auto',value:12},{id:'apple',name:'Manzanos',icon:'🍎',desc:'+30 monedas por segundo',base:2400,type:'auto',value:30}];
-const fresh=()=>({coins:0,harvest:0,taps:0,totalEarned:0,perTap:1,auto:0,level:1,upgrades:{},pet:{hunger:82,happy:78,energy:90,bond:0,level:1},day:1,lastSeen:Date.now(),achievements:[]});let s;try{s={...fresh(),...JSON.parse(localStorage.getItem(KEY)||'{}')};s.pet={...fresh().pet,...s.pet}}catch(e){s=fresh()}
-const fmt=n=>n>=1e6?(n/1e6).toFixed(1)+'M':n>=10000?(n/1000).toFixed(1)+'k':Math.floor(n).toLocaleString('es-CL'),cost=d=>Math.floor(d.base*Math.pow(1.65,s.upgrades[d.id]||0)),bonus=()=>Math.floor(s.pet.bond/20)*5,tapValue=()=>s.perTap*(1+bonus()/100);
-function toast(t){let e=document.querySelector('.toast');if(!e){e=document.createElement('div');e.className='toast';document.body.append(e)}e.textContent=t;clearTimeout(window.tt);window.tt=setTimeout(()=>e.remove(),2200)}
-function earn(n){s.coins+=n;s.harvest+=n;s.totalEarned+=n}
-function pop(el,n){if(!el)return;let r=el.getBoundingClientRect(),e=document.createElement('span');e.className='float';e.textContent='+'+fmt(n)+' 🪙';e.style.left=(r.left+r.width/2)+'px';e.style.top=(r.top+5)+'px';document.body.append(e);setTimeout(()=>e.remove(),850)}
-function harvest(el){let n=Math.max(1,Math.floor(tapValue()));earn(n);s.taps++;s.pet.happy=Math.min(100,s.pet.happy+.15);pop(el,n);check();render()}
-function buy(id){let d=defs.find(x=>x.id===id),c=cost(d);if(s.coins<c){toast('Te faltan '+fmt(c-s.coins)+' monedas 🌱');return}s.coins-=c;s.upgrades[id]=(s.upgrades[id]||0)+1;if(d.type==='tap')s.perTap+=d.value;else s.auto+=d.value;s.level=1+Object.values(s.upgrades).reduce((a,b)=>a+b,0);toast('¡Mejora comprada! '+d.icon);render();save(false)}
-function care(t){let p=s.pet;if(t==='feed'){if(s.coins<10){toast('Necesitas 10 monedas para comprar pescado 🐟');return}s.coins-=10;p.hunger=Math.min(100,p.hunger+32);p.happy=Math.min(100,p.happy+4);p.energy=Math.min(100,p.energy+3)}if(t==='play'){if(p.energy<12){toast('Mishi está cansado. Déjalo descansar 😴');return}p.energy-=12;p.happy=Math.min(100,p.happy+18);p.bond=Math.min(100,p.bond+5)}if(t==='pat'){p.happy=Math.min(100,p.happy+8);p.bond=Math.min(100,p.bond+3);p.energy=Math.min(100,p.energy+1)}p.level=1+Math.floor(p.bond/20);check();render();save(false)}
-function check(){let a=[['first',s.taps>=1,'Primer toque'],['hundred',s.totalEarned>=100,'Pequeña cosecha'],['farmer',s.level>=5,'Manos de granjero'],['friend',s.pet.bond>=20,'Mejores amigos']];a.forEach(([id,ok,name])=>{if(ok&&!s.achievements.includes(id)){s.achievements.push(id);toast('🏆 Logro: '+name)}})}
-function renderList(el){el.innerHTML='';defs.forEach(d=>{let c=cost(d),row=document.createElement('div');row.className='item';row.innerHTML='<span class="ico">'+d.icon+'</span><div class="info"><b>'+d.name+' · Nv. '+(s.upgrades[d.id]||0)+'</b><small>'+d.desc+'</small></div><button class="buy" '+(s.coins<c?'disabled':'')+'>🪙 '+fmt(c)+'</button>';row.querySelector('button').onclick=()=>buy(d.id);el.append(row)})}
-function render(){document.getElementById('coins').textContent=fmt(s.coins);document.getElementById('harvest').textContent=fmt(s.harvest);document.getElementById('cps').textContent=fmt(s.auto);document.getElementById('perTap').textContent='+'+fmt(tapValue());document.getElementById('harvestBtn').textContent='🌾 ¡Cosechar! (+'+fmt(tapValue())+')';document.getElementById('level').textContent=s.level;document.getElementById('bonus').textContent='+'+bonus()+'%';document.getElementById('day').textContent='· Día '+Math.floor(s.day)+' · Primavera';document.getElementById('taps').textContent=fmt(s.taps);document.getElementById('earned').textContent=fmt(s.totalEarned);document.getElementById('ach').textContent=s.achievements.length+'/4';let p=s.pet;['hunger','happy','energy','bond'].forEach(k=>{document.getElementById(k+'Bar').style.width=p[k]+'%';document.getElementById(k+'Val').textContent=Math.floor(p[k])+'%' });document.getElementById('petLevel').textContent='Nivel '+p.level+' · Vínculo '+Math.floor(p.bond);document.getElementById('mood').textContent=p.happy>65?'😻':p.happy>35?'😺':'😿';document.getElementById('petEmoji').textContent=p.happy<25?'🐈‍⬛':'🐈';document.getElementById('cat').textContent=p.happy<25?'🐈‍⬛':'🐈';document.getElementById('petMessage').textContent=p.hunger<25?'Mishi tiene hambre. ¡Un pescadito le vendría genial!':p.happy<25?'Mishi necesita cariño. ¡Juega un ratito!':p.energy<20?'Mishi está cansado. Un descanso le hará bien.':'Mishi está disfrutando su vida en la granja. ¡Cada gesto fortalece vuestro vínculo!';document.getElementById('journal').textContent='Día '+Math.floor(s.day)+': '+fmt(s.taps)+' toques, '+fmt(s.totalEarned)+' monedas ganadas. Mishi está en nivel '+p.level+'.';let total=Object.values(s.upgrades).reduce((a,b)=>a+b,0);document.getElementById('plots').textContent=Array.from({length:Math.min(9,5+Math.floor(total/2))},(_,i)=>['🥕','🌱','🥕','🌿','🍓','🌽','🌻','🍅','🥔'][i]).join('　');renderList(document.getElementById('upgradeList'));renderList(document.getElementById('sideList'))}
-function save(show=true){s.lastSeen=Date.now();localStorage.setItem(KEY,JSON.stringify(s));if(show)toast('Partida guardada en este dispositivo 💾')}
-let now=Date.now(),secs=Math.min(7200,Math.max(0,(now-(s.lastSeen||now))/1000));if(secs>10&&s.auto){let n=Math.floor(secs*s.auto*(1+bonus()/100));earn(n);toast('🌙 ¡Bienvenido! Tu granja produjo '+fmt(n)+' monedas.')}s.pet.hunger=Math.max(10,s.pet.hunger-secs/3600*10);s.pet.happy=Math.max(20,s.pet.happy-secs/3600*4);s.pet.energy=Math.min(100,s.pet.energy+secs/3600*14);s.lastSeen=now;
-document.getElementById('scene').onclick=e=>{if(e.target.closest('.cat')){care('pat');return}harvest(e.target.closest('.crop')||document.getElementById('scene'))};document.getElementById('cat').onclick=e=>{e.stopPropagation();care('pat')};document.getElementById('harvestBtn').onclick=()=>harvest(document.getElementById('harvestBtn'));document.getElementById('feed').onclick=()=>care('feed');document.getElementById('play').onclick=()=>care('play');document.getElementById('pat').onclick=()=>care('pat');document.getElementById('save').onclick=()=>save(true);document.getElementById('reset').onclick=()=>{if(confirm('¿Borrar toda tu granja? No se puede deshacer.')){localStorage.removeItem(KEY);s=fresh();render();toast('Una nueva aventura comienza 🌱')}};
-const tabs=['farm','upgrades','pet','diary'];document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{tabs.forEach(t=>document.getElementById(t).classList.toggle('hidden',t!==b.dataset.tab));document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===b.dataset.tab));document.getElementById('sideTitle').textContent=({'farm':'🧺 Tiendita de la granja','upgrades':'🛠️ Mejoras','pet':'🐈 El rincón de Mishi','diary':'📖 Tu diario'})[b.dataset.tab]});
-render();setInterval(()=>{if(s.auto)earn(s.auto*(1+bonus()/100));s.pet.hunger=Math.max(0,s.pet.hunger-.035);s.pet.happy=Math.max(0,s.pet.happy-(s.pet.hunger<20?.045:.018));s.pet.energy=Math.min(100,s.pet.energy+.025);s.day+=.0007;render()},1000);setInterval(()=>save(false),15000);window.addEventListener('beforeunload',()=>save(false));if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
-</script></body></html>
+const KEY='valleytapping-save-v3';
+const previousKey='valleytapping-save-v2';
+const $=id=>document.getElementById(id);
+const fresh=()=>({coins:0,gems:25,harvest:0,taps:0,totalEarned:0,perTap:1,auto:0,level:1,upgrades:{},pet:{hunger:82,happy:78,energy:90,bond:0,level:1},day:1,lastSeen:Date.now(),inventory:{carrot:0,wheat:0,berry:0,potato:0,tomato:0,wood:0,stone:0,egg:0,milk:0},plots:[0,1,2,3,4,5,6,7],achievements:[]});
+let stored={};try{stored=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem(previousKey)||'{}')||{}}catch(e){stored={}}
+let s={...fresh(),...stored,inventory:{...fresh().inventory,...(stored.inventory||{})},pet:{...fresh().pet,...(stored.pet||{})},upgrades:{...(stored.upgrades||{})},achievements:Array.isArray(stored.achievements)?stored.achievements:[]};
+if(!Array.isArray(s.plots)||s.plots.length<8)s.plots=[0,1,2,3,4,5,6,7];
+if(!Number.isFinite(s.gems))s.gems=25;
+const defs=[
+{id:'carrot',name:'Huerto de zanahorias',icon:'🥕',desc:'+1 moneda por toque · cultivos más productivos',base:15,type:'tap',value:1,category:'production'},
+{id:'sprout',name:'Semillas cuidadas',icon:'🌱',desc:'+1 moneda cada segundo',base:35,type:'auto',value:1,category:'production'},
+{id:'water',name:'Regadera mejorada',icon:'🚿',desc:'+3 monedas por toque',base:90,type:'tap',value:3,category:'production'},
+{id:'chicken',name:'Gallinero de madera',icon:'🐔',desc:'+4 monedas por segundo y huevos',base:180,type:'auto',value:4,category:'buildings'},
+{id:'berry',name:'Parterre de fresas',icon:'🍓',desc:'+8 monedas por toque',base:420,type:'tap',value:8,category:'production'},
+{id:'cow',name:'Establo lechero',icon:'🐄',desc:'+12 monedas por segundo y leche',base:850,type:'auto',value:12,category:'buildings'},
+{id:'apple',name:'Manzanos del valle',icon:'🍎',desc:'+30 monedas por segundo',base:2400,type:'auto',value:30,category:'production'},
+{id:'potato',name:'Surcos de papas',icon:'🥔',desc:'+15 monedas por toque',base:600,type:'tap',value:15,category:'production'},
+{id:'tomato',name:'Invernadero pequeño',icon:'🍅',desc:'+25 monedas por toque',base:1400,type:'tap',value:25,category:'buildings'},
+{id:'mill',name:'Molino de viento',icon:'🌬️',desc:'+45 monedas por segundo',base:3000,type:'auto',value:45,category:'buildings'},
+{id:'shed',name:'Granero reforzado',icon:'🛖',desc:'+100 monedas por segundo',base:6500,type:'auto',value:100,category:'buildings'},
+{id:'pond',name:'Estanque de Mishi',icon:'🪷',desc:'Mishi gana vínculo y felicidad',base:1600,type:'pet',value:12,category:'decor'},
+{id:'flowers',name:'Jardín de flores',icon:'🌷',desc:'Un rincón bonito para tu mascota',base:950,type:'pet',value:7,category:'decor'},
+{id:'scarecrow',name:'Espantapájaros',icon:'🪹',desc:'+20 monedas por toque',base:2300,type:'tap',value:20,category:'decor'}
+];
+const crops=[
+{id:'carrot',name:'Zanahoria',icon:'🥕',yield:1},
+{id:'wheat',name:'Trigo',icon:'🌾',yield:2},
+{id:'berry',name:'Fresa',icon:'🍓',yield:4},
+{id:'potato',name:'Papa',icon:'🥔',yield:3},
+{id:'tomato',name:'Tomate',icon:'🍅',yield:4},
+{id:'carrot',name:'Zanahoria',icon:'🥕',yield:1},
+{id:'wheat',name:'Trigo',icon:'🌾',yield:2},
+{id:'berry',name:'Fresa',icon:'🍓',yield:4}
+];
+const items=[
+{id:'carrot',name:'Zanahorias',icon:'🥕',kind:'Cultivo',category:'crops'},
+{id:'wheat',name:'Trigo',icon:'🌾',kind:'Cultivo',category:'crops'},
+{id:'berry',name:'Fresas',icon:'🍓',kind:'Cultivo',category:'crops'},
+{id:'potato',name:'Papas',icon:'🥔',kind:'Cultivo',category:'crops'},
+{id:'tomato',name:'Tomates',icon:'🍅',kind:'Cultivo',category:'crops'},
+{id:'wood',name:'Madera',icon:'🪵',kind:'Recurso',category:'resources'},
+{id:'stone',name:'Piedra',icon:'🪨',kind:'Recurso',category:'resources'},
+{id:'egg',name:'Huevos',icon:'🥚',kind:'Producto',category:'resources'},
+{id:'milk',name:'Leche',icon:'🥛',kind:'Producto',category:'resources'}
+];
+const locations=[
+{id:'farm',name:'Tu granja',icon:'🏡',level:1,desc:'Tu hogar y punto de partida.'},
+{id:'forest',name:'Bosque susurrante',icon:'🌲',level:3,desc:'Madera, semillas raras y secretos.'},
+{id:'lake',name:'Lago cristalino',icon:'🎣',level:5,desc:'Un lugar tranquilo para pescar.'},
+{id:'market',name:'Mercado del pueblo',icon:'🏪',level:7,desc:'Intercambia recursos y productos.'},
+{id:'mountain',name:'Montañas azules',icon:'⛰️',level:10,desc:'Piedra, minerales y nuevos desafíos.'}
+];
+let upgradeTab='production',inventoryTab='all',modalMode='diary';
+const fmt=n=>Math.floor(Number(n)||0).toLocaleString('es-CL');
+const clamp=n=>Math.max(0,Math.min(100,n));
+const totalUpgrades=()=>Object.values(s.upgrades).reduce((a,b)=>a+(Number(b)||0),0);
+const bonus=()=>Math.floor((s.pet.bond||0)/20)*5;
+const tapValue=()=>s.perTap*(1+bonus()/100);
+const cost=d=>Math.floor(d.base*Math.pow(1.62,Number(s.upgrades[d.id]||0)));
+function toast(message){let el=$('toast');if(!el){el=document.createElement('div');el.id='toast';el.className='toast';document.body.appendChild(el)}el.textContent=message;clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.remove(),2300)}
+function save(show){s.lastSeen=Date.now();try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}if(show!==false)toast('Partida guardada en este dispositivo 💾')}
+function earn(n){n=Math.max(0,Number(n)||0);s.coins+=n;s.harvest+=n;s.totalEarned+=n}
+function pop(el,n){if(!el)return;const r=el.getBoundingClientRect(),node=document.createElement('span');node.className='float';node.textContent='+'+fmt(n)+' 🪙';node.style.left=(r.left+r.width/2)+'px';node.style.top=(r.top+4)+'px';document.body.appendChild(node);setTimeout(()=>node.remove(),950)}
+function checkAchievements(){
+ const achievements=[['first',s.taps>=1,'Primer toque'],['hundred',s.totalEarned>=100,'Pequeña cosecha'],['farmer',s.level>=5,'Manos de granjero'],['friend',s.pet.bond>=20,'Mejores amigos']];
+ achievements.forEach(a=>{if(a[1]&&!s.achievements.includes(a[0])){s.achievements.push(a[0]);toast('🏆 Logro desbloqueado: '+a[2])}});
+}
+function harvestAt(index,el){
+ const crop=crops[index%crops.length],n=Math.max(1,Math.floor(tapValue()));
+ earn(n);s.taps++;s.inventory[crop.id]=(s.inventory[crop.id]||0)+Math.max(1,crop.yield);s.inventory.wood=(s.inventory.wood||0)+((s.taps%5===0)?1:0);
+ s.plots[index]=(s.plots[index]||0)+1;s.pet.happy=clamp(s.pet.happy+.25);
+ if(s.taps%4===0&&s.upgrades.chicken)s.inventory.egg=(s.inventory.egg||0)+1;
+ if(s.taps%6===0&&s.upgrades.cow)s.inventory.milk=(s.inventory.milk||0)+1;
+ pop(el,n);checkAchievements();render();save(false);
+}
+function buyUpgrade(id){
+ const d=defs.find(x=>x.id===id);if(!d)return;const c=cost(d);if(s.coins<c){toast('Te faltan '+fmt(c-s.coins)+' monedas 🌱');return}
+ s.coins-=c;s.upgrades[id]=(s.upgrades[id]||0)+1;
+ if(d.type==='tap')s.perTap+=d.value;
+ else if(d.type==='auto')s.auto+=d.value;
+ else {s.pet.bond=clamp(s.pet.bond+d.value);s.pet.happy=clamp(s.pet.happy+10);s.pet.level=1+Math.floor(s.pet.bond/20)}
+ s.level=1+totalUpgrades();toast('¡Mejora comprada! '+d.icon);checkAchievements();render();save(false);
+}
+function care(action){
+ const p=s.pet;
+ if(action==='feed'){if(s.coins<10){toast('Necesitas 10 monedas para comprar pescado 🐟');return}s.coins-=10;p.hunger=clamp(p.hunger+32);p.happy=clamp(p.happy+4);p.energy=clamp(p.energy+3);s.inventory.egg=Math.max(0,s.inventory.egg||0)}
+ if(action==='play'){if(p.energy<12){toast('Mishi está cansada. Déjala descansar un poco 😴');return}p.energy=clamp(p.energy-12);p.happy=clamp(p.happy+18);p.bond=clamp(p.bond+5)}
+ if(action==='pat'){p.happy=clamp(p.happy+8);p.bond=clamp(p.bond+3);p.energy=clamp(p.energy+1)}
+ p.level=1+Math.floor(p.bond/20);checkAchievements();render();save(false);
+ toast(action==='feed'?'¡Ñam! Mishi está más contenta 🐟':action==='play'?'¡Qué buen rato juntas! 🧶':'Mishi ronronea feliz 💗');
+}
+function renderPlots(){
+ const el=$('plotGrid');el.innerHTML='';
+ crops.forEach((crop,i)=>{
+  const count=s.plots[i]||0,btn=document.createElement('button');btn.className='plot'+(count%5===4?' harvested':'');btn.dataset.plot=String(i);btn.setAttribute('aria-label','Cosechar '+crop.name);
+  btn.innerHTML='<span class="plot-coin">+'+fmt(tapValue())+'</span><span class="crop-sprite">'+(count%5===4?'🌱':crop.icon)+'</span><span class="plot-name">'+crop.name+'</span>';
+  btn.addEventListener('click',e=>{e.stopPropagation();harvestAt(i,btn)});el.appendChild(btn);
+ });
+}
+function renderUpgrades(){
+ $('upgradeCoins').textContent=fmt(s.coins);$('statCoins').textContent=fmt(s.coins);$('statLevel').textContent=fmt(s.level);$('statUpgrades').textContent=fmt(totalUpgrades());$('upgradeCount').textContent=totalUpgrades()+' COMPRADAS';
+ document.querySelectorAll('[data-upgrade-tab]').forEach(b=>b.classList.toggle('active',b.dataset.upgradeTab===upgradeTab));
+ const el=$('upgradeGrid');el.innerHTML='';
+ defs.filter(d=>d.category===upgradeTab).forEach(d=>{
+  const level=s.upgrades[d.id]||0,c=cost(d),disabled=s.coins<c,row=document.createElement('div');row.className='upgrade-card';
+  const effect=d.type==='tap'?'+'+d.value+' por toque':d.type==='auto'?'+'+d.value+' monedas/s':'+'+d.value+' puntos de vínculo';
+  row.innerHTML='<div class="upgrade-art">'+d.icon+'</div><div><div class="upgrade-name">'+d.name+'</div><div class="upgrade-detail">'+d.desc+'</div><div class="upgrade-footer"><span class="level-label">Nv. '+level+' · '+effect+'</span><button class="buy-btn" '+(disabled?'disabled':'')+' data-buy="'+d.id+'">🪙 '+fmt(c)+'</button></div></div>';
+  row.querySelector('[data-buy]').addEventListener('click',()=>buyUpgrade(d.id));el.appendChild(row);
+ });
+}
+function renderInventory(){
+ document.querySelectorAll('[data-inventory-tab]').forEach(b=>b.classList.toggle('active',b.dataset.inventoryTab===inventoryTab));
+ const list=items.filter(item=>inventoryTab==='all'||item.category===inventoryTab),el=$('inventoryGrid');el.innerHTML='';
+ list.forEach(item=>{const count=s.inventory[item.id]||0,node=document.createElement('div');node.className='inventory-item';node.innerHTML='<span class="inventory-count">x'+fmt(count)+'</span><div class="inventory-icon">'+item.icon+'</div><div class="inventory-name">'+item.name+'</div><div class="inventory-kind">'+item.kind+'</div>';el.appendChild(node)});
+ const total=items.reduce((n,item)=>n+(s.inventory[item.id]||0),0);$('inventoryCount').textContent=fmt(total)+' objetos';
+}
+function renderQuests(){
+ const quests=[
+ {icon:'🌾',name:'Primera cosecha',sub:'Toca 10 veces las parcelas',progress:Math.min(10,s.taps),goal:10,reward:'+20 🪙'},
+ {icon:'🪙',name:'Ahorra para crecer',sub:'Consigue 100 monedas en total',progress:Math.min(100,s.totalEarned),goal:100,reward:'+35 🪙'},
+ {icon:'🐾',name:'Tiempo de calidad',sub:'Sube el vínculo con Mishi a 10',progress:Math.min(10,s.pet.bond),goal:10,reward:'+15 🪙'}
+ ];
+ $('questList').innerHTML=quests.map(q=>'<div class="quest"><div class="quest-icon">'+q.icon+'</div><div><div class="quest-name">'+q.name+'</div><div class="quest-sub">'+q.sub+'</div><div class="progress"><span style="width:'+Math.min(100,q.progress/q.goal*100)+'%"></span></div></div><div class="quest-reward">'+(q.progress>=q.goal?'✅ LISTO':q.reward)+'</div></div>').join('');
+}
+function renderMap(){
+ const unlocked=locations.filter(l=>s.level>=l.level).length;$('mapUnlockCount').textContent=unlocked+'/5 lugares';
+ document.querySelectorAll('[data-location]').forEach(b=>{const loc=locations.find(l=>l.id===b.dataset.location);b.classList.toggle('locked',s.level<loc.level);b.title=loc.name+(s.level<loc.level?' · Nivel '+loc.level:'')});
+ $('locationGrid').innerHTML=locations.map(l=>{const open=s.level>=l.level;return '<div class="location-card"><div class="location-top"><span class="location-icon">'+(open?l.icon:'🔒')+'</span><div><div class="location-name">'+l.name+'</div><div class="location-sub">'+(open?'Disponible · Nivel '+l.level:'Se desbloquea en nivel '+l.level)+'</div></div></div><div class="location-sub">'+l.desc+'</div><button class="location-action" data-visit="'+l.id+'" '+(!open?'disabled':'')+'>'+(open?'Explorar':'Bloqueado')+'</button></div>'}).join('');
+ document.querySelectorAll('[data-visit]').forEach(b=>b.addEventListener('click',()=>{const l=locations.find(x=>x.id===b.dataset.visit);toast('🌿 Has llegado a '+l.name+' (próxima expansión)')}));
+}
+function renderPet(){
+ const p=s.pet, mood=p.happy>70?'😻':p.happy>35?'😺':'😿';
+ const bind=(id,val)=>{$(id).style.width=clamp(val)+'%';};
+ $('hungerVal').textContent=Math.floor(p.hunger)+'%';$('happyVal').textContent=Math.floor(p.happy)+'%';$('energyVal').textContent=Math.floor(p.energy)+'%';$('bondVal').textContent=Math.floor(p.bond)+'%';
+ bind('hungerBar',p.hunger);bind('happyBar',p.happy);bind('energyBar',p.energy);bind('bondBar',p.bond);
+ $('petMood').textContent=mood;$('moodMini').textContent=mood;$('petLevel').textContent='Nivel '+p.level+' · Vínculo '+Math.floor(p.bond);$('petRank').textContent=p.bond>=60?'MEJORES AMIGAS':p.bond>=20?'AMIGAS DEL VALLE':'AMIGA DEL VALLE';$('petBonus').textContent='+'+bonus()+'% cosecha';$('petBondChip').textContent=Math.floor(p.bond);
+ $('petMessage').textContent=p.hunger<25?'Mishi tiene mucha hambre. ¡Un pescadito le vendría genial!':p.happy<30?'Mishi necesita cariño. ¡Juega un ratito con ella!':p.energy<20?'Mishi está cansada. Dale un descanso tranquilo.':'Mishi está feliz de vivir contigo. Cada gesto fortalece vuestro vínculo.';
+ $('petMiniText').textContent=p.hunger<25?'Tiene hambre. ¡Hora de comer!':p.happy<30?'Necesita un poco de cariño.':'Tu amistad también hace crecer la granja.';$('petMiniLevel').textContent='Nivel '+p.level;
+ $('miniHungerBar').style.width=clamp(p.hunger)+'%';$('miniHunger').textContent=Math.floor(p.hunger)+'%';$('miniBondBar').style.width=clamp(p.bond)+'%';$('miniBond').textContent=Math.floor(p.bond)+'%';
+ $('heartPop').textContent=p.happy>50?'💗':'💭';
+}
+function render(){
+ $('coins').textContent=fmt(s.coins);$('gems').textContent=fmt(s.gems);$('cps').textContent=fmt(s.auto)+'/s';$('perTap').textContent='+'+fmt(tapValue());$('harvestGain').textContent='(+'+fmt(tapValue())+')';$('totalHarvest').textContent=fmt(s.harvest);
+ $('seasonLabel').textContent='PRIMAVERA · DÍA '+Math.floor(s.day);$('dayChip').textContent='☀️ Día '+Math.floor(s.day);$('seasonChip').textContent='Primavera';$('farmLevelLabel').textContent='NIVEL '+s.level;$('farmBonusLabel').textContent=s.level>1?'✨ Granja nivel '+s.level:'✨ ¡Bienvenido/a, granjero/a';$('plotCount').textContent='🌿 '+crops.length+' parcelas';
+ $('tipText').textContent=s.taps<1?'Toca una parcela para recoger tu primera cosecha.':s.coins<100?'Guarda monedas y compra semillas para mejorar la producción.':s.pet.bond<20?'Mishi también ayuda: juega con ella para desbloquear bonificaciones.':'¡Tu granja está creciendo! Invierte en edificios para producir incluso cuando no estés.';
+ $('achievementProgress').textContent=s.achievements.length+' / 4 logros';$('achievementBar').style.width=(s.achievements.length/4*100)+'%';
+ renderPlots();renderQuests();renderPet();renderUpgrades();renderInventory();renderMap();
+}
+function switchPage(name){
+ document.querySelectorAll('[data-view]').forEach(v=>v.classList.toggle('active',v.dataset.view===name));
+ document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function openModal(mode){
+ modalMode=mode||'diary';$('modalBackdrop').classList.remove('hidden');
+ if(modalMode==='settings'){
+  $('modalTitle').textContent='⚙️ Ajustes de la granja';
+  $('modalContent').innerHTML='<div class="stats-strip"><div class="stat-card"><div class="stat-icon">👆</div><div class="stat-number">'+fmt(s.taps)+'</div><div class="stat-label">TOQUES</div></div><div class="stat-card"><div class="stat-icon">🪙</div><div class="stat-number">'+fmt(s.totalEarned)+'</div><div class="stat-label">GANADO TOTAL</div></div><div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-number">'+s.achievements.length+'/4</div><div class="stat-label">LOGROS</div></div></div><p class="note" style="margin-top:12px">La partida se guarda en este dispositivo automáticamente. Reiniciar elimina los avances guardados en este navegador.</p><div class="modal-actions"><button class="primary-btn" id="modalSave">💾 Guardar partida</button><button class="mini-btn" id="modalReset" style="background:#f3c6a4">🗑️ Reiniciar</button></div>';
+  $('modalSave').onclick=()=>save(true);$('modalReset').onclick=resetGame;
+ } else {
+  $('modalTitle').textContent=mode==='achievements'?'🏆 Diario de logros':'📜 Diario de la granja';
+  const achievements=[['first','Primer toque','Cosecha por primera vez.'],['hundred','Pequeña cosecha','Gana 100 monedas en total.'],['farmer','Manos de granjero','Compra 4 mejoras.'],['friend','Mejores amigos','Llega a 20 puntos de vínculo con Mishi.']];
+  $('modalContent').innerHTML='<div class="stats-strip"><div class="stat-card"><div class="stat-icon">📅</div><div class="stat-number">'+Math.floor(s.day)+'</div><div class="stat-label">DÍAS</div></div><div class="stat-card"><div class="stat-icon">🌾</div><div class="stat-number">'+fmt(s.taps)+'</div><div class="stat-label">COSECHAS</div></div><div class="stat-card"><div class="stat-icon">🪙</div><div class="stat-number">'+fmt(s.totalEarned)+'</div><div class="stat-label">GANADO</div></div></div><h3 style="font-size:13px;margin:15px 0 8px">Logros del valle</h3><div class="quest-list">'+achievements.map(a=>'<div class="quest"><div class="quest-icon">'+(s.achievements.includes(a[0])?'🏆':'🔒')+'</div><div><div class="quest-name">'+a[1]+'</div><div class="quest-sub">'+a[2]+'</div></div><div class="quest-reward">'+(s.achievements.includes(a[0])?'COMPLETO':'PENDIENTE')+'</div></div>').join('')+'</div><div class="modal-actions"><button class="primary-btn" id="modalSave">💾 Guardar</button><button class="mini-btn" id="modalSettings">⚙️ Ajustes</button></div>';
+  $('modalSave').onclick=()=>save(true);$('modalSettings').onclick=()=>openModal('settings');
+ }
+}
+function closeModal(){$('modalBackdrop').classList.add('hidden')}
+function resetGame(){
+ if(!confirm('¿Borrar toda tu granja y empezar de nuevo? No se puede deshacer.'))return;
+ localStorage.removeItem(KEY);localStorage.removeItem(previousKey);s=fresh();render();save(false);closeModal();toast('Una nueva aventura comienza 🌱');
+}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.page)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.go)));
+$('farmScene').addEventListener('click',e=>{if(e.target.closest('.plot'))return;harvestAt((s.taps+1)%crops.length,$('farmScene'))});
+$('harvestBtn').addEventListener('click',()=>harvestAt((s.taps+1)%crops.length,$('harvestBtn')));
+$('feedBtn').addEventListener('click',()=>care('feed'));$('playBtn').addEventListener('click',()=>care('play'));$('patBtn').addEventListener('click',()=>care('pat'));
+$('upgradeTabs').addEventListener('click',e=>{const b=e.target.closest('[data-upgrade-tab]');if(!b)return;upgradeTab=b.dataset.upgradeTab;renderUpgrades()});
+$('inventoryTabs').addEventListener('click',e=>{const b=e.target.closest('[data-inventory-tab]');if(!b)return;inventoryTab=b.dataset.inventoryTab;renderInventory()});
+$('diaryBtn').addEventListener('click',()=>openModal('diary'));$('achievementsBtn').addEventListener('click',()=>openModal('achievements'));$('saveBtn').addEventListener('click',()=>save(true));$('gemsBtn').addEventListener('click',()=>toast('💎 Las gemas serán parte de futuras expansiones del valle.'));
+$('modalClose').addEventListener('click',closeModal);$('modalBackdrop').addEventListener('click',e=>{if(e.target===$('modalBackdrop'))closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+document.querySelectorAll('[data-location]').forEach(b=>b.addEventListener('click',()=>{const loc=locations.find(l=>l.id===b.dataset.location);if(s.level<loc.level)toast('🔒 '+loc.name+' se desbloquea en nivel '+loc.level);else toast('🌿 Has llegado a '+loc.name+' (próxima expansión)')}));
+function offlineProgress(){
+ const now=Date.now(),secs=Math.min(7200,Math.max(0,(now-(s.lastSeen||now))/1000));
+ if(secs>10&&s.auto){const n=Math.floor(secs*s.auto*(1+bonus()/100));earn(n);setTimeout(()=>toast('🌙 ¡Bienvenido/a! Tu granja produjo '+fmt(n)+' monedas.'),500)}
+ s.pet.hunger=clamp(s.pet.hunger-secs/3600*10);s.pet.happy=clamp(s.pet.happy-secs/3600*4);s.pet.energy=clamp(s.pet.energy+secs/3600*14);s.lastSeen=now;
+}
+offlineProgress();render();save(false);
+setInterval(()=>{if(s.auto>0)earn(s.auto*(1+bonus()/100));s.pet.hunger=clamp(s.pet.hunger-.012);s.pet.happy=clamp(s.pet.happy-(s.pet.hunger<20?.025:.008));s.pet.energy=clamp(s.pet.energy+.012);s.day+=.0002;render()},1000);
+setInterval(()=>save(false),12000);window.addEventListener('beforeunload',()=>save(false));
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body>
+</html>
