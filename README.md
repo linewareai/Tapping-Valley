@@ -2,7 +2,12 @@
 
 Primera versión jugable de un clicker de granja para Android, hecha con HTML, CSS y JavaScript, sin frameworks ni Lovable.
 
-## Incluye
+> **Dirección del proyecto:** evolucionar hacia un simulador acogedor de granja para Android y iPhone, con pixel art detallado top-down, cuentas, guardado en la nube, visitas a granjas de amigos y comercio seguro entre jugadores. La hoja de ruta describe la arquitectura prevista; estas funciones online y la versión Godot todavía no están implementadas.
+
+## Hoja de ruta
+Consulta [docs/ROADMAP-MOBILE-ONLINE.md](docs/ROADMAP-MOBILE-ONLINE.md) para la arquitectura propuesta, el modelo de datos inicial, las etapas de desarrollo y los criterios de seguridad para amistades, visitas, mercado y multijugador en tiempo real.
+
+## Incluye en el prototipo web actual
 - Toques para cosechar monedas y mejoras de clic.
 - Producción automática por segundo.
 - Cultivos, gallinero, vaca y manzanos como mejoras.
