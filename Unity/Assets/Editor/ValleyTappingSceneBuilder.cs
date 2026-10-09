@@ -109,6 +109,16 @@ namespace ValleyTapping.EditorTools
             Text level = Label(content.transform, "Nivel: 1", 24, 48);
             Text status = Label(content.transform, "¡Tu granja empieza aquí!", 22, 52);
 
+            // Render original SVG art when Unity's Vector Graphics importer has made
+            // sprites available. Missing/unimported art degrades gracefully.
+            Sprite farmBackdrop = FindOriginalSprite("OriginalArt_assets__sprites__environment__farm-scene");
+            Sprite mishiSprite = FindOriginalSprite("OriginalArt_assets__sprites__pets__mishi");
+            Sprite catIdle = FindOriginalSprite("OriginalArt_assets__sprites__characters__cat__idle-01");
+            ImageSlot(content.transform, "Escenario original de la granja", farmBackdrop, 300, new Color(.76f,.83f,.60f));
+            ImageSlot(content.transform, "Mishi · arte original", mishiSprite, 210, new Color(.91f,.80f,.59f));
+            if (mishiSprite == null && catIdle != null)
+                ImageSlot(content.transform, "Compañero del valle · arte original", catIdle, 180, new Color(.91f,.80f,.59f));
+
             var controllerGO = new GameObject("GameWorldController");
             var controller = controllerGO.AddComponent<GameWorldController>();
             var so = new SerializedObject(controller);
@@ -164,6 +174,36 @@ namespace ValleyTapping.EditorTools
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(scenePath, true) };
             AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
             EditorUtility.DisplayDialog("ValleyTapping", "Escena móvil desplazable creada. Abre ValleyTappingGenerated/Scenes y pulsa Play. El sistema de juego es una base de migración, aún requiere paridad visual y QA.", "OK");
+        }
+
+        static Sprite FindOriginalSprite(string assetName)
+        {
+            string[] guids = AssetDatabase.FindAssets(assetName);
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                if (!path.EndsWith(".svg", System.StringComparison.OrdinalIgnoreCase)) continue;
+                Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                if (sprite != null) return sprite;
+                // Vector Graphics may expose the sprite as a sub-asset.
+                foreach (UnityEngine.Object sub in AssetDatabase.LoadAllAssetsAtPath(path))
+                    if (sub is Sprite found) return found;
+            }
+            return null;
+        }
+
+        static Image ImageSlot(Transform parent, string label, Sprite sprite, int height, Color fallback)
+        {
+            var go = new GameObject(label, typeof(RectTransform), typeof(Image), typeof(LayoutElement));
+            go.transform.SetParent(parent, false);
+            var image = go.GetComponent<Image>();
+            image.sprite = sprite;
+            image.preserveAspect = true;
+            image.color = sprite != null ? Color.white : fallback;
+            image.raycastTarget = false;
+            go.GetComponent<LayoutElement>().preferredHeight = height;
+            go.GetComponent<LayoutElement>().flexibleWidth = 1;
+            return image;
         }
 
         static Text Label(Transform parent, string value, int size, int height)
