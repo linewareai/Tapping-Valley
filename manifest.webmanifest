@@ -2,6 +2,7 @@
   "name": "Valley Tapping",
   "short_name": "Valley Tapping",
   "description": "Tu granja pixel art y tu gato te esperan.",
+  "id": "./",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#d9e9b9",
@@ -9,7 +10,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "iconmimi.png",
+      "src": "./iconmimi.png?v=4",
       "sizes": "any",
       "type": "image/png",
       "purpose": "any"
