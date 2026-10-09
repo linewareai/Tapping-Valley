@@ -24,7 +24,7 @@ jobs:
         run: |
           node <<'NODE'
           const fs = require('fs');
-          const message = (process.env.COMMIT_MESSAGE || 'Mejoras y correcciones').split('\\n')[0].trim();
+          const message = (process.env.COMMIT_MESSAGE || 'Mejoras y correcciones').split(/\r?\n/)[0].trim();
           const version = (process.env.COMMIT_SHA || 'unknown').slice(0, 12);
           const date = new Date().toLocaleDateString('es-CL', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Santiago' });
           const data = {
@@ -32,7 +32,7 @@ jobs:
             date,
             notes: [message || 'Mejoras y correcciones en esta versión.']
           };
-          fs.writeFileSync('release-notes.json', JSON.stringify(data, null, 2) + '\\n');
+          fs.writeFileSync('release-notes.json', JSON.stringify(data, null, 2) + '\n');
           NODE
       - name: Commit release notes
         run: |
