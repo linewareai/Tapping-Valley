@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#4f783f"><link rel="manifest" href="manifest.webmanifest"><title>ValleyTapping - Pixel Farm Clicker</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#4f783f"><meta name="application-name" content="Valley Tapping"><link rel="icon" type="image/png" href="./iconmimi.png?v=3"><link rel="apple-touch-icon" href="./iconmimi.png?v=3"><link rel="manifest" href="./manifest.webmanifest?v=3"><title>Valley Tapping</title>
 <style>
 :root{--ink:#38271f;--ink2:#5b3b29;--cream:#fff1ce;--paper:#f7e5b8;--wood:#a96335;--wood2:#784628;--leaf:#7eae48;--leaf2:#4e7c38;--gold:#f5c64d;--sky:#79c8ed;--shadow:#2e241d}
 *{box-sizing:border-box}
@@ -61,7 +61,7 @@ button:disabled{opacity:.5;filter:grayscale(.4)}
 }
 @media(min-width:701px){.bottom{display:none}}
 </style></head><body>
-<header class="top"><div class="brand">🌱 ValleyTapping</div><div class="wallet"><span>🪙 <b id="coins">0</b></span><span>🌾 <b id="harvest">0</b></span><span>⚡ <b id="cps">0</b>/s</span></div></header>
+<header class="top"><div class="brand">🌱 Valley Tapping</div><div class="wallet"><span>🪙 <b id="coins">0</b></span><span>🌾 <b id="harvest">0</b></span><span>⚡ <b id="cps">0</b>/s</span></div></header>
 <main class="app"><section class="panel"><div class="heading">🏡 Tu pequeña granja <span id="day">· Día 1 · Primavera</span></div><div class="scene" id="scene"><div class="sun"></div><div class="hill"></div><div class="house"><div class="roof"></div><div class="window"></div><div class="door"></div></div><div class="fence"></div><div class="soil"></div><div class="plots" id="plots"><span class="crop">🥕</span><span class="crop">🌱</span><span class="crop">🥕</span><span class="crop">🌿</span><span class="crop">🍓</span></div><div class="cat" id="cat">🐈</div><div class="scene-sparkle" aria-hidden="true"></div><div class="hint">👆 Toca la tierra para cosechar</div></div><div class="tabs"><button class="tab active" data-tab="farm">🏡 Granja</button><button class="tab" data-tab="upgrades">🛠️ Mejoras</button><button class="tab" data-tab="pet">🐈 Mascota</button><button class="tab" data-tab="diary">📖 Diario</button></div>
 <div class="inside" id="farm"><div class="stats"><div class="stat"><b id="perTap">+1</b><small>por toque</small></div><div class="stat"><b id="level">1</b><small>nivel granja</small></div><div class="stat"><b id="bonus">+0%</b><small>bonus mascota</small></div></div><button class="action" id="harvestBtn">🌾 ¡Cosechar! (+1)</button><div class="note">El valle empieza pequeño. Cada toque ayuda a que crezca. Compra mejoras para producir incluso cuando no estés.</div></div>
 <div class="inside hidden" id="upgrades"><div class="list" id="upgradeList"></div></div>
