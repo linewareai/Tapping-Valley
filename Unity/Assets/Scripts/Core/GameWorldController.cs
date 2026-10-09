@@ -97,6 +97,21 @@ namespace ValleyTapping
             RefreshAll();
         }
 
+        public void SelectCrop(string cropId)
+        {
+            if (crops == null) return;
+            foreach (CropDefinition crop in crops)
+            {
+                if (crop != null && crop.CropId == cropId)
+                {
+                    defaultCropId = cropId;
+                    SetStatus("Cultivo seleccionado: " + crop.DisplayName + ".");
+                    return;
+                }
+            }
+            SetStatus("No se encuentra ese cultivo.");
+        }
+
         public void PlantDefaultCrop(int plotIndex)
         {
             string message;
