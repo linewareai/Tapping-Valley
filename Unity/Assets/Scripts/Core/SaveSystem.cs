@@ -33,7 +33,7 @@ namespace ValleyTapping
                 // Schema v1 only contained the tap-clicker economy. Preserve it while adding new systems.
                 if (data.schemaVersion == 1)
                 {
-                    data.farmPlots = new ValleyTapping.Farm.FarmPlotData[6];
+                    data.farmPlots = new ValleyTapping.Farm.FarmPlotData[8];
                     for (int i = 0; i < data.farmPlots.Length; i++)
                         data.farmPlots[i] = new ValleyTapping.Farm.FarmPlotData { plotIndex = i };
                     data.ownedPets = new System.Collections.Generic.List<string>();
