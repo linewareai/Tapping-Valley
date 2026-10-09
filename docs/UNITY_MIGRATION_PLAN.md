@@ -86,3 +86,11 @@ Importante: estos scripts aún requieren una escena configurada en Unity, defini
 - Se creó `docs/UNITY_MANUAL_QA.md` con pruebas explícitas de guardado, economía, granja, mascotas, misiones, logros y dispositivos.
 
 El código sigue siendo una base en desarrollo. La lista de QA aún no está ejecutada y no hay confirmación de compilación Unity.
+
+
+## Trabajo reciente en la rama unity-rebuild
+- El generador de escena usa una columna desplazable para dispositivos móviles.
+- Se amplió el catálogo de prototipo a seis cultivos y catorce mejoras; el panel de tienda expone todas las mejoras generadas.
+- Se añadieron controles para seleccionar el cultivo antes de plantar y se conserva la estructura de ocho parcelas.
+- Se copiaron SVG originales seleccionados a `Unity/Assets/OriginalArt_*.svg` como fuentes conservadas. Todavía no están conectados como sprites visibles dentro de la escena.
+- La UI sigue siendo una interfaz temporal de botones y texto. La fidelidad visual al mockup, la conexión de sprites, la navegación completa, la paridad exacta de reglas y las pruebas de compilación/dispositivos siguen pendientes.
