@@ -201,7 +201,7 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 @media(min-width:761px){.scene{background-position:center 54%}.plot-grid{width:49%;height:40%}}
 
 /* Debug release announcement */
-.release-backdrop{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px;background:#182516c9;backdrop-filter:blur(5px)}
+.release-backdrop{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;padding:20px;background:#182516c9;backdrop-filter:blur(5px)}
 .release-backdrop.hidden{display:none}
 .release-dialog{width:min(100%,430px);max-height:min(84vh,680px);overflow:auto;background:#fff0c9;border:4px solid #473222;border-radius:17px;box-shadow:7px 8px 0 #263d25, inset 0 0 0 3px #d5b777;color:#3b2a20}
 .release-top{padding:17px 18px 14px;background:linear-gradient(#4e7c3b,#31552e);color:#fff1c8;border-bottom:4px solid #473222}
@@ -350,9 +350,9 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 </nav>
 
 
-<div class="release-backdrop hidden" id="releaseBackdrop">
+<div class="release-backdrop" id="releaseBackdrop">
  <section class="release-dialog" role="dialog" aria-modal="true" aria-labelledby="releaseTitle">
-  <header class="release-top"><div class="release-kicker">Modo debug · confirmación de versión</div><div class="release-title" id="releaseTitle">🌱 ¡Valley Tapping se actualizó!</div><span class="release-version" id="releaseVersion">UPDATE 007 · DEBUG</span></header>
+  <header class="release-top"><div class="release-kicker">Modo debug · confirmación de versión</div><div class="release-title" id="releaseTitle">🌱 ¡Valley Tapping se actualizó!</div><span class="release-version" id="releaseVersion">UPDATE 008 · DEBUG</span></header>
   <div class="release-body">
    <p style="margin:0;line-height:1.5">Si estás viendo esta ventana, la nueva versión del juego sí se cargó en este dispositivo.</p>
    <div class="release-list">
@@ -563,7 +563,7 @@ offlineProgress();render();save(false);
 setInterval(()=>{if(s.auto>0)earn(s.auto*(1+bonus()/100));s.pet.hunger=clamp(s.pet.hunger-.012);s.pet.happy=clamp(s.pet.happy-(s.pet.hunger<20?.025:.008));s.pet.energy=clamp(s.pet.energy+.012);s.day+=.000011574;render()},1000);
 setInterval(()=>save(false),12000);window.addEventListener('beforeunload',()=>save(false));
 
-const RELEASE_ID='valleytapping-debug-007';
+const RELEASE_ID='valleytapping-debug-008';
 function showReleaseNotice(){
  const backdrop=$('releaseBackdrop');
  if(!backdrop)return;
@@ -573,8 +573,8 @@ function showReleaseNotice(){
  $('releaseLater')?.addEventListener('click',close,{once:true});
  backdrop.addEventListener('click',e=>{if(e.target===backdrop)close()});
 }
-try{if(localStorage.getItem('valleytapping-last-seen-release')!==RELEASE_ID)setTimeout(showReleaseNotice,350)}catch(e){setTimeout(showReleaseNotice,350)}
-if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js?v=7').catch(()=>{});
+showReleaseNotice();
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js?v=8').catch(()=>{});
 </script>
 </body>
 </html>
