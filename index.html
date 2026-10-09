@@ -529,7 +529,7 @@ function offlineProgress(){
 offlineProgress();render();save(false);
 setInterval(()=>{if(s.auto>0)earn(s.auto*(1+bonus()/100));s.pet.hunger=clamp(s.pet.hunger-.012);s.pet.happy=clamp(s.pet.happy-(s.pet.hunger<20?.025:.008));s.pet.energy=clamp(s.pet.energy+.012);s.day+=.000011574;render()},1000);
 setInterval(()=>save(false),12000);window.addEventListener('beforeunload',()=>save(false));
-if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js?v=5').catch(()=>{});
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js?v=6').catch(()=>{});
 </script>
 </body>
 </html>
