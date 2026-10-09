@@ -36,8 +36,8 @@ namespace ValleyTapping.EditorTools
             // All 14 upgrade families from the HTML catalogue, mapped to the three
             // reusable economy effects supported by the C# domain layer.
             var upgradeAssets = new UpgradeDefinition[] {
-                MakeUpgrade("CarrotUpgrade.asset","carrot","Huerto de zanahorias",15,1,UpgradeKind.TapPower),
-                MakeUpgrade("SproutUpgrade.asset","sprout","Semillas cuidadas",35,1,UpgradeKind.PassiveIncome),
+                MakeUpgrade("CarrotUpgrade.asset","tap-power","Huerto de zanahorias",15,1,UpgradeKind.TapPower),
+                MakeUpgrade("SproutUpgrade.asset","passive-income","Semillas cuidadas",35,1,UpgradeKind.PassiveIncome),
                 MakeUpgrade("WaterUpgrade.asset","water","Regadera mejorada",90,3,UpgradeKind.TapPower),
                 MakeUpgrade("ChickenUpgrade.asset","chicken","Gallinero de madera",180,4,UpgradeKind.PassiveIncome),
                 MakeUpgrade("BerryUpgrade.asset","berry","Parterre de fresas",420,8,UpgradeKind.TapPower),
