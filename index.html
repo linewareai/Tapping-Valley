@@ -48,7 +48,7 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 .frame{background:var(--paper);border:4px solid var(--ink);border-radius:14px;overflow:hidden;box-shadow:5px 6px 0 #8aa16c,inset 0 0 0 2px #fff4d0;min-width:0}
 .frame-title{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;background:linear-gradient(#b77848,#955832);color:#fff0c8;border-bottom:4px solid var(--ink);font-weight:900;text-shadow:1px 2px #603a27;letter-spacing:.3px;font-size:13px}
 .frame-title small{font-size:10px;color:#ffe4a9;letter-spacing:0;font-weight:600}
-.scene{position:relative;isolation:isolate;height:clamp(345px,43vw,515px);overflow:hidden;background:#78c7e9 url("./farm-scene.svg?v=2") center/100% 100% no-repeat}
+.scene{position:relative;isolation:isolate;height:clamp(345px,43vw,515px);overflow:hidden;background:#78c7e9 url("./farm-scene.svg?v=2") center/cover no-repeat}
 .scene:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,#5eb7ef12 0%,transparent 40%,#3528190b 100%)}
 .scene-chip{position:absolute;z-index:4;top:12px;left:12px;display:flex;gap:6px;align-items:center;padding:8px 10px;border:2px solid #6b492e;border-radius:7px;background:#fff1d9ed;box-shadow:2px 3px #64472d;font-size:11px;font-weight:900}
 .weather-chip{position:absolute;z-index:4;right:12px;top:12px;padding:7px 9px;border:2px solid #6b492e;border-radius:7px;background:#fff1d9ed;font-size:11px;box-shadow:2px 3px #64472d}
@@ -161,7 +161,7 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
  .scene{height:410px;background-size:100% 100%;background-position:center}
  .scene-chip{top:9px;left:9px;padding:6px 7px;font-size:10px}.weather-chip{top:9px;right:9px;padding:6px 7px;font-size:10px}.farm-level{top:47px;left:9px;font-size:9px}
  .mishi-world{left:29%;bottom:7%;width:75px}.farmer{left:43%;bottom:7%;font-size:31px}
- .plot-grid{right:2%;bottom:4%;width:48%;height:36%;gap:3px}
+ .plot-grid{right:2%;bottom:4%;width:38%;height:36%;gap:3px}
  .plot{border-width:2px;padding:2px 0}.crop-sprite{font-size:clamp(17px,5vw,24px)}.plot-name{font-size:7px}
  .world-footer{padding:9px;gap:6px}.world-tip{font-size:9px}.pill{font-size:9px;padding:5px 6px}
  .panel-body{padding:10px}.primary-btn{font-size:15px;padding:12px}.stats-strip{gap:6px}.stat-card{padding:8px 3px;border-width:2px}.stat-number{font-size:15px}.stat-label{font-size:8px}.stat-icon{font-size:15px}
