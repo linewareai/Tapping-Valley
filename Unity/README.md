@@ -1,29 +1,39 @@
-# ValleyTapping Unity prototype
+# ValleyTapping · Unity + C#
 
-This folder contains the initial C# prototype source for the Unity rebuild. It is not yet a complete Unity project: create a project in Unity Hub using a currently supported Unity LTS release, then copy `Assets/` into that project.
+Este directorio contiene la base C# de la migración móvil. La versión HTML original se conserva en `main`; los cambios de Unity están aislados en `unity-rebuild`.
 
-## Setup
-1. In Unity Hub, create a 2D project with a supported LTS version.
-2. Copy this folder's `Assets/` directory into the new project's root.
-3. Open or create a scene named `Main`.
-4. Create an empty GameObject named `GameSession` and attach `Assets/Scripts/Core/GameSession.cs`.
-5. Add UI Text fields and Buttons using the built-in Unity UI system, then assign them in the Inspector.
-6. Connect the tap button to `GameSession.Tap` and the upgrade button to `GameSession.BuyUpgrade`.
-7. Test save/load in the Editor before configuring Android and iOS builds.
+## Requisitos y arranque
 
-The script uses `UnityEngine.UI.Text` to avoid requiring TextMeshPro for the first prototype. Replace it with TMP later if desired.
+- Unity LTS compatible con Android/iOS.
+- Paquete **Unity UI (UGUI)** habilitado.
+- Para convertir el arte vectorial SVG en recursos visuales de Unity, instala **Vector Graphics** desde Package Manager (el paquete oficial de Unity). Los SVG originales se guardan en `Assets/OriginalArt_*.svg` para preservar la fuente.
+- Android: Android Build Support, SDK/NDK y OpenJDK instalados desde Unity Hub.
+- iOS: requiere macOS, Xcode y el módulo iOS Build Support.
 
-## Current scope
-Tap for coins, buy a tap-power upgrade, and persist coins/upgrades in a versioned local save file. Art, pets, farm, audio, offline earnings, and online services are not implemented yet.
+## Crear la escena de prototipo
 
+1. Crea un proyecto 2D en Unity LTS.
+2. Copia el contenido de `Unity/Assets/` a la carpeta `Assets/` del proyecto.
+3. Espera a que Unity compile los scripts.
+4. Selecciona **ValleyTapping > Create Prototype Scene**.
+5. Abre `Assets/ValleyTappingGenerated/Scenes/ValleyTappingPrototype.unity` y pulsa **Play**.
+6. Prueba toques, compras, ocho parcelas, mascotas, alimentación/descanso, misiones y persistencia local.
 
-## Generate a prototype scene automatically
-After copying `Unity/Assets` into a Unity project:
-1. Wait for scripts to compile.
-2. In the Unity menu, select **ValleyTapping > Create Prototype Scene**.
-3. The tool creates sample crop, pet, upgrade, quest, and achievement assets plus a starter UI scene under `Assets/ValleyTappingGenerated/`.
-4. Open `ValleyTappingGenerated/Scenes/ValleyTappingPrototype.unity` and press Play.
-5. Test all actions and save/load before attempting a device build.
-6. The generated sample includes feeding/resting controls; needs decay according to elapsed offline time.
+El generador configura una columna desplazable para pantallas móviles, crea las definiciones de seis cultivos y las catorce familias de mejoras de la versión web, además de una mascota inicial y misiones de prueba.
 
-The generator is an Editor tool and must live under `Assets/Editor`. The generated scene is a functional systems prototype using placeholder Unity UI, not a visual recreation of the original HTML game. It still needs Editor compilation and manual QA; mobile builds are not verified.
+## Qué está implementado y qué falta
+
+### Base implementada
+- Guardado JSON local con versión de esquema y progreso offline acotado.
+- Economía, niveles, compras, parcelas con crecimiento, adopción y necesidades básicas de mascotas.
+- Inventario, misiones, logros y ajustes como servicios/modelos.
+- Generador de escena para probar los sistemas sin configurar cada referencia manualmente.
+- Fuentes SVG originales copiadas al proyecto de Unity como material de importación.
+
+### Pendiente antes de considerar la migración completa
+- Convertir y conectar los SVG a sprites/renderers de Unity, asignar animaciones y recrear con precisión el escenario, la composición, tarjetas, barra de recursos, navegación inferior, modales y efectos de la web.
+- Replicar las fórmulas y todos los eventos del juego web. El catálogo de mejoras del prototipo ya está creado, pero algunas familias se aproximan a los tipos de efecto C# disponibles.
+- Completar mapa/desbloqueos, recompensas y reclamación de misiones, inventario visual, ajustes, menú inicial, novedades y migración de partidas web.
+- Compilar y probar en Unity Editor, Android real y una build iOS en macOS. Esos pasos todavía no se han verificado.
+
+**Importante:** el generador crea una escena funcional para validar la base de sistemas, no una reproducción visual terminada del mockup ni un APK/IPA listo para instalar.
