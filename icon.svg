@@ -1,1 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="18" fill="#5b8748"/><rect x="17" y="65" width="94" height="45" fill="#b9814d"/><path d="M32 25L48 40 48 26 64 40 80 26 80 40 96 25 91 59H37z" fill="#f5a85d" stroke="#3e3428" stroke-width="5"/><rect x="37" y="48" width="54" height="39" rx="8" fill="#fff0d2" stroke="#3e3428" stroke-width="5"/><path d="M49 61h5m20 0h5" stroke="#3e3428" stroke-width="5" stroke-linecap="round"/><path d="M61 70l5 4 5-4" fill="none" stroke="#d77e72" stroke-width="4" stroke-linecap="round"/><path d="M18 110l14-12 10 12m28 0 13-16 15 16" fill="#87b95d" stroke="#3e3428" stroke-width="4"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" shape-rendering="crispEdges">
+<defs><clipPath id="frame"><rect x="13" y="13" width="230" height="230" rx="30"/></clipPath></defs>
+<rect width="256" height="256" rx="34" fill="#39251d"/>
+<rect x="7" y="7" width="242" height="242" rx="32" fill="#f6bd4c" stroke="#6c371f" stroke-width="7"/>
+<g clip-path="url(#frame)">
+<rect x="13" y="13" width="230" height="230" fill="#43a5f5"/>
+<path d="M13 66h35v-15h18V37h24v15h18v14h-9v12H45V66H13zm142-17h24V35h27v14h20v19h17v20h-32V76h-20V63h-21v15h-15z" fill="#fff4db"/>
+<path d="M13 166h35v-18h20v-17h20v18h19v16h18v77H13zm230-6h-24v-19h-18v-16h-19v21h-16v17h-13v76h90z" fill="#39844a"/>
+<path d="M13 198h230v45H13z" fill="#69b94a"/>
+<!-- shaggy ears and head silhouette -->
+<path d="M43 103h17V83h18V68h20V55h19V44h26V54h21V66h20v18h18v20h12v38h-12v24h-17v20h-21v18h-70v-13H74v-19H57v-22H43z" fill="#c68b4e"/>
+<path d="M43 103h17V83h18V68h20V55h19V44h26V54h21V66h20v18h18v20h12v38h-12v24h-17v20h-21v18h-70v-13H74v-19H57v-22H43z" fill="#f3d5a0"/>
+<!-- ear shadows -->
+<path d="M43 103h17V83h18V68h20v25H81v19H65v22H49v-15H43zm133-37h20v18h18v20h12v25h-17v-14h-16v-20h-17z" fill="#b77b45"/>
+<path d="M57 103h18v-15h18v21H78v17H61zM179 88h16v17h17v22h-16v-15h-17z" fill="#8b5437"/>
+<!-- face highlights -->
+<path d="M91 82h17V68h18V58h24v10h17v16h16v28h-15v22h-15v17h-45v-15H91v-22H78V99h13z" fill="#fff0d1"/>
+<path d="M90 96h20v-8h14v8h-8v9h-9v8H91zM159 91h18v10h9v20h-16v-13h-11z" fill="#e7bc7e"/>
+<!-- eyes -->
+<path d="M80 111h13v-7h22v7h7v18h-7v7H93v-7H80zM151 111h13v-7h22v7h7v18h-7v7h-22v-7h-13z" fill="#493126"/>
+<rect x="96" y="111" width="8" height="8" fill="#fffdf0"/><rect x="167" y="111" width="8" height="8" fill="#fffdf0"/>
+<!-- muzzle and nose -->
+<path d="M99 139h17v-8h24v8h16v9h10v16h-10v9h-17v8h-23v-8h-17v-9H89v-16h10z" fill="#fff7e8"/>
+<path d="M115 139h25v-6h12v7h10v12h-10v7h-12v5h-13v-5h-12v-7h-8v-7h8z" fill="#3b302b"/>
+<rect x="120" y="143" width="8" height="6" fill="#65534a"/>
+<!-- happy mouth and tongue -->
+<path d="M103 162h14v7h30v-7h14v14h-12v10h-11v10h-14v-10h-10v-10h-11z" fill="#713c36"/>
+<path d="M119 174h20v8h8v15h-8v10h-20v-10h-7v-15h7z" fill="#f27694"/>
+<path d="M124 182h7v17h-7z" fill="#ffacc0"/>
+<!-- pink collar -->
+<path d="M82 202h18v9h18v8h31v-8h18v-9h17v21h-17v9h-18v8h-32v-8h-17v-9H82z" fill="#d94f83"/>
+<path d="M119 222h18v12h-18z" fill="#f6bd4c"/>
+<!-- sparkle flowers -->
+<path d="M31 181h8v-8h8v8h8v8h-8v8h-8v-8h-8zM199 184h8v-8h8v8h8v8h-8v8h-8v-8h-8z" fill="#fff7dc"/>
+</g>
+<rect x="7" y="7" width="242" height="242" rx="32" fill="none" stroke="#6a351f" stroke-width="7"/>
+<path d="M27 18h202M18 28v200M238 28v200M27 238h202" stroke="#ffdf78" stroke-width="5"/>
+</svg>
