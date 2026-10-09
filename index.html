@@ -218,6 +218,21 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 .release-actions .release-secondary{background:#fff5d9;box-shadow:0 3px #c6a775}
 
 .crop-sprite img{display:block;width:clamp(25px,4.6vw,42px);height:clamp(25px,4.6vw,42px);image-rendering:pixelated;object-fit:contain;filter:drop-shadow(1px 2px #4b342d55)}
+
+/* Floating developer panel */
+.debug-fab{position:fixed;right:16px;bottom:calc(82px + env(safe-area-inset-bottom));z-index:80;width:54px;height:54px;border:3px solid #3f2c20;border-radius:50%;background:linear-gradient(#ffe49a,#e8a63d);box-shadow:0 4px 0 #573c27,0 5px 14px #0004;font-size:25px;cursor:pointer}
+.debug-backdrop{position:fixed;inset:0;z-index:100;background:#1e1712b8;display:flex;align-items:flex-end;justify-content:center;padding:12px}
+.debug-backdrop.hidden{display:none}
+.debug-panel{width:min(100%,560px);max-height:min(84dvh,760px);overflow:auto;background:#fff3d7;border:4px solid #543723;border-radius:16px;box-shadow:0 8px 0 #2e2018;color:#38291e}
+.debug-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#563824;color:#fff0bf;padding:13px 15px}
+.debug-head h2{font-size:17px;margin:0}.debug-close{border:2px solid #e8d0a1;border-radius:7px;background:#8c5033;color:#fff;font-size:23px;width:36px;height:34px}
+.debug-content{padding:14px;display:grid;gap:12px}.debug-note{font-size:12px;line-height:1.45;color:#73583e;margin:0}
+.debug-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.debug-stat{background:#fffbef;border:2px solid #d6b98a;border-radius:9px;padding:9px;text-align:center}.debug-stat b{display:block;font-size:18px}.debug-stat span{font-size:10px;font-weight:900;color:#856543}
+.debug-section{background:#fffbef;border:2px solid #d6b98a;border-radius:10px;padding:11px}.debug-section h3{font-size:13px;margin:0 0 9px}.debug-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.debug-action{border:2px solid #69482d;border-radius:8px;background:linear-gradient(#ffe7b1,#e7c27e);padding:10px 8px;color:#402b1b;font-weight:900;font-size:12px;min-height:40px}.debug-action:active{transform:translateY(2px)}
+.debug-action.danger{background:linear-gradient(#f4c1a8,#dc886e)}.debug-action.good{background:linear-gradient(#c9e6a4,#8dbf61)}
+@media(min-width:700px){.debug-fab{bottom:20px}.debug-backdrop{align-items:center}}
+
 </style>
 </head>
 <body>
@@ -352,6 +367,34 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 </nav>
 
 
+
+<button id="debugFab" class="debug-fab" aria-label="Abrir panel de depuración" title="Panel de pruebas">🛠️</button>
+<div id="debugBackdrop" class="debug-backdrop hidden">
+ <section class="debug-panel" role="dialog" aria-modal="true" aria-labelledby="debugTitle">
+  <header class="debug-head"><div><h2 id="debugTitle">🧪 Panel de pruebas</h2><small>ValleyTapping · Solo desarrollo</small></div><button id="debugClose" class="debug-close" aria-label="Cerrar panel">×</button></header>
+  <div class="debug-content">
+   <p class="debug-note">Herramientas para probar niveles, economía y mascotas. Los cambios se guardan en esta partida. Reiniciar borra el progreso local de este navegador.</p>
+   <div class="debug-stats"><div class="debug-stat"><b id="debugLevel">1</b><span>NIVEL</span></div><div class="debug-stat"><b id="debugCoins">0</b><span>MONEDAS</span></div><div class="debug-stat"><b id="debugPet">Mishi</b><span>MASCOTA</span></div></div>
+   <section class="debug-section"><h3>🎚️ Progresión</h3><div class="debug-grid">
+    <button class="debug-action" data-debug="level1">Nivel 1</button><button class="debug-action" data-debug="level3">Nivel 3 · Lillia</button>
+    <button class="debug-action" data-debug="level5">Nivel 5</button><button class="debug-action" data-debug="level10">Nivel 10</button>
+    <button class="debug-action good" data-debug="xp">+1 nivel</button><button class="debug-action good" data-debug="max">Nivel 20</button>
+   </div></section>
+   <section class="debug-section"><h3>🪙 Economía y recursos</h3><div class="debug-grid">
+    <button class="debug-action" data-debug="coins">+1.000 monedas</button><button class="debug-action" data-debug="gems">+100 gemas</button>
+    <button class="debug-action" data-debug="resources">Llenar inventario</button><button class="debug-action" data-debug="clearResources">Vaciar inventario</button>
+   </div></section>
+   <section class="debug-section"><h3>🐾 Mascotas</h3><div class="debug-grid">
+    <button class="debug-action" data-debug="unlockLillia">Desbloquear Lillia</button><button class="debug-action" data-debug="mishi">Activar Mishi</button>
+    <button class="debug-action" data-debug="lillia">Activar Lillia</button><button class="debug-action" data-debug="petStats">Necesidades al 100%</button>
+   </div></section>
+   <section class="debug-section"><h3>🧰 Herramientas</h3><div class="debug-grid">
+    <button class="debug-action" data-debug="refresh">Actualizar interfaz</button><button class="debug-action" data-debug="save">Guardar ahora</button>
+    <button class="debug-action danger" data-debug="reset">♻️ Reiniciar partida</button><button class="debug-action" data-debug="close">Cerrar panel</button>
+   </div><p class="debug-note" style="margin-top:9px">Reiniciar requiere confirmación y elimina los datos guardados de esta partida en este navegador.</p></section>
+  </div>
+ </section>
+</div>
 <div class="release-backdrop" id="releaseBackdrop">
  <section class="release-dialog" role="dialog" aria-modal="true" aria-labelledby="releaseTitle">
   <header class="release-top"><div class="release-kicker">Modo debug · confirmación de versión</div><div class="release-title" id="releaseTitle">🌱 ¡Valley Tapping se actualizó!</div><span class="release-version" id="releaseVersion">UPDATE 008 · DEBUG</span></header>
@@ -548,7 +591,7 @@ function render(){
  $('seasonLabel').textContent='PRIMAVERA · DÍA '+Math.floor(s.day);$('dayChip').textContent='☀️ Día '+Math.floor(s.day);$('seasonChip').textContent='Primavera';$('farmLevelLabel').textContent='NIVEL '+s.level;$('farmBonusLabel').textContent=s.level>1?'✨ Granja nivel '+s.level:'✨ ¡Bienvenido/a, granjero/a';$('plotCount').textContent='🌿 '+crops.length+' parcelas';
  $('tipText').textContent=s.taps<1?'Toca una parcela para recoger tu primera cosecha.':s.coins<100?'Guarda monedas y compra semillas para mejorar la producción.':s.pet.bond<20?'Mishi también ayuda: juega con ella para desbloquear bonificaciones.':'¡Tu granja está creciendo! Invierte en edificios para producir incluso cuando no estés.';
  $('achievementProgress').textContent=s.achievements.length+' / 4 logros';$('achievementBar').style.width=(s.achievements.length/4*100)+'%';
- renderPlots();renderQuests();renderPet();renderUpgrades();renderInventory();renderMap();
+ renderPlots();renderQuests();renderPet();renderUpgrades();renderInventory();renderMap();refreshDebugPanel();
 }
 function switchPage(name){
  document.querySelectorAll('[data-view]').forEach(v=>v.classList.toggle('active',v.dataset.view===name));
@@ -573,6 +616,41 @@ function resetGame(){
  if(!confirm('¿Borrar toda tu granja y empezar de nuevo? No se puede deshacer.'))return;
  localStorage.removeItem(KEY);localStorage.removeItem(previousKey);s=fresh();render();save(false);closeModal();toast('Una nueva aventura comienza 🌱');
 }
+
+function refreshDebugPanel(){
+ if(!$('debugLevel'))return;
+ $('debugLevel').textContent=s.level;$('debugCoins').textContent=fmt(s.coins);$('debugPet').textContent=activePet().name;
+}
+function debugAction(action){
+ const inv=s.inventory;
+ if(action==='level1')s.level=1;
+ else if(action==='level3'){s.level=3;if(!s.pet.unlocked.includes('lillia'))s.pet.unlocked.push('lillia');}
+ else if(action==='level5')s.level=5;
+ else if(action==='level10')s.level=10;
+ else if(action==='xp')s.level=Math.min(99,s.level+1);
+ else if(action==='max')s.level=20;
+ else if(action==='coins')s.coins+=1000;
+ else if(action==='gems')s.gems+=100;
+ else if(action==='resources'){Object.keys(inv).forEach(k=>inv[k]=99);}
+ else if(action==='clearResources'){Object.keys(inv).forEach(k=>inv[k]=0);}
+ else if(action==='unlockLillia'){s.level=Math.max(3,s.level);if(!s.pet.unlocked.includes('lillia'))s.pet.unlocked.push('lillia');}
+ else if(action==='mishi'){s.pet.id='mishi';s.pet.name='Mishi';if(!s.pet.unlocked.includes('mishi'))s.pet.unlocked.push('mishi');}
+ else if(action==='lillia'){s.level=Math.max(3,s.level);if(!s.pet.unlocked.includes('lillia'))s.pet.unlocked.push('lillia');s.pet.id='lillia';s.pet.name='Lillia';}
+ else if(action==='petStats'){s.pet.hunger=100;s.pet.happy=100;s.pet.energy=100;s.pet.bond=100;s.pet.unlocked=[...new Set([...(s.pet.unlocked||[]),'mishi','lillia'])];}
+ else if(action==='refresh'){render();refreshDebugPanel();toast('Interfaz actualizada 🔄');return;}
+ else if(action==='save'){save(true);refreshDebugPanel();return;}
+ else if(action==='reset'){resetGame();refreshDebugPanel();return;}
+ else if(action==='close'){closeDebugPanel();return;}
+ render();save(false);refreshDebugPanel();toast('Prueba aplicada: '+({level1:'nivel 1',level3:'nivel 3 y Lillia disponible',level5:'nivel 5',level10:'nivel 10',xp:'nivel aumentado',max:'nivel 20',coins:'monedas añadidas',gems:'gemas añadidas',resources:'inventario lleno',clearResources:'inventario vacío',unlockLillia:'Lillia desbloqueada',mishi:'Mishi activa',lillia:'Lillia activa',petStats:'necesidades al máximo'}[action]||'listo'));
+}
+function openDebugPanel(){refreshDebugPanel();$('debugBackdrop').classList.remove('hidden')}
+function closeDebugPanel(){$('debugBackdrop').classList.add('hidden')}
+$('debugFab').addEventListener('click',openDebugPanel);
+$('debugClose').addEventListener('click',closeDebugPanel);
+$('debugBackdrop').addEventListener('click',e=>{if(e.target===$('debugBackdrop'))closeDebugPanel()});
+$('debugBackdrop').querySelectorAll('[data-debug]').forEach(b=>b.addEventListener('click',()=>debugAction(b.dataset.debug)));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDebugPanel()});
+
 document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.page)));
  document.querySelectorAll('.pet-stage img,.mishi-world,.pet-mini img').forEach(img=>img.addEventListener('click',()=>{const p=activePet();s.pet.happy=clamp(s.pet.happy+2);s.pet.bond=clamp(s.pet.bond+.5);petReact(p.name+' responde a tu toque moviendo la cola.');render();save(false);}));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.go)));
