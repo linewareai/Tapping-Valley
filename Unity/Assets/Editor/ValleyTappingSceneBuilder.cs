@@ -112,8 +112,8 @@ namespace ValleyTapping.EditorTools
             var controllerGO = new GameObject("GameWorldController");
             var controller = controllerGO.AddComponent<GameWorldController>();
             var so = new SerializedObject(controller);
-            Array(so, "crops", crop); Array(so, "pets", pet);
-            Array(so, "upgrades", tap, passive); Array(so, "quests", tapQuest, harvestQuest);
+            Array(so, "crops", crop, wheat, berry, potato, tomato, blueberry); Array(so, "pets", pet);
+            Array(so, "upgrades", upgradeAssets); Array(so, "quests", tapQuest, harvestQuest);
             Array(so, "achievements", achievement);
             Ref(so, "coinsText", coins); Ref(so, "gemsText", gems);
             Ref(so, "tapPowerText", power); Ref(so, "playerLevelText", level);
