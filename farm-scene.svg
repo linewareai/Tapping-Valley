@@ -1,29 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 700" shape-rendering="crispEdges">
-<rect width="1024" height="700" fill="#79c9ef"/>
-<path d="M0 160h70v-38h46V78h58V46h38v36h42v42h52v36H0zm650-10h45V99h50V55h54V23h44v33h44v37h42v34h95v28H650z" fill="#f2f5d5"/>
-<rect x="790" y="74" width="86" height="86" fill="#fff1a0"/><rect x="776" y="60" width="114" height="114" fill="#f8e68c" opacity=".45"/>
-<path d="M0 290Q160 220 350 270T700 252T1024 265V700H0Z" fill="#83b65c"/>
-<path d="M0 360Q170 310 300 350T620 337T1024 350V700H0Z" fill="#6c9c49"/>
-<path d="M0 430h1024v270H0z" fill="#b47b49"/>
-<path d="M0 438h1024M0 526h1024M0 614h1024M0 690h1024" stroke="#6d462e" stroke-width="12"/>
-<path d="M0 438h1024M0 526h1024M0 614h1024" stroke="#d5a16a" stroke-width="5"/>
-<path d="M70 438v262M245 438v262M420 438v262M595 438v262M770 438v262M945 438v262" stroke="#71482e" stroke-width="10"/>
-<path d="M76 438v262M251 438v262M426 438v262M601 438v262M776 438v262M951 438v262" stroke="#d19a61" stroke-width="4"/>
-<!-- distant trees -->
-<g><rect x="95" y="270" width="20" height="80" fill="#77502e"/><rect x="62" y="240" width="86" height="64" fill="#427c3b"/><rect x="76" y="220" width="54" height="60" fill="#5b9847"/><rect x="81" y="233" width="18" height="18" fill="#8fbe60"/><rect x="600" y="276" width="24" height="75" fill="#77502e"/><rect x="570" y="235" width="94" height="70" fill="#3d7839"/><rect x="590" y="212" width="52" height="56" fill="#5d9945"/><rect x="598" y="224" width="18" height="16" fill="#9dc96b"/><rect x="895" y="266" width="18" height="74" fill="#77502e"/><rect x="865" y="230" width="82" height="68" fill="#3d7839"/><rect x="884" y="209" width="48" height="50" fill="#619c49"/></g>
-<!-- cottage shadow and body -->
-<ellipse cx="380" cy="400" rx="210" ry="22" fill="#476b39" opacity=".3"/>
-<rect x="220" y="286" width="320" height="154" fill="#70432b"/>
-<rect x="235" y="292" width="290" height="148" fill="#f0bd76"/>
-<rect x="235" y="292" width="290" height="16" fill="#ffe0a1"/>
-<path d="M196 292L380 170 566 292Z" fill="#a64f3d"/><path d="M196 292h370l-17 17H214Z" fill="#733c30"/><path d="M380 170l186 122h-32L380 195 228 292h-32Z" fill="#bd6149"/>
-<rect x="280" y="328" width="58" height="60" fill="#66432d"/><rect x="289" y="337" width="40" height="42" fill="#9fe4ef"/><rect x="420" y="330" width="70" height="72" fill="#9fe4ef"/><rect x="420" y="330" width="70" height="8" fill="#d5f5ed"/>
-<rect x="370" y="368" width="62" height="72" fill="#69442e"/><rect x="380" y="378" width="42" height="62" fill="#95603d"/><rect x="408" y="400" width="5" height="5" fill="#f8d27b"/>
-<!-- path and fence -->
-<path d="M330 440L420 440 460 700H265Z" fill="#c9a16b" opacity=".65"/>
-<path d="M0 415h1024v14H0z" fill="#e7c58a"/><path d="M0 408h1024v9H0z" fill="#a76d42"/>
-<g fill="#d9c08c" stroke="#6d472f" stroke-width="6"><rect x="65" y="386" width="14" height="55"/><rect x="175" y="386" width="14" height="55"/><rect x="285" y="386" width="14" height="55"/><rect x="395" y="386" width="14" height="55"/><rect x="505" y="386" width="14" height="55"/><rect x="615" y="386" width="14" height="55"/><rect x="725" y="386" width="14" height="55"/><rect x="835" y="386" width="14" height="55"/><rect x="945" y="386" width="14" height="55"/></g>
-<path d="M0 394h1024v13H0zM0 424h1024v12H0z" fill="#d5b47b" stroke="#70482d" stroke-width="4"/>
-<!-- flowers and grass pixels -->
-<g><rect x="40" y="350" width="8" height="25" fill="#427d3a"/><rect x="30" y="343" width="12" height="12" fill="#f5a8bb"/><rect x="43" y="338" width="12" height="12" fill="#fff0d0"/><rect x="54" y="347" width="12" height="12" fill="#f5a8bb"/><rect x="690" y="355" width="8" height="24" fill="#427d3a"/><rect x="679" y="346" width="12" height="12" fill="#fff0d0"/><rect x="692" y="339" width="12" height="12" fill="#f5a8bb"/><rect x="704" y="348" width="12" height="12" fill="#fff0d0"/><rect x="945" y="365" width="8" height="24" fill="#427d3a"/><rect x="934" y="355" width="12" height="12" fill="#f5a8bb"/><rect x="947" y="348" width="12" height="12" fill="#fff0d0"/></g>
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#70c9f4"/><stop offset="1" stop-color="#c7edff"/></linearGradient>
+ <pattern id="roof" width="28" height="22" patternUnits="userSpaceOnUse"><rect width="28" height="22" fill="#b9473d"/><path d="M0 0H28M0 11H28M14 0V11M0 11V22" stroke="#e8755a" stroke-width="4"/><path d="M2 2H12M16 13H26" stroke="#f4a17a" stroke-width="2"/></pattern>
+ <pattern id="soil" width="72" height="34" patternUnits="userSpaceOnUse"><rect width="72" height="34" fill="#9c633d"/><path d="M0 5H72M10 17H50M35 28H68" stroke="#c18a57" stroke-width="4"/><path d="M4 11h8m39 11h9" stroke="#70452e" stroke-width="3"/></pattern>
+</defs>
+<rect width="1024" height="700" fill="url(#sky)"/>
+<!-- pixel clouds -->
+<g fill="#fff5dc"><path d="M42 105h30V83h24V65h54v18h22v22h27v23H42zM670 88h38V64h22V45h58v19h28v24h26v24H670z"/></g>
+<g fill="#d5f0ff"><path d="M55 105h42V87h18v18h37V94h23v17H55zM700 87h30V66h25v21h42v15h-97z"/></g>
+<rect x="840" y="62" width="66" height="66" fill="#ffe58a"/><rect x="828" y="50" width="90" height="90" fill="#fff0a9" opacity=".45"/>
+<!-- mountains -->
+<path d="M0 285L110 170l55 52 93-114 104 139 78-83 115 121H0z" fill="#7fb6a5"/><path d="M145 215l113-107 56 76-28-8-28 15-18-9-23 25z" fill="#f4f2d9"/><path d="M450 270L585 125l72 79 84-111 141 177z" fill="#719e8a"/><path d="M560 151l25-26 72 79-28-12-20 10-23-20zM741 121l0-28 84 110-30-9-18 9-18-18z" fill="#f5f1d8"/>
+<!-- layered valley -->
+<path d="M0 300Q180 242 350 295T700 278T1024 285V700H0Z" fill="#8ec86b"/><path d="M0 360Q160 315 310 360T620 337T1024 355V700H0Z" fill="#5e9f4c"/>
+<!-- forest -->
+<g><g fill="#326c3c"><rect x="20" y="250" width="52" height="118"/><rect x="0" y="275" width="92" height="92"/><rect x="80" y="235" width="70" height="135"/><rect x="150" y="267" width="56" height="100"/><rect x="810" y="242" width="70" height="125"/><rect x="865" y="218" width="74" height="150"/><rect x="930" y="250" width="94" height="120"/></g><g fill="#438449"><rect x="15" y="270" width="35" height="42"/><rect x="52" y="292" width="30" height="42"/><rect x="91" y="251" width="38" height="47"/><rect x="825" y="265" width="30" height="42"/><rect x="878" y="244" width="40" height="48"/><rect x="946" y="271" width="45" height="45"/></g><g fill="#a8d66b"><rect x="26" y="280" width="12" height="12"/><rect x="60" y="303" width="12" height="12"/><rect x="101" y="260" width="12" height="12"/><rect x="889" y="255" width="12" height="12"/><rect x="956" y="280" width="12" height="12"/></g></g>
+<!-- stream and bridge -->
+<path d="M0 360Q105 330 180 370T340 397L405 442Q350 488 240 462T0 485z" fill="#278fbe"/><path d="M0 374Q105 345 180 385T326 409M8 450Q125 425 224 453" fill="none" stroke="#8be4f2" stroke-width="9"/><path d="M232 365l24 0 32 88-22 5z" fill="#b87942"/><path d="M222 360h44v12h-44zM240 389h42v10h-42z" fill="#e8bf7b"/>
+<!-- flower garden -->
+<g fill="#3e7d39"><rect x="25" y="400" width="8" height="36"/><rect x="64" y="421" width="8" height="31"/><rect x="165" y="405" width="8" height="40"/><rect x="700" y="378" width="8" height="45"/><rect x="920" y="390" width="8" height="36"/></g>
+<g><g fill="#ff8fb5"><rect x="14" y="393" width="13" height="13"/><rect x="37" y="398" width="13" height="13"/><rect x="25" y="383" width="13" height="13"/><rect x="153" y="396" width="13" height="13"/><rect x="176" y="402" width="13" height="13"/><rect x="165" y="383" width="13" height="13"/><rect x="690" y="368" width="13" height="13"/><rect x="713" y="376" width="13" height="13"/><rect x="702" y="355" width="13" height="13"/></g><g fill="#ffe7a2"><rect x="31" y="400" width="8" height="8"/><rect x="170" y="400" width="8" height="8"/><rect x="706" y="372" width="8" height="8"/></g></g>
+<!-- farmhouse shadow and walls -->
+<ellipse cx="404" cy="426" rx="210" ry="24" fill="#355f35" opacity=".35"/>
+<rect x="230" y="276" width="342" height="169" fill="#65402b"/><rect x="244" y="286" width="315" height="158" fill="#f1c27d"/><rect x="244" y="286" width="315" height="15" fill="#ffe4a8"/>
+<path d="M195 296L394 155 590 296Z" fill="#6f382f"/><path d="M205 286L394 150 580 286Z" fill="url(#roof)"/><path d="M195 286h395v18H195z" fill="#7b3c30"/><path d="M213 286h365" stroke="#f3b17d" stroke-width="7"/>
+<!-- chimney -->
+<rect x="474" y="187" width="30" height="75" fill="#98543d"/><rect x="467" y="180" width="44" height="12" fill="#d99a70"/><path d="M480 199h18v10h-18zM480 222h18v10h-18z" fill="#d8a080"/>
+<!-- windows -->
+<g><rect x="274" y="326" width="70" height="70" fill="#75472e"/><rect x="283" y="335" width="52" height="52" fill="#83d7ee"/><path d="M309 335v52M283 361h52" stroke="#fff0bf" stroke-width="7"/><rect x="450" y="326" width="74" height="70" fill="#75472e"/><rect x="459" y="335" width="56" height="52" fill="#83d7ee"/><path d="M487 335v52M459 361h56" stroke="#fff0bf" stroke-width="7"/></g>
+<!-- door porch -->
+<rect x="365" y="350" width="68" height="95" fill="#75472e"/><rect x="374" y="359" width="50" height="86" fill="#ad7045"/><rect x="382" y="369" width="34" height="28" fill="#c68a53"/><rect x="410" y="405" width="6" height="6" fill="#ffe08a"/><path d="M356 445h88v9h-88z" fill="#e4bd79"/>
+<!-- path -->
+<path d="M364 454h72l65 246H284z" fill="#caa36b"/><path d="M382 474h34l20 52h-38zM405 548h37l20 51h-41zM426 622h40l18 55h-42z" fill="#dfbc83"/>
+<!-- fence posts, rail -->
+<path d="M0 442H1024v13H0zM0 473H1024v12H0z" fill="#d5b47a" stroke="#79502f" stroke-width="5"/>
+<g fill="#e5c98f" stroke="#79502f" stroke-width="5"><path d="M42 425h17v67H42zM148 425h17v67H148zM254 425h17v67H254zM520 425h17v67H520zM626 425h17v67H626zM732 425h17v67H732zM838 425h17v67H838zM944 425h17v67H944z"/></g>
+<!-- foreground tilled field -->
+<rect y="495" width="1024" height="205" fill="url(#soil)"/>
+<!-- crop rows, detailed leafy pixel clusters -->
+<g stroke="#386e32" stroke-width="5" fill="#438a3d"><path d="M72 568v-42l-18-14 18 5 12-20 1 24 21-7-18 19v35zM200 568v-42l-18-14 18 5 12-20 1 24 21-7-18 19v35zM328 568v-42l-18-14 18 5 12-20 1 24 21-7-18 19v35zM456 568v-42l-18-14 18 5 12-20 1 24 21-7-18 19v35zM584 568v-42l-18-14 18 5 12-20 1 24 21-7-18 19v35zM712 568v-42l-18-14 18 5 12-20 1 24 21-7-18 19v35zM840 568v-42l-18-14 18 5 12-20 1 24 21-7-18 19v35zM968 568v-42l-18-14 18 5 12-20 1 24 21-7-18 19v35z"/></g>
+<g fill="#f0a9bd" stroke="#9e4c6a" stroke-width="3"><rect x="56" y="548" width="14" height="14"/><rect x="70" y="538" width="14" height="14"/><rect x="84" y="548" width="14" height="14"/><rect x="312" y="548" width="14" height="14"/><rect x="326" y="538" width="14" height="14"/><rect x="340" y="548" width="14" height="14"/><rect x="696" y="548" width="14" height="14"/><rect x="710" y="538" width="14" height="14"/><rect x="724" y="548" width="14" height="14"/></g>
+<g fill="#e4c35b" stroke="#8a6535" stroke-width="3"><rect x="181" y="560" width="17" height="25"/><rect x="194" y="548" width="17" height="37"/><rect x="207" y="560" width="17" height="25"/><rect x="565" y="560" width="17" height="25"/><rect x="578" y="548" width="17" height="37"/><rect x="591" y="560" width="17" height="25"/><rect x="820" y="560" width="17" height="25"/><rect x="833" y="548" width="17" height="37"/><rect x="846" y="560" width="17" height="25"/></g>
+<!-- tiny stones and glints -->
+<g fill="#e7d2a2"><rect x="120" y="612" width="12" height="7"/><rect x="390" y="647" width="14" height="8"/><rect x="665" y="610" width="12" height="7"/><rect x="914" y="665" width="14" height="8"/></g>
+<g fill="#fff0c3"><rect x="95" y="331" width="8" height="8"/><rect x="670" y="318" width="8" height="8"/><rect x="936" y="342" width="8" height="8"/></g>
 </svg>
