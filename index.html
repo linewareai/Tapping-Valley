@@ -199,6 +199,23 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 .bottom-nav{backdrop-filter:saturate(1.1)}
 @media(max-width:760px){.scene{height:470px;background-position:center 53%}.plot-grid{right:2%;bottom:4%;width:52%;height:39%;gap:3px}.plot{min-height:0}.crop-sprite{font-size:clamp(20px,5.4vw,28px)}.plot-name{font-size:8px}.mishi-world{left:19%;bottom:8%;width:clamp(78px,21vw,118px)}.farmer{left:39%;bottom:8%;font-size:clamp(33px,8vw,47px)}}
 @media(min-width:761px){.scene{background-position:center 54%}.plot-grid{width:49%;height:40%}}
+
+/* Debug release announcement */
+.release-backdrop{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px;background:#182516c9;backdrop-filter:blur(5px)}
+.release-backdrop.hidden{display:none}
+.release-dialog{width:min(100%,430px);max-height:min(84vh,680px);overflow:auto;background:#fff0c9;border:4px solid #473222;border-radius:17px;box-shadow:7px 8px 0 #263d25, inset 0 0 0 3px #d5b777;color:#3b2a20}
+.release-top{padding:17px 18px 14px;background:linear-gradient(#4e7c3b,#31552e);color:#fff1c8;border-bottom:4px solid #473222}
+.release-kicker{font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.85}
+.release-title{font-size:22px;font-weight:1000;margin-top:6px}
+.release-version{display:inline-block;margin-top:8px;padding:4px 8px;border:1px solid #cce49b;border-radius:6px;font-size:11px;color:#efffd2}
+.release-body{padding:18px}
+.release-list{display:grid;gap:10px;margin:14px 0}
+.release-item{display:flex;gap:10px;align-items:flex-start;padding:10px;background:#fff7df;border:2px solid #dec58f;border-radius:9px;line-height:1.45}
+.release-check{font-size:18px;flex:0 0 auto}
+.release-note{font-size:11px;line-height:1.6;color:#775c3d;padding:10px;background:#f4dfaa;border:1px dashed #b99961;border-radius:6px}
+.release-actions{display:flex;gap:9px;margin-top:15px}
+.release-actions button{flex:1;padding:12px 9px;border:3px solid #473222;border-radius:9px;background:#8fbd5b;box-shadow:0 3px #4c6638;font-weight:900}
+.release-actions .release-secondary{background:#fff5d9;box-shadow:0 3px #c6a775}
 </style>
 </head>
 <body>
@@ -332,6 +349,22 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
   <button class="nav-btn" data-page="map"><span class="nav-icon">🗺️</span>Mapa</button>
 </nav>
 
+
+<div class="release-backdrop hidden" id="releaseBackdrop">
+ <section class="release-dialog" role="dialog" aria-modal="true" aria-labelledby="releaseTitle">
+  <header class="release-top"><div class="release-kicker">Modo debug · confirmación de versión</div><div class="release-title" id="releaseTitle">🌱 ¡Valley Tapping se actualizó!</div><span class="release-version" id="releaseVersion">UPDATE 007 · DEBUG</span></header>
+  <div class="release-body">
+   <p style="margin:0;line-height:1.5">Si estás viendo esta ventana, la nueva versión del juego sí se cargó en este dispositivo.</p>
+   <div class="release-list">
+    <div class="release-item"><span class="release-check">🎨</span><span><b>Escenario pixel art renovado</b><br>Casa, colinas, árboles y flores redibujados.</span></div>
+    <div class="release-item"><span class="release-check">🌾</span><span><b>Parcelas con más detalle</b><br>Bordes, sombras y respuesta visual al tocar.</span></div>
+    <div class="release-item"><span class="release-check">📱</span><span><b>Ajustes para móvil y caché</b><br>Recursos y service worker actualizados.</span></div>
+   </div>
+   <div class="release-note">Debug: esta ventana identifica la compilación visual 007. Si no aparece al abrir el juego, probablemente el dispositivo sigue mostrando una versión anterior en caché.</div>
+   <div class="release-actions"><button class="release-secondary" id="releaseLater">Ahora no</button><button id="releaseConfirm">¡Entendido!</button></div>
+  </div>
+ </section>
+</div>
 <div class="modal-backdrop hidden" id="modalBackdrop">
   <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-head"><span id="modalTitle">📜 Diario de la granja</span><button class="modal-close" id="modalClose" aria-label="Cerrar">×</button></div>
@@ -529,7 +562,19 @@ function offlineProgress(){
 offlineProgress();render();save(false);
 setInterval(()=>{if(s.auto>0)earn(s.auto*(1+bonus()/100));s.pet.hunger=clamp(s.pet.hunger-.012);s.pet.happy=clamp(s.pet.happy-(s.pet.hunger<20?.025:.008));s.pet.energy=clamp(s.pet.energy+.012);s.day+=.000011574;render()},1000);
 setInterval(()=>save(false),12000);window.addEventListener('beforeunload',()=>save(false));
-if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js?v=6').catch(()=>{});
+
+const RELEASE_ID='valleytapping-debug-007';
+function showReleaseNotice(){
+ const backdrop=$('releaseBackdrop');
+ if(!backdrop)return;
+ backdrop.classList.remove('hidden');
+ const close=()=>{backdrop.classList.add('hidden');try{localStorage.setItem('valleytapping-last-seen-release',RELEASE_ID)}catch(e){}};
+ $('releaseConfirm')?.addEventListener('click',close,{once:true});
+ $('releaseLater')?.addEventListener('click',close,{once:true});
+ backdrop.addEventListener('click',e=>{if(e.target===backdrop)close()});
+}
+try{if(localStorage.getItem('valleytapping-last-seen-release')!==RELEASE_ID)setTimeout(showReleaseNotice,350)}catch(e){setTimeout(showReleaseNotice,350)}
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js?v=7').catch(()=>{});
 </script>
 </body>
 </html>
