@@ -65,3 +65,13 @@ No se han convertido ni importado aún todos los SVG a formatos Unity. Debe veri
 4. Implementar conversión de guardado web si resulta técnicamente viable y probarla con copias de datos.
 5. Compilar y probar Android; configurar iOS en un entorno macOS con toolchain compatible.
 6. Añadir servicios online solo después de definir identidad, autoridad del servidor, sincronización y protección de transacciones.
+
+
+## Actualización de avance
+Se añadieron módulos de integración de escena:
+- `Core/GameWorldController.cs`: conecta toque, economía, parcelas, mascotas, misiones, logros y ganancias offline a referencias de UI asignadas desde el Inspector.
+- `Core/InventoryService.cs`: operaciones de añadir, consultar y retirar artículos.
+- `Core/SceneNavigator.cs`: navegación entre paneles y apertura/cierre de modal.
+- `Core/SettingsData.cs`: modelo de preferencias locales.
+
+Importante: estos scripts aún requieren una escena configurada en Unity, definiciones ScriptableObject y pruebas en el Editor. No se ha ejecutado compilador Unity en este entorno. El proyecto no debe considerarse compilado o listo para instalar hasta validar todas las referencias, el flujo de guardado y los botones en Unity.
