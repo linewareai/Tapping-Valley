@@ -1,0 +1,47 @@
+name: Generate release notes
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - release-notes.json
+      - .github/workflows/release-notes.yml
+permissions:
+  contents: write
+jobs:
+  release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate notes from the published commit
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const message = (process.env.COMMIT_MESSAGE || 'Mejoras y correcciones').split('\\n')[0].trim();
+          const version = (process.env.COMMIT_SHA || 'unknown').slice(0, 12);
+          const date = new Date().toLocaleDateString('es-CL', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Santiago' });
+          const data = {
+            version,
+            date,
+            notes: [message || 'Mejoras y correcciones en esta versión.']
+          };
+          fs.writeFileSync('release-notes.json', JSON.stringify(data, null, 2) + '\\n');
+          NODE
+      - name: Commit release notes
+        run: |
+          if git diff --quiet -- release-notes.json; then
+            echo "No release notes changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add release-notes.json
+          git commit -m "chore: update release notes [skip ci]"
+          git push
