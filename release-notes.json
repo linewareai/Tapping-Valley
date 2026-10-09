@@ -1,7 +1,9 @@
 {
-  "version": "3db5128e3282",
+  "version": "fix-menu-release-20261009",
   "date": "9 de octubre de 2026",
   "notes": [
-    "Bump service worker script version"
+    "Se corrigió la apertura de las novedades al iniciar la app.",
+    "Se reforzaron las acciones de los botones del menú.",
+    "Se actualizó la caché para cargar los cambios nuevos."
   ]
 }
