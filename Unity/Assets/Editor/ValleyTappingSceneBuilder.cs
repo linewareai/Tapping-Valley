@@ -105,6 +105,8 @@ namespace ValleyTapping.EditorTools
             Text needs = Label(panel.transform, "Hambre · Felicidad · Energía", 20, 42);
             Button(panel.transform, "Adoptar a Mishi · 25 monedas", () => controller.AdoptPet("mishi"), 52);
             Button(panel.transform, "Cuidar mascota", controller.CareForActivePet, 52);
+            Button(panel.transform, "Dar comida · 5 monedas", controller.FeedActivePet, 52);
+            Button(panel.transform, "Dejar descansar", controller.RestActivePet, 52);
             Label(panel.transform, "PROGRESO", 28, 48);
             Text quests = Label(panel.transform, "Misiones: 0", 20, 42);
             Text achievements = Label(panel.transform, "Logros: 0", 20, 42);
