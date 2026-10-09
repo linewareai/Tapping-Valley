@@ -58,7 +58,6 @@ namespace ValleyTapping
             achievementService = new AchievementService(achievements, data);
             achievementService.Unlocked += OnAchievementUnlocked;
             ApplyOfflineProgress();
-            PetNeedsService.Advance(data, 0L);
             RefreshAll();
         }
 
@@ -185,6 +184,7 @@ namespace ValleyTapping
             long now = Now();
             if (data.lastSeenUnixSeconds > 0L)
             {
+                PetNeedsService.Advance(data, Math.Max(0L, now - data.lastSeenUnixSeconds));
                 // Passive income is only granted when a passive-income upgrade exists.
                 long passiveRate = 0L;
                 if (upgrades != null)
