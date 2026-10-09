@@ -1,0 +1,18 @@
+{
+  "name": "ValleyTapping - Clicker",
+  "short_name": "ValleyTapping",
+  "description": "Tu granja pixel art y tu gato te esperan.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#d9e9b9",
+  "theme_color": "#4f783f",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
