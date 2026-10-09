@@ -118,7 +118,7 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 .pet-summary{padding:5px 0}.pet-name-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.pet-name{font-size:21px;font-weight:1000}.pet-level{font-size:10px;color:#856746;margin-top:3px}
 .big-meter{margin:13px 0}.big-meter-head{display:flex;justify-content:space-between;font-size:11px;font-weight:900;margin-bottom:5px}
 .big-meter .meter{height:15px;border-width:2px}
-.pet-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}
+.pet-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}.pet-unlock-area{margin-top:12px}.pet-unlock-btn{width:100%;padding:11px;border:3px solid #493322;border-radius:8px;background:linear-gradient(#b9df83,#85b850);font-weight:900;box-shadow:0 3px #493322}.pet-unlock-btn:disabled{opacity:.7}
 .pet-action{padding:12px 4px;border:3px solid #68452b;border-radius:8px;background:linear-gradient(#f2c875,#dca54c);box-shadow:0 3px #68452b;text-align:center;font-weight:900;font-size:11px}
 .pet-action span{display:block;font-size:24px;margin-bottom:5px}
 .pet-action:active{transform:translateY(2px);box-shadow:0 1px #68452b}
@@ -312,7 +312,7 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
           <button class="pet-action" id="playBtn"><span>🧶</span>Jugar<br><small>+vínculo</small></button>
           <button class="pet-action" id="patBtn"><span>💗</span>Acariciar<br><small>+cariño</small></button>
         </div>
-        <p class="note" id="petMessage" style="margin-top:14px">Mishi está contenta de explorar el valle contigo.</p>
+        <p class="note" id="petMessage" style="margin-top:14px">Mishi está contenta de explorar el valle contigo.</p><div id="petUnlockArea" class="pet-unlock-area"></div>
       </div>
     </div>
   </section>
@@ -378,11 +378,29 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 const KEY='valleytapping-save-v3';
 const previousKey='valleytapping-save-v2';
 const $=id=>document.getElementById(id);
-const fresh=()=>({coins:0,gems:25,harvest:0,taps:0,totalEarned:0,perTap:1,auto:0,level:1,upgrades:{},pet:{hunger:82,happy:78,energy:90,bond:0,level:1},day:1,lastSeen:Date.now(),inventory:{carrot:0,wheat:0,berry:0,potato:0,tomato:0,wood:0,stone:0,egg:0,milk:0},plots:[0,1,2,3,4,5,6,7],achievements:[]});
+const fresh=()=>({coins:0,gems:25,harvest:0,taps:0,totalEarned:0,perTap:1,auto:0,level:1,upgrades:{},pet:{id:'mishi',name:'Mishi',hunger:82,happy:78,energy:90,bond:0,level:1,unlocked:['mishi']},day:1,lastSeen:Date.now(),inventory:{carrot:0,wheat:0,berry:0,potato:0,tomato:0,wood:0,stone:0,egg:0,milk:0},plots:[0,1,2,3,4,5,6,7],achievements:[]});
 let stored={};try{stored=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem(previousKey)||'{}')||{}}catch(e){stored={}}
 let s={...fresh(),...stored,inventory:{...fresh().inventory,...(stored.inventory||{})},pet:{...fresh().pet,...(stored.pet||{})},upgrades:{...(stored.upgrades||{})},achievements:Array.isArray(stored.achievements)?stored.achievements:[]};
 if(!Array.isArray(s.plots)||s.plots.length<8)s.plots=[0,1,2,3,4,5,6,7];
 if(!Number.isFinite(s.gems))s.gems=25;
+const PETS={
+ mishi:{id:'mishi',name:'Mishi',species:'cat',src:'./assets/sprites/pets/mishi.svg?v=1',description:'Tu primera compañera del valle.'},
+ lillia:{id:'lillia',name:'Lillia',species:'dog',src:'./assets/sprites/pets/lillia.svg?v=1',description:'Una perrita de pelaje beige despeinado, lista para acompañarte.'}
+};
+function activePet(){return PETS[s.pet.id]||PETS.mishi}
+function setPetImages(){
+ const p=activePet();
+ document.querySelectorAll('.mishi-world,.pet-stage img,.pet-mini img').forEach(img=>{img.src=p.src;img.alt=p.name;});
+}
+function adoptPet(id){
+ const pet=PETS[id];if(!pet)return;
+ if(s.level<3){toast('🔒 Las nuevas mascotas llegan a partir del nivel 3.');return}
+ if(!Array.isArray(s.pet.unlocked))s.pet.unlocked=['mishi'];
+ if(!s.pet.unlocked.includes(id))s.pet.unlocked.push(id);
+ s.pet.id=id;s.pet.name=pet.name;s.pet.happy=Math.max(s.pet.happy,65);
+ save(false);render();toast('🐾 ¡'+pet.name+' se une a tu aventura!');
+}
+
 const defs=[
 {id:'carrot',name:'Huerto de zanahorias',icon:'🥕',desc:'+1 moneda por toque · cultivos más productivos',base:15,type:'tap',value:1,category:'production'},
 {id:'sprout',name:'Semillas cuidadas',icon:'🌱',desc:'+1 moneda cada segundo',base:35,type:'auto',value:1,category:'production'},
@@ -508,15 +526,17 @@ function renderMap(){
  document.querySelectorAll('[data-visit]').forEach(b=>b.addEventListener('click',()=>{const l=locations.find(x=>x.id===b.dataset.visit);toast('🌿 Has llegado a '+l.name+' (próxima expansión)')}));
 }
 function renderPet(){
- const p=s.pet, mood=p.happy>70?'😻':p.happy>35?'😺':'😿';
+ const p=s.pet, pet=activePet(), mood=p.happy>70?'😻':p.happy>35?'😺':'😿';
  const bind=(id,val)=>{$(id).style.width=clamp(val)+'%';};
  $('hungerVal').textContent=Math.floor(p.hunger)+'%';$('happyVal').textContent=Math.floor(p.happy)+'%';$('energyVal').textContent=Math.floor(p.energy)+'%';$('bondVal').textContent=Math.floor(p.bond)+'%';
  bind('hungerBar',p.hunger);bind('happyBar',p.happy);bind('energyBar',p.energy);bind('bondBar',p.bond);
- $('petMood').textContent=mood;$('moodMini').textContent=mood;$('petLevel').textContent='Nivel '+p.level+' · Vínculo '+Math.floor(p.bond);$('petRank').textContent=p.bond>=60?'MEJORES AMIGAS':p.bond>=20?'AMIGAS DEL VALLE':'AMIGA DEL VALLE';$('petBonus').textContent='+'+bonus()+'% cosecha';$('petBondChip').textContent=Math.floor(p.bond);
+ $('petMood').textContent=mood;$('moodMini').textContent=mood;$('petLevel').textContent='Nivel '+p.level+' · Vínculo '+Math.floor(p.bond);$('petRank').textContent=p.bond>=60?'MEJORES AMIGAS':p.bond>=20?'AMIGAS DEL VALLE':'AMIGA DEL VALLE';document.querySelector('#view-pet h1').textContent='El rincón de '+pet.name;document.querySelector('#view-pet .pet-stage img').alt=pet.name+', tu mascota';document.querySelector('#view-pet .pet-name').childNodes[0].textContent=pet.name+' ';document.querySelector('#view-farm .pet-mini-info strong').childNodes[0].textContent=pet.name+' ';$('petBonus').textContent='+'+bonus()+'% cosecha';$('petBondChip').textContent=Math.floor(p.bond);
  $('petMessage').textContent=p.hunger<25?'Mishi tiene mucha hambre. ¡Un pescadito le vendría genial!':p.happy<30?'Mishi necesita cariño. ¡Juega un ratito con ella!':p.energy<20?'Mishi está cansada. Dale un descanso tranquilo.':'Mishi está feliz de vivir contigo. Cada gesto fortalece vuestro vínculo.';
  $('petMiniText').textContent=p.hunger<25?'Tiene hambre. ¡Hora de comer!':p.happy<30?'Necesita un poco de cariño.':'Tu amistad también hace crecer la granja.';$('petMiniLevel').textContent='Nivel '+p.level;
  $('miniHungerBar').style.width=clamp(p.hunger)+'%';$('miniHunger').textContent=Math.floor(p.hunger)+'%';$('miniBondBar').style.width=clamp(p.bond)+'%';$('miniBond').textContent=Math.floor(p.bond)+'%';
  $('heartPop').textContent=p.happy>50?'💗':'💭';
+ setPetImages();
+ const unlock=$('petUnlockArea');if(unlock){const owned=(p.unlocked||['mishi']).includes('lillia');unlock.innerHTML=owned?(p.id==='lillia'?'<p class="note">🐶 Lillia ya forma parte de tu familia. Puedes seguir cuidándola y fortalecer vuestro vínculo.</p>':'<button class="pet-unlock-btn" data-adopt-lillia>🐶 Elegir a Lillia como compañera</button>'):(s.level>=3?'<button class="pet-unlock-btn" data-adopt-lillia>🎁 ¡Conocer a Lillia! · Mascota disponible</button>':'<p class="note">🔒 Una nueva compañera te espera en el nivel 3. Sigue cultivando para conocer a Lillia.</p>');const b=unlock.querySelector('[data-adopt-lillia]');if(b)b.addEventListener('click',()=>adoptPet('lillia'));}
 }
 function render(){
  $('coins').textContent=fmt(s.coins);$('gems').textContent=fmt(s.gems);$('cps').textContent=fmt(s.auto)+'/s';$('perTap').textContent='+'+fmt(tapValue());$('harvestGain').textContent='(+'+fmt(tapValue())+')';$('totalHarvest').textContent=fmt(s.harvest);
