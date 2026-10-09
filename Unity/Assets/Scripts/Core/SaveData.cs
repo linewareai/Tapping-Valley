@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ValleyTapping.Economy;
 using ValleyTapping.Farm;
 using ValleyTapping.Quests;
 
@@ -8,19 +9,28 @@ namespace ValleyTapping
     [Serializable]
     public sealed class SaveData
     {
-        public int schemaVersion = 2;
+        public int schemaVersion = 3;
         public long coins;
-        public int tapPowerLevel;
+        public long gems;
         public long lifetimeCoinsEarned;
+        public int tapPowerLevel;
+        public int totalTaps;
+        public int playerLevel = 1;
+        public long lastSeenUnixSeconds;
 
-        // Farm state uses timestamps so crop growth can continue while the app is closed.
-        public FarmPlotData[] farmPlots = new FarmPlotData[6];
+        public FarmPlotData[] farmPlots = new FarmPlotData[8];
+        public List<InventoryEntry> inventory = new List<InventoryEntry>();
+        public List<UpgradeProgressData> upgrades = new List<UpgradeProgressData>();
 
-        // Stable IDs are stored instead of Unity object references.
         public List<string> ownedPets = new List<string>();
         public List<int> petCarePoints = new List<int>();
         public string activePetId;
+        public float petHunger = 82f;
+        public float petHappiness = 78f;
+        public float petEnergy = 90f;
+        public int petBond;
         public List<QuestProgressData> quests = new List<QuestProgressData>();
+        public List<string> unlockedAchievements = new List<string>();
 
         public SaveData()
         {
