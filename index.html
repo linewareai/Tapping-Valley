@@ -472,7 +472,7 @@ function renderPlots(){
  const el=$('plotGrid');el.innerHTML='';
  plotCropIds.forEach((cropId,i)=>{\n  const crop=cropById(cropId);
   const count=s.plots[i]||0,btn=document.createElement('button');btn.className='plot'+(count%5===4?' harvested':'');btn.dataset.plot=String(i);btn.setAttribute('aria-label','Cosechar '+crop.name);
-  const fallback='./assets/sprites/crops/stages/'+crop.sprite+'.svg?v=2';btn.innerHTML='<span class="plot-coin">+'+fmt(tapValue())+'</span><span class="crop-sprite"><img src="'+fallback+'" alt="'+crop.name+'" draggable="false" loading="lazy"></span><span class="plot-name">'+crop.name+'</span>';const img=btn.querySelector('img');img.onerror=()=>{img.style.display='none';img.parentElement.textContent=crop.icon};
+  const fallback='./assets/sprites/crops/stages/'+crop.sprite+'.svg?v=2';const stageNames=['01-seed','02-sprout','03-young','04-growing','05-flowering','06-fruiting','07-ripe_1','08-ripe_2','09-ripe_3'];const stage=stageNames[Math.min(stageNames.length-1,Math.floor((count%9)))];const packSprite='./assets/sprites/crops/final/'+(crop.sprite==='strawberry'?'strawberry':crop.sprite)+'/'+stage+'.png';btn.innerHTML='<span class="plot-coin">+'+fmt(tapValue())+'</span><span class="crop-sprite"><img src="'+packSprite+'" alt="'+crop.name+'" draggable="false" loading="lazy"></span><span class="plot-name">'+crop.name+'</span>';const img=btn.querySelector('img');img.onerror=()=>{if(img.dataset.fallback!=='1'){img.dataset.fallback='1';img.src=fallback;return}img.style.display='none';img.parentElement.textContent=crop.icon};
   btn.addEventListener('click',e=>{e.stopPropagation();harvestAt(i,btn)});el.appendChild(btn);
  });
 }
