@@ -216,6 +216,8 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 .release-actions{display:flex;gap:9px;margin-top:15px}
 .release-actions button{flex:1;padding:12px 9px;border:3px solid #473222;border-radius:9px;background:#8fbd5b;box-shadow:0 3px #4c6638;font-weight:900}
 .release-actions .release-secondary{background:#fff5d9;box-shadow:0 3px #c6a775}
+
+.crop-sprite img{display:block;width:clamp(25px,4.6vw,42px);height:clamp(25px,4.6vw,42px);image-rendering:pixelated;object-fit:contain;filter:drop-shadow(1px 2px #4b342d55)}
 </style>
 </head>
 <body>
@@ -468,7 +470,7 @@ function renderPlots(){
  const el=$('plotGrid');el.innerHTML='';
  crops.forEach((crop,i)=>{
   const count=s.plots[i]||0,btn=document.createElement('button');btn.className='plot'+(count%5===4?' harvested':'');btn.dataset.plot=String(i);btn.setAttribute('aria-label','Cosechar '+crop.name);
-  btn.innerHTML='<span class="plot-coin">+'+fmt(tapValue())+'</span><span class="crop-sprite">'+(count%5===4?'🌱':crop.icon)+'</span><span class="plot-name">'+crop.name+'</span>';
+  const spriteName=({carrot:'carrot',wheat:'wheat',berry:'strawberry',potato:'potato',tomato:'tomato'})[crop.id]||'carrot';const sprite=count%5===4?'seedling':spriteName;const spriteSrc=sprite==='seedling'?'./assets/sprites/crops/carrot.svg?v=1':'./assets/sprites/crops/'+sprite+'.svg?v=1';btn.innerHTML='<span class="plot-coin">+'+fmt(tapValue())+'</span><span class="crop-sprite"><img src="'+spriteSrc+'" alt="" draggable="false"></span><span class="plot-name">'+crop.name+'</span>';
   btn.addEventListener('click',e=>{e.stopPropagation();harvestAt(i,btn)});el.appendChild(btn);
  });
 }
