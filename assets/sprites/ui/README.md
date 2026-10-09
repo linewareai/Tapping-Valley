@@ -1,11 +1,24 @@
-# ValleyTapping UI sprites
+# ValleyTapping UI assets
 
-Individually addressable SVG source assets, not a mockup or sprite sheet.
+Individual source SVGs, not a combined mockup. All use explicit viewBoxes and crisp-edged shapes for scalable mobile UI.
 
-- `buttons/button-green.svg`: primary/confirm button base, 192×64
-- `buttons/button-wood.svg`: neutral/secondary button base, 192×64
-- `buttons/button-red.svg`: cancel/destructive button base, 192×64
-- `panels/panel-parchment.svg`: parchment panel base, 320×240 viewBox
-- `icons/coin.svg`, `icons/gem.svg`, `icons/energy.svg`: resource icons, 48×48
+## Buttons
+- buttons/button-green.svg, button-wood.svg, button-red.svg (192×64 bases)
 
-The SVG vector assets stay crisp across iOS and Android pixel densities. Render labels as native UI text rather than baking text into button artwork.
+## Panels
+- panels/panel-parchment.svg (320×240)
+- panels/panel-tooltip.svg (240×96)
+- panels/panel-notification.svg (320×80)
+- panels/panel-slot.svg (80×80)
+
+## Bars
+- bars/bar-frame.svg (256×32)
+- bars/bar-fill-health.svg, bar-fill-energy.svg (240×24)
+
+## Navigation and gameplay icons
+- icons/home.svg, map.svg, inventory.svg, shop.svg, trophy.svg, settings.svg
+- icons/close.svg, check.svg, plus.svg, minus.svg, lock.svg, heart.svg, star.svg
+- icons/coin.svg, gem.svg, energy.svg, leaf.svg, carrot.svg, tomato.svg, blueberry.svg, wheat.svg, potato.svg
+- icons/wood.svg, stone.svg, water.svg, seed.svg, basket.svg
+
+Labels and dynamic counts should be native UI text, not baked into assets.
