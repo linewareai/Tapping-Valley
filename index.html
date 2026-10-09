@@ -282,10 +282,10 @@ body.menu-open .topbar,body.menu-open .desktop-nav,body.menu-open .shell,body.me
    </svg>
   </div><h1>Valley Tapping</h1><div class="title-sub">TU VALLE · TU AVENTURA</div>
   <div class="title-menu">
-   <button class="title-btn" id="menuNew">🌱 Nueva partida</button>
-   <button class="title-btn secondary" id="menuLoad">📖 Cargar partida</button>
-   <button class="title-btn secondary" id="menuOptions">⚙️ Opciones</button>
-   <button class="title-btn secondary" id="menuCredits">✨ Créditos</button>
+   <button type="button" class="title-btn" id="menuNew" onclick="window.__vtMenuAction&&window.__vtMenuAction('new')">🌱 Nueva partida</button>
+   <button type="button" class="title-btn secondary" id="menuLoad" onclick="window.__vtMenuAction&&window.__vtMenuAction('load')">📖 Cargar partida</button>
+   <button type="button" class="title-btn secondary" id="menuOptions" onclick="window.__vtMenuAction&&window.__vtMenuAction('options')">⚙️ Opciones</button>
+   <button type="button" class="title-btn secondary" id="menuCredits" onclick="window.__vtMenuAction&&window.__vtMenuAction('credits')">✨ Créditos</button>
   </div>
   <div id="titlePanel" class="title-subpanel hidden"></div>
   <p class="title-foot">Cultiva con calma. Tu valle te espera.</p>
@@ -690,10 +690,11 @@ function enterGame(loadExisting){
  }
  $('titleScreen').classList.add('hidden');document.body.classList.remove('menu-open');render();save(false);
 }
-$('menuNew').addEventListener('click',()=>enterGame(false));
-$('menuLoad').addEventListener('click',()=>{if(hasSavedGame())enterGame(true);else toast('Todavía no hay una partida guardada.')});
-$('menuOptions').addEventListener('click',()=>showTitlePanel('options'));
-$('menuCredits').addEventListener('click',()=>showTitlePanel('credits'));
+window.__vtMenuAction=(action)=>{try{if(action==='new')enterGame(false);else if(action==='load'){if(hasSavedGame())enterGame(true);else toast('Todavía no hay una partida guardada.')}else if(action==='options')showTitlePanel('options');else if(action==='credits')showTitlePanel('credits')}catch(error){console.error('Error en menú Valley Tapping:',error);const panel=$('titlePanel');if(panel){panel.classList.remove('hidden');panel.textContent='No se pudo abrir esta opción. Recarga la página e inténtalo otra vez.'}}};
+$('menuNew').addEventListener('click',()=>window.__vtMenuAction('new'));
+$('menuLoad').addEventListener('click',()=>window.__vtMenuAction('load'));
+$('menuOptions').addEventListener('click',()=>window.__vtMenuAction('options'));
+$('menuCredits').addEventListener('click',()=>window.__vtMenuAction('credits'));
 syncTitleMenu();
 
 function refreshDebugPanel(){
