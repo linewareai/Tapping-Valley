@@ -1,7 +1,8 @@
 {
-  "version": "89d7224c0d23",
+  "version": "c1014997845b",
   "date": "9 de octubre de 2026",
   "notes": [
-    "Refresh release notes and navigation cache"
+    "Se corrigió la generación automática de novedades para que el archivo JSON sea válido.",
+    "Se mantiene la actualización de notas a partir de cada cambio publicado en main."
   ]
-}\n
+}
