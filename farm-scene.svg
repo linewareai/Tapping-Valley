@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 700" shape-rendering="crispEdges">
+<rect width="1024" height="700" fill="#72c8ef"/>
+<path d="M0 130h90V98h46V70h58V94h38v35h42v43H0zm665-28h55V70h40V37h70v33h38v30h54v33h102v48H665z" fill="#ecf7fb"/>
+<path d="M0 270 100 195 184 240 293 142 383 219 478 157 568 235 684 163 780 226 880 173 1024 250v220H0z" fill="#77aeca"/>
+<path d="M0 302 121 223 191 279 289 196 382 275 498 202 589 275 686 219 788 284 895 220 1024 296v176H0z" fill="#528ca7"/>
+<path d="M0 327 95 284 176 311 269 253 365 310 467 259 574 328 675 272 778 326 900 265 1024 323v190H0z" fill="#81b95e"/>
+<path d="M0 350h95v-18h56v20h58v27h-44v23H0zm824 9h48v-22h72v15h80v55h-200z" fill="#61974a"/>
+<!-- stream on the left -->
+<path d="M0 376h102v31h44v39h-27v49h40v43h-55v43H0z" fill="#318fcb"/>
+<path d="M0 387h99v16h43v23h-28v26h34v18h-42v24H0z" fill="#75d5f2"/>
+<path d="M0 505h83v18h32v20H75v19H0zm13 94h75v18h40v16H13z" fill="#a5e6f7"/>
+<path d="M0 438h30v8h-30zm76 70h25v8H76zm-39 81h35v9H37z" fill="#d7f6fa"/>
+<!-- big trees -->
+<g>
+<rect x="138" y="300" width="24" height="104" fill="#75472d"/><rect x="124" y="286" width="54" height="33" fill="#986239"/>
+<rect x="90" y="234" width="42" height="50" fill="#378449"/><rect x="115" y="203" width="44" height="46" fill="#4c9e4e"/><rect x="153" y="226" width="43" height="50" fill="#2e753c"/><rect x="94" y="269" width="76" height="39" fill="#3c9144"/><rect x="76" y="249" width="41" height="44" fill="#60b957"/><rect x="140" y="190" width="28" height="37" fill="#68bf58"/><rect x="172" y="250" width="43" height="39" fill="#55a94e"/>
+<rect x="845" y="267" width="27" height="119" fill="#73452b"/><rect x="833" y="255" width="50" height="38" fill="#9c6338"/>
+<rect x="780" y="198" width="52" height="53" fill="#3a8242"/><rect x="810" y="172" width="52" height="52" fill="#58ad4f"/><rect x="850" y="202" width="60" height="53" fill="#30763b"/><rect x="785" y="237" width="75" height="52" fill="#4b9b46"/><rect x="755" y="220" width="42" height="49" fill="#70c35b"/><rect x="869" y="174" width="30" height="39" fill="#71c963"/><rect x="891" y="234" width="39" height="41" fill="#50a64a"/>
+</g>
+<!-- grass meadow and path -->
+<path d="M0 415 1024 380v320H0z" fill="#83bc55"/>
+<path d="M420 337h72v34h-27v44h48v34h-30v33h56v33h-35v36h68v34h-55v38H0v-22h377v-43h38v-44h-30v-34h34v-41h-28v-33h39v-40h-36v-34h38z" fill="#e6bf78"/>
+<path d="M430 356h31v30h-31zm-12 63h31v31h-31zm45 65h35v29h-35zm47 67h41v30h-41z" fill="#d8a963"/>
+<!-- house -->
+<g>
+<rect x="375" y="235" width="244" height="180" fill="#61402b"/><rect x="390" y="248" width="218" height="156" fill="#f0c47d"/>
+<rect x="390" y="248" width="23" height="156" fill="#dfa55e"/><rect x="585" y="248" width="23" height="156" fill="#d99c56"/>
+<path d="M344 254 488 133 652 254v25H344z" fill="#6a3929"/><path d="M360 247 488 151 637 247z" fill="#bb513f"/><path d="M360 247h277v15H360z" fill="#e17a4c"/>
+<rect x="465" y="298" width="43" height="44" fill="#6e4830"/><rect x="472" y="305" width="29" height="29" fill="#85d6e9"/><rect x="528" y="298" width="43" height="44" fill="#6e4830"/><rect x="535" y="305" width="29" height="29" fill="#85d6e9"/>
+<rect x="470" y="344" width="44" height="61" fill="#63402a"/><rect x="478" y="352" width="28" height="53" fill="#95613c"/><rect x="497" y="373" width="5" height="5" fill="#e5c478"/>
+<path d="M478 135h20v-28h16v28h24v11h-60z" fill="#84472f"/><rect x="488" y="93" width="27" height="40" fill="#954b32"/><rect x="482" y="84" width="37" height="11" fill="#3b4140"/><rect x="488" y="77" width="27" height="7" fill="#62645c"/>
+</g>
+<!-- path border and decorative flower patches -->
+<path d="M0 429h356v12H0zm532 0h492v12H532z" fill="#6b9b48"/>
+<g>
+<rect x="238" y="413" width="10" height="19" fill="#dfcc6a"/><rect x="228" y="418" width="9" height="9" fill="#e95e86"/><rect x="248" y="414" width="10" height="9" fill="#fff1d8"/>
+<rect x="692" y="402" width="9" height="20" fill="#4d8b3e"/><rect x="681" y="405" width="10" height="10" fill="#f6d45b"/><rect x="701" y="399" width="10" height="10" fill="#ef7191"/>
+<rect x="755" y="429" width="9" height="18" fill="#4d8b3e"/><rect x="744" y="422" width="10" height="10" fill="#fff2db"/><rect x="764" y="420" width="10" height="10" fill="#f4cf5e"/>
+<rect x="306" y="400" width="10" height="18" fill="#4d8b3e"/><rect x="296" y="397" width="9" height="9" fill="#fff2db"/><rect x="316" y="397" width="9" height="9" fill="#f1c84f"/>
+</g>
+<!-- wooden fences around garden -->
+<g fill="#e0b36e" stroke="#966038" stroke-width="5">
+<rect x="637" y="425" width="358" height="13"/><rect x="637" y="459" width="358" height="13"/><rect x="650" y="415" width="13" height="72"/><rect x="710" y="415" width="13" height="72"/><rect x="770" y="415" width="13" height="72"/><rect x="830" y="415" width="13" height="72"/><rect x="890" y="415" width="13" height="72"/><rect x="950" y="415" width="13" height="72"/>
+</g>
+<!-- garden plots -->
+<rect x="642" y="486" width="352" height="179" fill="#a96d40" stroke="#70472e" stroke-width="9"/>
+<path d="M642 546h352M642 606h352M730 486v179M818 486v179M906 486v179" stroke="#815435" stroke-width="8"/>
+<path d="M648 492h76v47h-76zm88 0h76v47h-76zm88 0h76v47h-76zm88 0h76v47h-76z" fill="#bb8150"/>
+<!-- sprouting crop bed highlights -->
+<g fill="#4c9b40">
+<rect x="672" y="518" width="10" height="16"/><rect x="662" y="512" width="12" height="9"/><rect x="681" y="505" width="12" height="13"/>
+<rect x="760" y="518" width="10" height="16"/><rect x="750" y="512" width="12" height="9"/><rect x="769" y="505" width="12" height="13"/>
+<rect x="848" y="518" width="10" height="16"/><rect x="838" y="512" width="12" height="9"/><rect x="857" y="505" width="12" height="13"/>
+<rect x="936" y="518" width="10" height="16"/><rect x="926" y="512" width="12" height="9"/><rect x="945" y="505" width="12" height="13"/>
+</g>
+<!-- distant windmill -->
+<rect x="950" y="255" width="28" height="117" fill="#f0c47d" stroke="#71492e" stroke-width="7"/><path d="M934 258 964 207 994 258z" fill="#b95740" stroke="#71492e" stroke-width="6"/><path d="M964 207V153M964 207l46-30M964 207l-44-30M964 207l1 52" stroke="#fff0ca" stroke-width="8"/>
+<!-- foreground grass tufts -->
+<g fill="#568f3e">
+<rect x="192" y="603" width="8" height="22"/><rect x="183" y="597" width="8" height="11"/><rect x="201" y="590" width="9" height="15"/>
+<rect x="292" y="558" width="8" height="18"/><rect x="282" y="553" width="9" height="10"/><rect x="301" y="548" width="8" height="13"/>
+<rect x="555" y="590" width="8" height="22"/><rect x="546" y="582" width="9" height="11"/><rect x="565" y="575" width="9" height="15"/>
+</g>
+</svg>
