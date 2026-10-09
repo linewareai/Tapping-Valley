@@ -49,18 +49,18 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 .frame-title{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 14px;background:linear-gradient(#b77848,#955832);color:#fff0c8;border-bottom:4px solid var(--ink);font-weight:900;text-shadow:1px 2px #603a27;letter-spacing:.3px;font-size:13px}
 .frame-title small{font-size:10px;color:#ffe4a9;letter-spacing:0;font-weight:600}
 .scene{position:relative;isolation:isolate;height:clamp(345px,43vw,515px);overflow:hidden;background:#78c7e9 url("./farm-scene.svg?v=2") center/cover no-repeat}
-.scene:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,#5eb7ef12 0%,transparent 40%,#3528190b 100%)}
+.scene:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,#5eb7ef05 0%,transparent 38%,#35281918 100%);box-shadow:inset 0 0 0 3px #fff3,inset 0 -18px 28px #5b3a241c}.scene:before{content:"";position:absolute;z-index:1;left:0;right:0;bottom:0;height:23%;background:repeating-linear-gradient(90deg,#d7b078 0 3px,transparent 3px 18%),linear-gradient(#8f5b36 0 3px,#b77c48 3px 100%);border-top:4px solid #70472d;box-shadow:0 -3px #e6c487;opacity:.72;pointer-events:none}
 .scene-chip{position:absolute;z-index:4;top:12px;left:12px;display:flex;gap:6px;align-items:center;padding:8px 10px;border:2px solid #6b492e;border-radius:7px;background:#fff1d9ed;box-shadow:2px 3px #64472d;font-size:11px;font-weight:900}
 .weather-chip{position:absolute;z-index:4;right:12px;top:12px;padding:7px 9px;border:2px solid #6b492e;border-radius:7px;background:#fff1d9ed;font-size:11px;box-shadow:2px 3px #64472d}
 .farm-level{position:absolute;top:55px;left:12px;z-index:3;color:#fff4c9;background:#31552ee8;border:2px solid #e6c877;border-radius:7px;padding:6px 8px;font-size:10px;font-weight:800}
 .mishi-world{position:absolute;z-index:3;left:29%;bottom:8%;width:clamp(62px,10vw,100px);filter:drop-shadow(3px 5px #533e2a45);animation:cat-bob 2s ease-in-out infinite;pointer-events:none}
 @keyframes cat-bob{50%{transform:translateY(-4px)}}
 .farmer{position:absolute;z-index:3;left:43%;bottom:7%;font-size:clamp(28px,5vw,43px);filter:drop-shadow(2px 3px #68472d);pointer-events:none}
-.plot-grid{position:absolute;z-index:5;right:2.8%;bottom:5%;width:43%;height:38%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:4px}
-.plot{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;min-width:0;min-height:0;padding:3px 1px 2px;border:2px solid #68452b;border-radius:4px;background:linear-gradient(135deg,#c38b51,#a56b3d);box-shadow:inset 0 0 0 2px #d8a56b,0 2px #5b3b27;overflow:hidden;transition:filter .1s,transform .1s}
+.plot-grid{position:absolute;z-index:5;right:2.8%;bottom:5%;width:45%;height:39%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:4px}
+.plot{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;min-width:0;min-height:0;padding:3px 1px 2px;border:2px solid #68452b;border-radius:4px;background:linear-gradient(135deg,#c38b51,#a56b3d);box-shadow:inset 0 0 0 2px #d8a56b,0 3px #5b3b27;overflow:hidden;transition:filter .12s,transform .12s;cursor:pointer}
 .plot:before{content:"";position:absolute;inset:4px;background:repeating-linear-gradient(0deg,transparent 0 6px,#87542f 7px 9px);opacity:.38;pointer-events:none}
 .plot:active{transform:translateY(2px);box-shadow:inset 0 0 0 2px #d8a56b}
-.crop-sprite{position:relative;z-index:1;font-size:clamp(18px,2.6vw,29px);line-height:1;filter:drop-shadow(1px 2px #51372170)}
+.crop-sprite{position:relative;z-index:1;font-size:clamp(21px,3vw,34px);line-height:1;filter:drop-shadow(1px 2px #51372170);transition:transform .15s}.plot:active .crop-sprite{transform:scale(1.18)}.plot:not(.harvested):after{content:"";position:absolute;right:5px;top:5px;width:5px;height:5px;background:#fff0a3;border-radius:50%;box-shadow:0 0 7px #fff2a5;opacity:.8}
 .plot-name{position:relative;z-index:1;font-size:8px;font-weight:900;color:#fff0be;text-shadow:1px 1px #57351f;letter-spacing:-.3px}
 .plot.harvested{background:linear-gradient(#c6a06a,#98774a);filter:saturate(.72)}
 .plot.harvested .crop-sprite{opacity:.75}
@@ -158,10 +158,10 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
  .page-heading{align-items:center;margin:8px 2px 11px}.eyebrow{font-size:9px}h1{font-size:21px}.page-heading p{font-size:10px}.heading-actions{gap:5px}.mini-btn{font-size:10px;padding:7px}
  .game-layout{grid-template-columns:minmax(0,1fr);gap:10px}.stack{gap:10px}.frame{border-width:3px;border-radius:12px;box-shadow:3px 4px 0 #8aa16c,inset 0 0 0 2px #fff4d0}
  .frame-title{padding:10px 11px;font-size:12px;border-bottom-width:3px}
- .scene{height:410px;background-size:100% 100%;background-position:center}
+ .scene{height:440px;background-size:cover;background-position:center 55%}
  .scene-chip{top:9px;left:9px;padding:6px 7px;font-size:10px}.weather-chip{top:9px;right:9px;padding:6px 7px;font-size:10px}.farm-level{top:47px;left:9px;font-size:9px}
- .mishi-world{left:29%;bottom:7%;width:75px}.farmer{left:43%;bottom:7%;font-size:31px}
- .plot-grid{right:2%;bottom:4%;width:38%;height:36%;gap:3px}
+ .mishi-world{left:24%;bottom:8%;width:clamp(74px,19vw,112px)}.farmer{left:42%;bottom:8%;font-size:clamp(31px,8vw,45px)}
+ .plot-grid{right:2%;bottom:4%;width:48%;height:35%;gap:3px}
  .plot{border-width:2px;padding:2px 0}.crop-sprite{font-size:clamp(17px,5vw,24px)}.plot-name{font-size:7px}
  .world-footer{padding:9px;gap:6px}.world-tip{font-size:9px}.pill{font-size:9px;padding:5px 6px}
  .panel-body{padding:10px}.primary-btn{font-size:15px;padding:12px}.stats-strip{gap:6px}.stat-card{padding:8px 3px;border-width:2px}.stat-number{font-size:15px}.stat-label{font-size:8px}.stat-icon{font-size:15px}
