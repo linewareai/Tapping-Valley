@@ -143,6 +143,9 @@ namespace ValleyTapping.EditorTools
             foreach (CropDefinition cropOption in new CropDefinition[] { crop, wheat, berry, potato, tomato, blueberry })
             {
                 string cropId = cropOption.CropId;
+                string artName = cropId == "berry" ? "strawberry" : cropId;
+                Sprite cropSprite = FindOriginalSprite("OriginalArt_assets__sprites__crops__" + artName);
+                ImageSlot(content.transform, cropOption.DisplayName + " · arte del cultivo", cropSprite, 74, new Color(.83f,.87f,.67f));
                 Button(content.transform, "Seleccionar " + cropOption.DisplayName + " · " + cropOption.SeedCost + " monedas",
                     () => controller.SelectCrop(cropId), 50);
             }
