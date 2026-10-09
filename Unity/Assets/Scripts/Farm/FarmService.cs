@@ -90,7 +90,7 @@ namespace ValleyTapping.Farm
             }
 
             save.coins += reward;
-            save.lifetimeCoinsEarned = Math.Min(long.MaxValue, save.lifetimeCoinsEarned + reward);
+            save.lifetimeCoinsEarned = save.lifetimeCoinsEarned > long.MaxValue - reward ? long.MaxValue : save.lifetimeCoinsEarned + reward;
             plot.Clear();
             message = "¡Cosecha recogida! +" + reward + " monedas.";
             return true;
