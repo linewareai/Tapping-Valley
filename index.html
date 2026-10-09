@@ -470,7 +470,7 @@ function renderPlots(){
  const el=$('plotGrid');el.innerHTML='';
  crops.forEach((crop,i)=>{
   const count=s.plots[i]||0,btn=document.createElement('button');btn.className='plot'+(count%5===4?' harvested':'');btn.dataset.plot=String(i);btn.setAttribute('aria-label','Cosechar '+crop.name);
-  const spriteName=({carrot:'carrot',wheat:'wheat',berry:'strawberry',potato:'potato',tomato:'tomato'})[crop.id]||'carrot';const sprite=count%5===4?'seedling':spriteName;const spriteSrc=sprite==='seedling'?'./assets/sprites/crops/carrot.svg?v=1':'./assets/sprites/crops/'+sprite+'.svg?v=1';btn.innerHTML='<span class="plot-coin">+'+fmt(tapValue())+'</span><span class="crop-sprite"><img src="'+spriteSrc+'" alt="" draggable="false"></span><span class="plot-name">'+crop.name+'</span>';
+  const spriteName=({carrot:'carrot',wheat:'wheat',berry:'strawberry',potato:'potato',tomato:'tomato'})[crop.id]||'carrot';const sprite=count%5===4?'seedling':spriteName;const spriteSrc=sprite==='seedling'?'./assets/sprites/crops/carrot.svg?v=2':'./assets/sprites/crops/stages/'+sprite+'.svg?v=1';btn.innerHTML='<span class="plot-coin">+'+fmt(tapValue())+'</span><span class="crop-sprite"><img src="'+spriteSrc+'" alt="" draggable="false"></span><span class="plot-name">'+crop.name+'</span>';
   btn.addEventListener('click',e=>{e.stopPropagation();harvestAt(i,btn)});el.appendChild(btn);
  });
 }
@@ -565,7 +565,7 @@ offlineProgress();render();save(false);
 setInterval(()=>{if(s.auto>0)earn(s.auto*(1+bonus()/100));s.pet.hunger=clamp(s.pet.hunger-.012);s.pet.happy=clamp(s.pet.happy-(s.pet.hunger<20?.025:.008));s.pet.energy=clamp(s.pet.energy+.012);s.day+=.000011574;render()},1000);
 setInterval(()=>save(false),12000);window.addEventListener('beforeunload',()=>save(false));
 
-const RELEASE_ID='valleytapping-debug-008';
+const RELEASE_ID='valleytapping-debug-009';
 function showReleaseNotice(){
  const backdrop=$('releaseBackdrop');
  if(!backdrop)return;
