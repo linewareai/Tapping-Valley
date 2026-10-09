@@ -62,23 +62,40 @@ namespace ValleyTapping.EditorTools
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = new Vector2(1080, 1920);
 
-            var panel = new GameObject("MainPanel", typeof(RectTransform), typeof(Image), typeof(VerticalLayoutGroup));
+            // Mobile-first parchment viewport with a real scrollable content column.
+            var panel = new GameObject("MainPanel", typeof(RectTransform), typeof(Image), typeof(ScrollRect));
             panel.transform.SetParent(canvasGO.transform, false);
             var rect = panel.GetComponent<RectTransform>();
-            rect.anchorMin = new Vector2(.04f, .03f); rect.anchorMax = new Vector2(.96f, .97f);
+            rect.anchorMin = new Vector2(.035f, .025f); rect.anchorMax = new Vector2(.965f, .975f);
             rect.offsetMin = rect.offsetMax = Vector2.zero;
-            panel.GetComponent<Image>().color = new Color(.91f, .96f, .84f);
-            var layout = panel.GetComponent<VerticalLayoutGroup>();
-            layout.padding = new RectOffset(20,20,24,24); layout.spacing = 8;
+            panel.GetComponent<Image>().color = new Color(.29f,.40f,.24f);
+            var viewport = new GameObject("Viewport", typeof(RectTransform), typeof(Image), typeof(Mask));
+            viewport.transform.SetParent(panel.transform, false);
+            var vr = viewport.GetComponent<RectTransform>();
+            vr.anchorMin = Vector2.zero; vr.anchorMax = Vector2.one; vr.offsetMin = Vector2.zero; vr.offsetMax = Vector2.zero;
+            viewport.GetComponent<Image>().color = new Color(.96f,.88f,.68f);
+            viewport.GetComponent<Mask>().showMaskGraphic = false;
+            var content = new GameObject("Content", typeof(RectTransform), typeof(VerticalLayoutGroup), typeof(ContentSizeFitter));
+            content.transform.SetParent(viewport.transform, false);
+            var cr = content.GetComponent<RectTransform>();
+            cr.anchorMin = new Vector2(0,1); cr.anchorMax = new Vector2(1,1);
+            cr.pivot = new Vector2(.5f,1); cr.anchoredPosition = Vector2.zero; cr.sizeDelta = Vector2.zero;
+            var layout = content.GetComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(22,22,24,28); layout.spacing = 9;
             layout.childControlWidth = true; layout.childControlHeight = false;
             layout.childForceExpandWidth = true; layout.childForceExpandHeight = false;
+            content.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            var scroll = panel.GetComponent<ScrollRect>();
+            scroll.viewport = vr; scroll.content = cr; scroll.horizontal = false; scroll.vertical = true;
+            scroll.movementType = ScrollRect.MovementType.Clamped;
+            scroll.scrollSensitivity = 70f;
 
-            Label(panel.transform, "VALLEY TAPPING", 42, 70);
-            Text coins = Label(panel.transform, "Monedas: 0", 28, 52);
-            Text gems = Label(panel.transform, "Gemas: 0", 24, 48);
-            Text power = Label(panel.transform, "Por toque: 1", 24, 48);
-            Text level = Label(panel.transform, "Nivel: 1", 24, 48);
-            Text status = Label(panel.transform, "¡Tu granja empieza aquí!", 22, 52);
+            Label(content.transform, "🌿  VALLEY TAPPING  🌿", 38, 76);
+            Text coins = Label(content.transform, "Monedas: 0", 28, 52);
+            Text gems = Label(content.transform, "Gemas: 0", 24, 48);
+            Text power = Label(content.transform, "Por toque: 1", 24, 48);
+            Text level = Label(content.transform, "Nivel: 1", 24, 48);
+            Text status = Label(content.transform, "¡Tu granja empieza aquí!", 22, 52);
 
             var controllerGO = new GameObject("GameWorldController");
             var controller = controllerGO.AddComponent<GameWorldController>();
@@ -91,28 +108,28 @@ namespace ValleyTapping.EditorTools
             Ref(so, "statusText", status);
             var plots = new Text[4];
 
-            Button(panel.transform, "TOCAR · GANAR MONEDAS", () => controller.Tap(), 68);
-            Button(panel.transform, "Mejorar toque · 25 monedas", () => controller.BuyUpgrade("tap-power"), 60);
-            Button(panel.transform, "Comprar ingreso pasivo", () => controller.BuyUpgrade("passive-income"), 60);
-            Label(panel.transform, "GRANJA", 28, 48);
+            Button(content.transform, "TOCAR · GANAR MONEDAS", () => controller.Tap(), 68);
+            Button(content.transform, "Mejorar toque · 25 monedas", () => controller.BuyUpgrade("tap-power"), 60);
+            Button(content.transform, "Comprar ingreso pasivo", () => controller.BuyUpgrade("passive-income"), 60);
+            Label(content.transform, "GRANJA", 28, 48);
             for (int i = 0; i < 4; i++) {
                 int index = i;
-                plots[i] = Label(panel.transform, "Parcela " + (i+1) + ": libre", 20, 42);
-                Button(panel.transform, "Plantar zanahoria · " + (i+1), () => controller.PlantDefaultCrop(index), 52);
-                Button(panel.transform, "Cosechar · " + (i+1), () => controller.Harvest(index), 52);
+                plots[i] = Label(content.transform, "Parcela " + (i+1) + ": libre", 20, 42);
+                Button(content.transform, "Plantar zanahoria · " + (i+1), () => controller.PlantDefaultCrop(index), 52);
+                Button(content.transform, "Cosechar · " + (i+1), () => controller.Harvest(index), 52);
             }
-            Label(panel.transform, "MASCOTA", 28, 48);
-            Text active = Label(panel.transform, "Mascota activa: ninguna", 20, 42);
-            Text needs = Label(panel.transform, "Hambre · Felicidad · Energía", 20, 42);
-            Button(panel.transform, "Adoptar a Mishi · 25 monedas", () => controller.AdoptPet("mishi"), 52);
-            Button(panel.transform, "Cuidar mascota", controller.CareForActivePet, 52);
-            Button(panel.transform, "Dar comida · 5 monedas", controller.FeedActivePet, 52);
-            Button(panel.transform, "Dejar descansar", controller.RestActivePet, 52);
-            Label(panel.transform, "PROGRESO", 28, 48);
-            Text quests = Label(panel.transform, "Misiones: 0", 20, 42);
-            Text achievements = Label(panel.transform, "Logros: 0", 20, 42);
-            Button(panel.transform, "Reclamar misión: primer toque", () => controller.ClaimQuest("first-tap"), 52);
-            Button(panel.transform, "Reclamar misión: primera cosecha", () => controller.ClaimQuest("first-harvest"), 52);
+            Label(content.transform, "MASCOTA", 28, 48);
+            Text active = Label(content.transform, "Mascota activa: ninguna", 20, 42);
+            Text needs = Label(content.transform, "Hambre · Felicidad · Energía", 20, 42);
+            Button(content.transform, "Adoptar a Mishi · 25 monedas", () => controller.AdoptPet("mishi"), 52);
+            Button(content.transform, "Cuidar mascota", controller.CareForActivePet, 52);
+            Button(content.transform, "Dar comida · 5 monedas", controller.FeedActivePet, 52);
+            Button(content.transform, "Dejar descansar", controller.RestActivePet, 52);
+            Label(content.transform, "PROGRESO", 28, 48);
+            Text quests = Label(content.transform, "Misiones: 0", 20, 42);
+            Text achievements = Label(content.transform, "Logros: 0", 20, 42);
+            Button(content.transform, "Reclamar misión: primer toque", () => controller.ClaimQuest("first-tap"), 52);
+            Button(content.transform, "Reclamar misión: primera cosecha", () => controller.ClaimQuest("first-harvest"), 52);
 
             Ref(so, "activePetText", active); Ref(so, "petNeedsText", needs);
             Ref(so, "questSummaryText", quests); Ref(so, "achievementSummaryText", achievements);
@@ -122,7 +139,7 @@ namespace ValleyTapping.EditorTools
             EditorSceneManager.SaveScene(scene, scenePath);
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(scenePath, true) };
             AssetDatabase.SaveAssets(); AssetDatabase.Refresh();
-            EditorUtility.DisplayDialog("ValleyTapping", "Escena creada. Abre ValleyTappingGenerated/Scenes y pulsa Play. Es un prototipo funcional inicial, no la migración visual completa.", "OK");
+            EditorUtility.DisplayDialog("ValleyTapping", "Escena móvil desplazable creada. Abre ValleyTappingGenerated/Scenes y pulsa Play. El sistema de juego es una base de migración, aún requiere paridad visual y QA.", "OK");
         }
 
         static Text Label(Transform parent, string value, int size, int height)
