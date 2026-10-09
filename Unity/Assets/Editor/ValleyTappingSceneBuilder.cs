@@ -49,7 +49,7 @@ namespace ValleyTapping.EditorTools
                 Set(a, "questId", "first-harvest"); Set(a, "displayName", "Primera cosecha");
                 Set(a, "target", 1); Set(a, "rewardCoins", 20);
             });
-            var achievement = Asset<AchievementDefinition>("FirstTap.asset", a => {
+            var achievement = Asset<AchievementDefinition>("FirstTapAchievement.asset", a => {
                 Set(a, "achievementId", "first-tap"); Set(a, "displayName", "¡A tocar!");
                 Set(a, "requiredLifetimeCoins", 1L); Set(a, "requiredTapCount", 1);
             });
