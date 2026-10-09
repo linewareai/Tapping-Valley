@@ -233,9 +233,32 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 .debug-action.danger{background:linear-gradient(#f4c1a8,#dc886e)}.debug-action.good{background:linear-gradient(#c9e6a4,#8dbf61)}
 @media(min-width:700px){.debug-fab{bottom:20px}.debug-backdrop{align-items:center}}
 
+
+/* Main title screen */
+.title-screen{position:fixed;inset:0;z-index:150;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto;background:linear-gradient(#263d2bc9,#1e2e24d9),url('./assets/sprites/environment/farm-scene.svg?v=1') center/cover,#476b3b}
+.title-screen.hidden{display:none}.title-card{width:min(100%,440px);padding:clamp(20px,5vw,34px);border:4px solid #4a3020;border-radius:20px;background:linear-gradient(#fff0c9,#e9c58c);box-shadow:0 8px 0 #2c2017,0 20px 55px #0006;text-align:center;color:#50351f}
+.title-mark{font-size:clamp(36px,9vw,58px);filter:drop-shadow(3px 4px #58371d);margin-bottom:4px}.title-card h1{font-size:clamp(29px,7vw,43px);line-height:1.05;margin:0;color:#6b3b1f;text-shadow:1px 2px #fff1bf}.title-sub{font-size:12px;font-weight:900;letter-spacing:2px;color:#8a633d;margin:10px 0 23px}
+.title-menu{display:grid;gap:10px}.title-btn{min-height:49px;border:3px solid #4b3221;border-radius:10px;background:linear-gradient(#9ed66c,#6ea448);box-shadow:0 4px #4b3221;color:#263a20;font-weight:1000;font-size:15px;text-shadow:0 1px #e5f6c5}.title-btn:active{transform:translateY(3px);box-shadow:0 1px #4b3221}.title-btn.secondary{background:linear-gradient(#fff0c8,#e8c88c);color:#634329;text-shadow:none}.title-btn:disabled{opacity:.45;filter:grayscale(.6)}
+.title-foot{font-size:11px;color:#8c6b48;margin:20px 0 0}.title-subpanel{margin-top:12px;padding:12px;background:#fff8e5;border:2px solid #d5b784;border-radius:9px;text-align:left;font-size:13px;line-height:1.55}.title-subpanel.hidden{display:none}
+body.menu-open .topbar,body.menu-open .desktop-nav,body.menu-open .shell,body.menu-open .bottom-nav,body.menu-open .debug-fab{visibility:hidden;pointer-events:none}
+
 </style>
 </head>
-<body>
+<body class="menu-open">
+
+<div id="titleScreen" class="title-screen">
+ <section class="title-card">
+  <div class="title-mark">🌻🐈🌱</div><h1>Valley Tapping</h1><div class="title-sub">TU VALLE · TU AVENTURA</div>
+  <div class="title-menu">
+   <button class="title-btn" id="menuNew">🌱 Nueva partida</button>
+   <button class="title-btn secondary" id="menuLoad">📖 Cargar partida</button>
+   <button class="title-btn secondary" id="menuOptions">⚙️ Opciones</button>
+   <button class="title-btn secondary" id="menuCredits">✨ Créditos</button>
+  </div>
+  <div id="titlePanel" class="title-subpanel hidden"></div>
+  <p class="title-foot">Cultiva con calma. Tu valle te espera.</p>
+ </section>
+</div>
 <header class="topbar">
   <div class="brand"><img class="brand-icon" src="./iconmimi.png?v=4" alt=""><div><div class="brand-name">Valley Tapping</div><div class="brand-sub">TU VALLE, TU AVENTURA</div></div></div>
   <div class="resourcebar">
@@ -617,6 +640,34 @@ function resetGame(){
  localStorage.removeItem(KEY);localStorage.removeItem(previousKey);s=fresh();render();save(false);closeModal();toast('Una nueva aventura comienza 🌱');
 }
 
+
+function hasSavedGame(){try{return !!(localStorage.getItem(KEY)||localStorage.getItem(previousKey))}catch(e){return false}}
+function syncTitleMenu(){$('menuLoad').disabled=!hasSavedGame()}
+function showTitlePanel(kind){
+ const panel=$('titlePanel');panel.classList.remove('hidden');
+ if(kind==='options'){
+  panel.innerHTML='<b>⚙️ Opciones</b><p>La partida se guarda automáticamente en este dispositivo cada pocos segundos.</p><p>Progreso guardado: '+(hasSavedGame()?'sí, hay una partida disponible':'todavía no hay una partida guardada')+'.</p><button class="title-btn secondary" id="titleBack" style="width:100%">Volver al menú</button>';
+ }else{
+  panel.innerHTML='<b>✨ Créditos</b><p><b>Valley Tapping</b><br>Un pequeño valle en construcción, hecho para cultivar, descubrir y cuidar mascotas.</p><p>Arte y recursos: proyecto ValleyTapping.<br>Desarrollo: equipo del proyecto.</p><button class="title-btn secondary" id="titleBack" style="width:100%">Volver al menú</button>';
+ }
+ $('titleBack').onclick=()=>panel.classList.add('hidden');
+}
+function enterGame(loadExisting){
+ if(!loadExisting){
+  if(hasSavedGame()&&!confirm('¿Empezar una partida nueva? La partida guardada en este navegador será reemplazada.'))return;
+  localStorage.removeItem(KEY);localStorage.removeItem(previousKey);s=fresh();save(false);
+ }else{
+  try{const saved=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem(previousKey)||'null');if(saved){s={...fresh(),...saved,inventory:{...fresh().inventory,...(saved.inventory||{})},pet:{...fresh().pet,...(saved.pet||{})},upgrades:{...(saved.upgrades||{})},achievements:Array.isArray(saved.achievements)?saved.achievements:[]};if(!Array.isArray(s.plots)||s.plots.length<8)s.plots=[0,1,2,3,4,5,6,7];}}
+  catch(e){toast('No se pudo cargar la partida guardada.');return}
+ }
+ $('titleScreen').classList.add('hidden');document.body.classList.remove('menu-open');render();save(false);
+}
+$('menuNew').addEventListener('click',()=>enterGame(false));
+$('menuLoad').addEventListener('click',()=>{if(hasSavedGame())enterGame(true);else toast('Todavía no hay una partida guardada.')});
+$('menuOptions').addEventListener('click',()=>showTitlePanel('options'));
+$('menuCredits').addEventListener('click',()=>showTitlePanel('credits'));
+syncTitleMenu();
+
 function refreshDebugPanel(){
  if(!$('debugLevel'))return;
  $('debugLevel').textContent=s.level;$('debugCoins').textContent=fmt(s.coins);$('debugPet').textContent=activePet().name;
@@ -671,7 +722,7 @@ offlineProgress();render();save(false);
 setInterval(()=>{if(s.auto>0)earn(s.auto*(1+bonus()/100));s.pet.hunger=clamp(s.pet.hunger-.012);s.pet.happy=clamp(s.pet.happy-(s.pet.hunger<20?.025:.008));s.pet.energy=clamp(s.pet.energy+.012);s.day+=.000011574;render()},1000);
 setInterval(()=>save(false),12000);window.addEventListener('beforeunload',()=>save(false));
 
-const RELEASE_ID='valleytapping-debug-009';
+const RELEASE_ID='valleytapping-main-menu-010';
 function showReleaseNotice(){
  const backdrop=$('releaseBackdrop');
  if(!backdrop)return;
