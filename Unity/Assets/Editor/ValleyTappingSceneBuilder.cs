@@ -121,8 +121,13 @@ namespace ValleyTapping.EditorTools
             var plots = new Text[8];
 
             Button(content.transform, "TOCAR · GANAR MONEDAS", () => controller.Tap(), 68);
-            Button(content.transform, "Mejorar toque · 25 monedas", () => controller.BuyUpgrade("tap-power"), 60);
-            Button(content.transform, "Comprar ingreso pasivo", () => controller.BuyUpgrade("passive-income"), 60);
+            Label(content.transform, "TIENDA · MEJORAS", 28, 48);
+            foreach (UpgradeDefinition upgrade in upgradeAssets)
+            {
+                string upgradeId = upgrade.UpgradeId;
+                Button(content.transform, upgrade.DisplayName + " · desde " + upgrade.BaseCost + " monedas",
+                    () => controller.BuyUpgrade(upgradeId), 56);
+            }
             Label(content.transform, "GRANJA", 28, 48);
             for (int i = 0; i < 8; i++) {
                 int index = i;
