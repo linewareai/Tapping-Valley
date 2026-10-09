@@ -58,6 +58,7 @@ namespace ValleyTapping
             achievementService = new AchievementService(achievements, data);
             achievementService.Unlocked += OnAchievementUnlocked;
             ApplyOfflineProgress();
+            PetNeedsService.Advance(data, 0L);
             RefreshAll();
         }
 
@@ -89,7 +90,10 @@ namespace ValleyTapping
         {
             string message;
             if (upgradeService.TryBuy(upgradeId, out message))
+            {
+                data.tapPowerLevel = upgradeService.GetLevel("tap-power");
                 Persist();
+            }
             SetStatus(message);
             RefreshAll();
         }
@@ -135,6 +139,20 @@ namespace ValleyTapping
             if (petService.TrySetActive(petId, out message))
                 Persist();
             SetStatus(message);
+            RefreshAll();
+        }
+
+        public void FeedActivePet()
+        {
+            if (PetNeedsService.Feed(data, 5)) { Persist(); SetStatus("Tu mascota ha comido."); }
+            else SetStatus("Necesitas una mascota activa y 5 monedas.");
+            RefreshAll();
+        }
+
+        public void RestActivePet()
+        {
+            if (PetNeedsService.Rest(data)) { Persist(); SetStatus("Tu mascota ha descansado."); }
+            else SetStatus("Primero adopta una mascota.");
             RefreshAll();
         }
 
@@ -193,6 +211,7 @@ namespace ValleyTapping
         {
             if (coinsText != null) coinsText.text = "Monedas: " + data.coins;
             if (gemsText != null) gemsText.text = "Gemas: " + data.gems;
+            data.tapPowerLevel = upgradeService.GetLevel("tap-power");
             if (tapPowerText != null) tapPowerText.text = "Por toque: " + (1 + Math.Max(0, data.tapPowerLevel));
             if (playerLevelText != null) playerLevelText.text = "Nivel: " + data.playerLevel;
 
