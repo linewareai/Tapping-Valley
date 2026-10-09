@@ -112,7 +112,7 @@ h1{margin:5px 0 5px;font-size:clamp(21px,3vw,29px);letter-spacing:-.7px}
 .pet-layout{display:grid;grid-template-columns:minmax(250px,.9fr) minmax(0,1.25fr);gap:14px;padding:14px}
 .pet-stage{position:relative;display:grid;place-items:center;min-height:300px;overflow:hidden;border:4px solid #5e783d;border-radius:11px;background:linear-gradient(#a1d5eb 0 39%,#87b95b 39% 100%);box-shadow:inset 0 0 0 3px #d3e9b0}
 .pet-stage:before{content:"";position:absolute;inset:auto 0 0;height:37%;background:repeating-linear-gradient(0deg,#b27c4b 0 21px,#855833 22px 26px),repeating-linear-gradient(90deg,transparent 0 42px,#845732 43px 47px);border-top:7px solid #e1b873}
-.pet-stage img{position:relative;z-index:2;width:min(78%,240px);max-height:265px;object-fit:contain;filter:drop-shadow(4px 6px #473b2745);animation:cat-bob 2s ease-in-out infinite}
+.pet-stage img{position:relative;z-index:2;width:min(78%,240px);max-height:265px;object-fit:contain;filter:drop-shadow(4px 6px #473b2745);animation:cat-bob 2s ease-in-out infinite;cursor:pointer;image-rendering:pixelated}.pet-stage img.pet-react{animation:pet-hop .48s steps(3,end) 1}.mishi-world.pet-react,.pet-mini img.pet-react{animation:pet-hop .48s steps(3,end) 1}@keyframes pet-hop{0%,100%{transform:translateY(0) rotate(0)}35%{transform:translateY(-15px) rotate(-5deg)}70%{transform:translateY(-5px) rotate(4deg)}}
 .heart-pop{position:absolute;top:20%;right:19%;z-index:3;font-size:25px;animation:heart-float 2s ease-in-out infinite}
 @keyframes heart-float{50%{transform:translateY(-8px)}}
 .pet-summary{padding:5px 0}.pet-name-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}.pet-name{font-size:21px;font-weight:1000}.pet-level{font-size:10px;color:#856746;margin-top:3px}
@@ -390,7 +390,12 @@ const PETS={
 function activePet(){return PETS[s.pet.id]||PETS.mishi}
 function setPetImages(){
  const p=activePet();
- document.querySelectorAll('.mishi-world,.pet-stage img,.pet-mini img').forEach(img=>{img.src=p.src;img.alt=p.name;});
+ document.querySelectorAll('.mishi-world,.pet-stage img,.pet-mini img').forEach(img=>{if(!img.src.endsWith(p.src))img.src=p.src;img.alt=p.name;});
+}
+function petReact(message){
+ document.querySelectorAll('.mishi-world,.pet-stage img,.pet-mini img').forEach(img=>{img.classList.remove('pet-react');void img.offsetWidth;img.classList.add('pet-react');});
+ const pop=$('heartPop');if(pop){pop.textContent='💗';pop.style.transform='scale(1.25)';setTimeout(()=>{pop.style.transform='';},260);}
+ if(message)$('petMessage').textContent=message;
 }
 function adoptPet(id){
  const pet=PETS[id];if(!pet)return;
@@ -530,8 +535,8 @@ function renderPet(){
  const bind=(id,val)=>{$(id).style.width=clamp(val)+'%';};
  $('hungerVal').textContent=Math.floor(p.hunger)+'%';$('happyVal').textContent=Math.floor(p.happy)+'%';$('energyVal').textContent=Math.floor(p.energy)+'%';$('bondVal').textContent=Math.floor(p.bond)+'%';
  bind('hungerBar',p.hunger);bind('happyBar',p.happy);bind('energyBar',p.energy);bind('bondBar',p.bond);
- $('petMood').textContent=mood;$('moodMini').textContent=mood;$('petLevel').textContent='Nivel '+p.level+' · Vínculo '+Math.floor(p.bond);$('petRank').textContent=p.bond>=60?'MEJORES AMIGAS':p.bond>=20?'AMIGAS DEL VALLE':'AMIGA DEL VALLE';document.querySelector('#view-pet h1').textContent='El rincón de '+pet.name;document.querySelector('#view-pet .pet-stage img').alt=pet.name+', tu mascota';document.querySelector('#view-pet .pet-name').childNodes[0].textContent=pet.name+' ';document.querySelector('#view-farm .pet-mini-info strong').childNodes[0].textContent=pet.name+' ';$('petBonus').textContent='+'+bonus()+'% cosecha';$('petBondChip').textContent=Math.floor(p.bond);
- $('petMessage').textContent=p.hunger<25?'Mishi tiene mucha hambre. ¡Un pescadito le vendría genial!':p.happy<30?'Mishi necesita cariño. ¡Juega un ratito con ella!':p.energy<20?'Mishi está cansada. Dale un descanso tranquilo.':'Mishi está feliz de vivir contigo. Cada gesto fortalece vuestro vínculo.';
+ $('petMood').textContent=mood;$('moodMini').textContent=mood;$('petLevel').textContent='Nivel '+p.level+' · Vínculo '+Math.floor(p.bond);$('petRank').textContent=p.bond>=60?'MEJORES AMIGAS':p.bond>=20?'AMIGAS DEL VALLE':'AMIGA DEL VALLE';document.querySelector('#view-pet h1').textContent='El rincón de '+pet.name;document.querySelector('#view-pet .frame-title span').textContent=(pet.species==='dog'?'🐶':'🐈')+' Una compañera para toda la aventura';document.querySelector('#view-pet .pet-stage img').alt=pet.name+', tu mascota';document.querySelector('#view-pet .pet-name').childNodes[0].textContent=pet.name+' ';document.querySelector('#view-farm .pet-mini-info strong').childNodes[0].textContent=pet.name+' ';$('petBonus').textContent='+'+bonus()+'% cosecha';$('petBondChip').textContent=Math.floor(p.bond);
+ $('petMessage').textContent=p.hunger<25?pet.name+' tiene mucha hambre. ¡Un pescadito le vendría genial!':p.happy<30?pet.name+' necesita cariño. ¡Juega un ratito con ella!':p.energy<20?pet.name+' está cansada. Dale un descanso tranquilo.':pet.name+' está feliz de vivir contigo. Cada gesto fortalece vuestro vínculo.';
  $('petMiniText').textContent=p.hunger<25?'Tiene hambre. ¡Hora de comer!':p.happy<30?'Necesita un poco de cariño.':'Tu amistad también hace crecer la granja.';$('petMiniLevel').textContent='Nivel '+p.level;
  $('miniHungerBar').style.width=clamp(p.hunger)+'%';$('miniHunger').textContent=Math.floor(p.hunger)+'%';$('miniBondBar').style.width=clamp(p.bond)+'%';$('miniBond').textContent=Math.floor(p.bond)+'%';
  $('heartPop').textContent=p.happy>50?'💗':'💭';
@@ -569,6 +574,7 @@ function resetGame(){
  localStorage.removeItem(KEY);localStorage.removeItem(previousKey);s=fresh();render();save(false);closeModal();toast('Una nueva aventura comienza 🌱');
 }
 document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.page)));
+ document.querySelectorAll('.pet-stage img,.mishi-world,.pet-mini img').forEach(img=>img.addEventListener('click',()=>{const p=activePet();s.pet.happy=clamp(s.pet.happy+2);s.pet.bond=clamp(s.pet.bond+.5);petReact(p.name+' responde a tu toque moviendo la cola.');render();save(false);}));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>switchPage(b.dataset.go)));
 $('farmScene').addEventListener('click',e=>{if(e.target.closest('.plot'))return;harvestAt((s.taps+1)%crops.length,$('farmScene'))});
 $('harvestBtn').addEventListener('click',()=>harvestAt((s.taps+1)%crops.length,$('harvestBtn')));
