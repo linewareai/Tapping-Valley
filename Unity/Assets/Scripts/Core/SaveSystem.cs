@@ -7,7 +7,7 @@ namespace ValleyTapping
     public static class SaveSystem
     {
         private const string FileName = "valleytapping-save.json";
-        private const int CurrentSchemaVersion = 2;
+        private const int CurrentSchemaVersion = 3;
 
         private static string SavePath
         {
@@ -43,15 +43,24 @@ namespace ValleyTapping
                 }
 
                 if (data.farmPlots == null)
-                    data.farmPlots = new ValleyTapping.Farm.FarmPlotData[6];
+                    data.farmPlots = new ValleyTapping.Farm.FarmPlotData[8];
                 for (int i = 0; i < data.farmPlots.Length; i++)
                     if (data.farmPlots[i] == null)
                         data.farmPlots[i] = new ValleyTapping.Farm.FarmPlotData { plotIndex = i };
 
+                if (data.inventory == null) data.inventory = new System.Collections.Generic.List<InventoryEntry>();
+                if (data.upgrades == null) data.upgrades = new System.Collections.Generic.List<ValleyTapping.Economy.UpgradeProgressData>();
+                if (data.unlockedAchievements == null) data.unlockedAchievements = new System.Collections.Generic.List<string>();
                 if (data.ownedPets == null) data.ownedPets = new System.Collections.Generic.List<string>();
                 if (data.petCarePoints == null) data.petCarePoints = new System.Collections.Generic.List<int>();
                 if (data.quests == null) data.quests = new System.Collections.Generic.List<ValleyTapping.Quests.QuestProgressData>();
 
+                data.gems = Math.Max(0L, data.gems);
+                data.totalTaps = Math.Max(0, data.totalTaps);
+                data.playerLevel = Math.Max(1, data.playerLevel);
+                data.petHunger = UnityEngine.Mathf.Clamp(data.petHunger, 0f, 100f);
+                data.petHappiness = UnityEngine.Mathf.Clamp(data.petHappiness, 0f, 100f);
+                data.petEnergy = UnityEngine.Mathf.Clamp(data.petEnergy, 0f, 100f);
                 data.schemaVersion = CurrentSchemaVersion;
                 data.coins = Math.Max(0L, data.coins);
                 data.tapPowerLevel = Math.Max(0, data.tapPowerLevel);
