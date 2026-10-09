@@ -1,6 +1,6 @@
 {
-  "name": "ValleyTapping - Clicker",
-  "short_name": "ValleyTapping",
+  "name": "Valley Tapping",
+  "short_name": "Valley Tapping",
   "description": "Tu granja pixel art y tu gato te esperan.",
   "start_url": "./",
   "display": "standalone",
