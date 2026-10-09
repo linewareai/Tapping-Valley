@@ -399,16 +399,17 @@ const defs=[
 {id:'flowers',name:'Jardín de flores',icon:'🌷',desc:'Un rincón bonito para tu mascota',base:950,type:'pet',value:7,category:'decor'},
 {id:'scarecrow',name:'Espantapájaros',icon:'🪹',desc:'+20 monedas por toque',base:2300,type:'tap',value:20,category:'decor'}
 ];
+// Catálogo de cultivos: añade aquí cada especie una sola vez.
 const crops=[
-{id:'carrot',name:'Zanahoria',icon:'🥕',yield:1},
-{id:'wheat',name:'Trigo',icon:'🌾',yield:2},
-{id:'berry',name:'Fresa',icon:'🍓',yield:4},
-{id:'potato',name:'Papa',icon:'🥔',yield:3},
-{id:'tomato',name:'Tomate',icon:'🍅',yield:4},
-{id:'carrot',name:'Zanahoria',icon:'🥕',yield:1},
-{id:'wheat',name:'Trigo',icon:'🌾',yield:2},
-{id:'berry',name:'Fresa',icon:'🍓',yield:4}
+{id:'carrot',name:'Zanahoria',icon:'🥕',yield:1,sprite:'carrot'},
+{id:'wheat',name:'Trigo',icon:'🌾',yield:2,sprite:'wheat'},
+{id:'berry',name:'Fresa',icon:'🍓',yield:4,sprite:'strawberry'},
+{id:'potato',name:'Papa',icon:'🥔',yield:3,sprite:'potato'},
+{id:'tomato',name:'Tomate',icon:'🍅',yield:4,sprite:'tomato'},
+{id:'blueberry',name:'Arándano',icon:'🫐',yield:5,sprite:'blueberry'}
 ];
+const plotCropIds=['carrot','wheat','berry','potato','tomato','blueberry','carrot','wheat'];
+const cropById=id=>crops.find(c=>c.id===id)||crops[0];
 const items=[
 {id:'carrot',name:'Zanahorias',icon:'🥕',kind:'Cultivo',category:'crops'},
 {id:'wheat',name:'Trigo',icon:'🌾',kind:'Cultivo',category:'crops'},
@@ -443,7 +444,7 @@ function checkAchievements(){
  achievements.forEach(a=>{if(a[1]&&!s.achievements.includes(a[0])){s.achievements.push(a[0]);toast('🏆 Logro desbloqueado: '+a[2])}});
 }
 function harvestAt(index,el){
- const crop=crops[index%crops.length],n=Math.max(1,Math.floor(tapValue()));
+ const crop=cropById(plotCropIds[index%plotCropIds.length]),n=Math.max(1,Math.floor(tapValue()));
  earn(n);s.taps++;s.inventory[crop.id]=(s.inventory[crop.id]||0)+Math.max(1,crop.yield);s.inventory.wood=(s.inventory.wood||0)+((s.taps%5===0)?1:0);
  s.plots[index]=(s.plots[index]||0)+1;s.pet.happy=clamp(s.pet.happy+.25);
  if(s.taps%4===0&&s.upgrades.chicken)s.inventory.egg=(s.inventory.egg||0)+1;
@@ -468,9 +469,9 @@ function care(action){
 }
 function renderPlots(){
  const el=$('plotGrid');el.innerHTML='';
- crops.forEach((crop,i)=>{
+ plotCropIds.forEach((cropId,i)=>{\n   const crop=cropById(cropId);
   const count=s.plots[i]||0,btn=document.createElement('button');btn.className='plot'+(count%5===4?' harvested':'');btn.dataset.plot=String(i);btn.setAttribute('aria-label','Cosechar '+crop.name);
-  const spriteName=({carrot:'carrot',wheat:'wheat',berry:'strawberry',potato:'potato',tomato:'tomato'})[crop.id]||'carrot';const sprite=count%5===4?'seedling':spriteName;const spriteSrc=sprite==='seedling'?'./assets/sprites/crops/carrot.svg?v=2':'./assets/sprites/crops/stages/'+sprite+'.svg?v=1';btn.innerHTML='<span class="plot-coin">+'+fmt(tapValue())+'</span><span class="crop-sprite"><img src="'+spriteSrc+'" alt="" draggable="false"></span><span class="plot-name">'+crop.name+'</span>';
+  const stage=count%5===4?'02-sprout':count%5===3?'09-ripe_3':count%5===2?'08-ripe_2':count%5===1?'04-growing':'03-young';const pngSrc='./assets/sprites/crops/final/'+crop.sprite+'/'+stage+'.png';const fallback='./assets/sprites/crops/stages/'+crop.sprite+'.svg?v=1';btn.innerHTML='<span class="plot-coin">+'+fmt(tapValue())+'</span><span class="crop-sprite"><img src="'+pngSrc+'" data-fallback="'+fallback+'" alt="" draggable="false"></span><span class="plot-name">'+crop.name+'</span>';const img=btn.querySelector('img');img.onerror=()=>{img.onerror=null;img.src=img.dataset.fallback;img.onerror=()=>{img.style.display='none';img.parentElement.textContent=crop.icon}};
   btn.addEventListener('click',e=>{e.stopPropagation();harvestAt(i,btn)});el.appendChild(btn);
  });
 }
