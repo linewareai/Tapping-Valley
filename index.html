@@ -418,18 +418,14 @@ body.menu-open .topbar,body.menu-open .desktop-nav,body.menu-open .shell,body.me
   </div>
  </section>
 </div>
-<div class="release-backdrop" id="releaseBackdrop">
+<div class="release-backdrop hidden" id="releaseBackdrop">
  <section class="release-dialog" role="dialog" aria-modal="true" aria-labelledby="releaseTitle">
-  <header class="release-top"><div class="release-kicker">Modo debug · confirmación de versión</div><div class="release-title" id="releaseTitle">🌱 ¡Valley Tapping se actualizó!</div><span class="release-version" id="releaseVersion">UPDATE 008 · DEBUG</span></header>
+  <header class="release-top"><div class="release-kicker">Notas de la versión</div><div class="release-title" id="releaseTitle">🌱 Valley Tapping se actualizó</div><span class="release-version" id="releaseVersion">Cargando versión…</span></header>
   <div class="release-body">
-   <p style="margin:0;line-height:1.5">Si estás viendo esta ventana, la nueva versión del juego sí se cargó en este dispositivo.</p>
-   <div class="release-list">
-    <div class="release-item"><span class="release-check">🎨</span><span><b>Escenario pixel art renovado</b><br>Casa, colinas, árboles y flores redibujados.</span></div>
-    <div class="release-item"><span class="release-check">🌾</span><span><b>Parcelas con más detalle</b><br>Bordes, sombras y respuesta visual al tocar.</span></div>
-    <div class="release-item"><span class="release-check">📱</span><span><b>Ajustes para móvil y caché</b><br>Recursos y service worker actualizados.</span></div>
-   </div>
-   <div class="release-note">Debug: esta ventana identifica la compilación visual 007. Si no aparece al abrir el juego, probablemente el dispositivo sigue mostrando una versión anterior en caché.</div>
-   <div class="release-actions"><button class="release-secondary" id="releaseLater">Ahora no</button><button id="releaseConfirm">¡Entendido!</button></div>
+   <p id="releaseIntro" style="margin:0;line-height:1.5">Estos son los cambios de la última actualización:</p>
+   <div class="release-list" id="releaseList" style="white-space:pre-line;line-height:1.6">• Mejoras y correcciones de esta versión.</div>
+   <div class="release-note" id="releaseDate"></div>
+   <div class="release-actions"><button class="release-secondary" id="releaseLater">Cerrar</button><button id="releaseConfirm">¡Entendido!</button></div>
   </div>
  </section>
 </div>
@@ -722,18 +718,53 @@ offlineProgress();render();save(false);
 setInterval(()=>{if(s.auto>0)earn(s.auto*(1+bonus()/100));s.pet.hunger=clamp(s.pet.hunger-.012);s.pet.happy=clamp(s.pet.happy-(s.pet.hunger<20?.025:.008));s.pet.energy=clamp(s.pet.energy+.012);s.day+=.000011574;render()},1000);
 setInterval(()=>save(false),12000);window.addEventListener('beforeunload',()=>save(false));
 
-const RELEASE_ID='valleytapping-main-menu-010';
+// La versión se calcula a partir de la publicación del HTML. Al cambiar la versión,
+ // el aviso vuelve a aparecer automáticamente, aunque el jugador ya lo haya cerrado antes.
+const RELEASE_FALLBACK={
+ version:'2026.10.09-1',
+ date:'9 de octubre de 2026',
+ notes:[
+  'Sistema de notas de versión conectado al aviso de actualización.',
+  'El aviso recuerda qué versión vio cada jugador y vuelve a mostrarse cuando cambia.',
+  'Se mejora la comprobación de actualizaciones para evitar mostrar notas antiguas desde caché.'
+ ]
+};
+function getReleaseVersion(){
+ const stamp=Date.parse(document.lastModified);
+ return Number.isFinite(stamp)&&stamp>0?'web-'+stamp:RELEASE_FALLBACK.version;
+}
 function showReleaseNotice(){
  const backdrop=$('releaseBackdrop');
  if(!backdrop)return;
+ let release={...RELEASE_FALLBACK,version:getReleaseVersion()};
+ try{
+  const previous=localStorage.getItem('valleytapping-last-seen-release');
+  if(previous===release.version)return;
+ }catch(e){}
+ $('releaseVersion').textContent='VERSIÓN '+release.version;
+ $('releaseList').textContent='';
+ release.notes.forEach(note=>{
+  const item=document.createElement('div');
+  item.className='release-item';
+  item.textContent='• '+note;
+  $('releaseList').appendChild(item);
+ });
+ $('releaseDate').textContent='Publicación detectada: '+(document.lastModified||release.date);
  backdrop.classList.remove('hidden');
- const close=()=>{backdrop.classList.add('hidden');try{localStorage.setItem('valleytapping-last-seen-release',RELEASE_ID)}catch(e){}};
+ let closed=false;
+ const close=()=>{
+  if(closed)return;closed=true;
+  backdrop.classList.add('hidden');
+  try{localStorage.setItem('valleytapping-last-seen-release',release.version)}catch(e){}
+ };
  $('releaseConfirm')?.addEventListener('click',close,{once:true});
  $('releaseLater')?.addEventListener('click',close,{once:true});
  backdrop.addEventListener('click',e=>{if(e.target===backdrop)close()});
 }
 showReleaseNotice();
-if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js?v=8').catch(()=>{});
+if('serviceWorker'in navigator&&location.protocol.startsWith('http')){
+ navigator.serviceWorker.register('./sw.js?v=9').catch(()=>{});
+}
 </script>
 </body>
 </html>
